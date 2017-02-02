@@ -1,0 +1,140 @@
+{% extends 'FrontOfficeBundle::index.html.twig' %}
+
+{% block contain %}
+<div class="shell">
+  <div class="reveal-sm-flex range-xs-middle offset-top-12">
+    <h3 class="heading-italic text-light">{{ article.category.name }}</h3>
+    <div class="divider-vertical divider-xs veil reveal-sm-inline-block offset-top-5"></div>
+    <ol class="breadcrumb">
+      <li><a href="{{path('front_office_homepage')}}">Accueil</a></li>
+      <li><a href="#">Actus</a></li>
+      <li class="active">{{ article.category.name }}</li>
+    </ol>
+  </div>
+</div>
+<section class="section-top-50">
+  <div class="shell">
+    <div class="range text-md-left">
+      <div class="cell-lg-8">
+        <div class="range range-lg-reverse">
+          <div class="cell-lg-11">
+            <div class="post post-default post-variant-3">
+              <div class="text-left"><a href="politics.html"><span class="label label-warning">{{ article.category.name }}</span></a></div>
+              <div class="offset-top-12">
+                <div class="h1 text-gray-base">{{ article.name }}</div>
+                <div class="post-meta element-groups-custom offset-top-12"><a href="politics.html" class="post-meta-author">{{ article.author.lastname|capitalize}} {{ article.author.firstname|capitalize }}</a><a href="politics.html" class="post-meta-time">
+                    <time datetime="2016-06-06">{{ article.HumanTiming(article.updatedAt.date|date("U")) }}</time></a><a href="post-default.html#comments" class="post-meta-comment disqus-comment-count" data-disqus-identifier="{{article.id}}">0 comment</a>
+                </div>
+              </div>
+              {{ article.resume|striptags }}
+              <img src="{{ app.request.basePath }}{{ vich_uploader_asset(article, 'imageFile') }}" width="983" height="755" alt="" class="offset-top-12">
+              <div style="text-align: right;font-size: 11px;font-style: italic;">
+                <a href="{{ article.linkImage }}">
+                  {% if article.auteurImage is empty %}
+                    {{ article.author.firstname|capitalize }} {{ article.author.lastname|capitalize }}
+                  {% else %}
+                    {{ article.auteurImage|capitalize }}
+                  {% endif %}
+                </a>
+              </div>
+              <div style="font-weight: 300">
+                {{ article.content|purify }}
+              </div>
+              <div class="post-meta"><span class="post-meta-tags">Tagged in : <span><a href="politics.html">Politics, </a></span><span><a href="world.html">World</a></span></span></div>
+            </div>
+            <div class="bg-gray-base context-dark section-30 inset-left-30 inset-right-30 text-sm-left offset-top-15">
+              <div class="unit unit-sm-horizontal unit-md-horizontal unit-lg-horizontal unit-xl-horizontal">
+                <div class="unit-left">
+                  {% if article.author.imageName is empty %}
+                    <img src="{{ asset('images/users/default.png') }}" width="150" height="150" alt="{{ article.author.firstname|capitalize }} {{ article.author.lastname|capitalize }}" class="post-image max-width-none"/>
+                  {% else %}
+                    <img src="{{ app.request.basePath }}{{ vich_uploader_asset(article.author, 'imageFile') }}" width="150" height="150" alt="{{ article.author.firstname|capitalize }} {{ article.author.lastname|capitalize }}" class="post-image max-width-none"/>
+                  {% endif %}
+                </div>
+                <div class="unit-body">
+                  <h3 class="heading-italic text-light offset-sm-top-28">Rédigé par <a href="#">{{ article.author.firstname|capitalize }} {{ article.author.lastname|capitalize }}</a>
+                  </h3>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cell-lg-1">
+            <!-- list social-->
+            <ul class="list-inline-0 stuck-lg">
+              <li class="reveal-lg-block offset-lg-top-5">
+                <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ url('article', {'idCategory': article.category.id, 'selectCategory':article.category.slugify, 'slug': article.slug})|url_encode }}" class="icon icon-circle fa-facebook icon-gray-base"></a>
+              </li>
+              <li class="reveal-lg-block offset-lg-top-5">
+                <a target="_blank" href="https://twitter.com/intent/tweet?url={{ url('article', {'idCategory': article.category.id, 'selectCategory':article.category.slugify, 'slug': article.slug})|url_encode }}" class="icon icon-circle fa-twitter icon-gray-base"></a>
+              </li>
+              <li class="reveal-lg-block offset-lg-top-5">
+                <a target="_blank" href="https://plus.google.com/share?url={{ url('article', {'idCategory': article.category.id, 'selectCategory':article.category.slugify, 'slug': article.slug})|url_encode }}" class="icon icon-circle fa-google-plus icon-gray-base"></a>
+              </li>
+              <li class="reveal-lg-block offset-lg-top-5">
+                <a target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&url={{ url('article', {'idCategory': article.category.id, 'selectCategory':article.category.slugify, 'slug': article.slug})|url_encode }}" class="icon icon-circle fa-linkedin icon-gray-base"></a>
+              </li>
+              <li class="reveal-lg-block offset-lg-top-5">
+                <a target="_blank" href="http://pinterest.com/pin/create/button/?url={{ url('article', {'idCategory': article.category.id, 'selectCategory':article.category.slugify, 'slug': article.slug})|url_encode }}" class="icon icon-circle fa-pinterest icon-gray-base"></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        {% if (articles[0]) or (articles[1]) %}
+          <hr class="divider offset-top-60">
+          <div class="range range-sm-justify offset-top-30">
+            <div class="cell-sm-6 cell-xl-4 text-sm-left" style="{% if (articles[0] is empty) %}visibility: hidden;{% endif %}">
+              {% if (articles[0]) %}
+                <div class="inset-left-30">
+                  <div class="font-accent small text-italic">Article précédent</div>
+                  <div class="post-prev h5 offset-top-5"><a href="{{ path('article', {'idCategory': articles[0].category.id ,'selectCategory':articles[0].category.name, 'slug': articles[0].slug}) }}" class="text-gray-base">{{ articles[0].name }}</a></div>
+                </div>
+              {% endif %}
+            </div>
+            <div class="cell-sm-6 cell-xl-4 text-sm-right" style="{% if (articles[1] is empty) %}visibility: hidden;{% endif %}">
+              {% if (articles[1]) %}
+                <div class="inset-right-30">
+                  <div class="font-accent small text-italic">Article suivant</div>
+                  <div class="post-next h5 offset-top-5"><a href="{{ path('article', {'idCategory': articles[1].category.id ,'selectCategory':articles[1].category.name, 'slug': articles[1].slug}) }}" class="text-gray-base">{{ articles[1].name }}</a></div>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+        <div id="reply" class="heading-divider">
+          <h3 class="heading-italic text-light">Réagissez</h3>
+        </div>
+        {#Disqus comment#}
+        <div id="disqus_thread" class="col-md-12"></div>
+        <script>
+          /**
+           *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+           *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+           */
+
+           var disqus_config = function () {
+             this.page.url = "{{ url('article', {'idCategory': article.category.id ,'selectCategory':article.category.name, 'slug': article.slug}) }}";  // Replace PAGE_URL with your page's canonical URL variable
+             this.page.identifier = {{ article.id }}; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+             this.page.title = "{{ article.name  }}"; // Tells the Disqus service the title of the current page
+
+           };
+
+          (function() {  // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+
+            s.src = '//mentobefr.disqus.com/embed.js';
+
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+          })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>  
+      </div>
+      <div class="cell-lg-4 offset-top-45 offset-lg-top-0">
+        <!-- Sidebar-->
+        {{ include('sidebar.html.twig', {'mostCommentedArticles' : mostCommentedArticles}) }}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+

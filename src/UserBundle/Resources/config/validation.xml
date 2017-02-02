@@ -1,0 +1,126 @@
+<?xml version="1.0" ?>
+<constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping
+        http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+
+    <class name="FOS\UserBundle\Model\User">
+
+        <constraint name="Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity">
+            <option name="fields">usernameCanonical</option>
+            <option name="errorPath">username</option>
+            <option name="message">Pseudo déjà utilisé.</option>
+            <option name="groups">
+                <value>my_registration</value>
+                <value>Profile</value>
+            </option>
+        </constraint>
+
+        <constraint name="Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity">
+            <option name="fields">emailCanonical</option>
+            <option name="errorPath">email</option>
+            <option name="message">Email déjà utilisé.</option>
+            <option name="groups">
+                <value>my_registration</value>
+                <value>Profile</value>
+            </option>
+        </constraint>
+
+        <property name="username">
+            <constraint name="NotBlank">
+                <option name="message">Le champ est vide.</option>
+                <option name="groups">
+                    <value>my_registration</value>
+                    <value>Profile</value>
+                </option>
+            </constraint>
+            <constraint name="Regex">
+                <option name="pattern">/^[\w.-]*$/</option>
+                <option name="message">Le nom d'utilisateur ne peut comporter des caractères spéciaux ou des espaces.</option>
+                <option name="groups">
+                    <value>my_registration</value>
+                    <value>ResetPassword</value>
+                    <value>ChangePassword</value>
+                </option>
+            </constraint>
+            <constraint name="Length">
+                <option name="min">6</option>
+                <option name="minMessage">Le nom d'utilisateur doit être supérieur à 6 caractères.</option>
+                <option name="max">20</option>
+                <option name="maxMessage">Le nom d'utilisateur doit être inférieur à 20 caractères.</option>
+                <option name="groups">
+                    <value>my_registration</value>
+                    <value>Profile</value>
+                </option>
+            </constraint>
+        </property>
+
+        <property name="email">
+            <constraint name="NotBlank">
+                <option name="message">Le champ est vide.</option>
+                <option name="groups">
+                    <value>my_registration</value>
+                    <value>Profile</value>
+                </option>
+            </constraint>
+            <constraint name="Length">
+                <option name="min">6</option>
+                <option name="minMessage">Adresse e-mail trop court.</option>
+                <option name="max">254</option>
+                <option name="maxMessage">Adresse e-mail trop long.</option>
+                <option name="groups">
+                    <value>my_registration</value>
+                    <value>Profile</value>
+                </option>
+            </constraint>
+            <constraint name="Email">
+                <option name="message">E-mail invalide.</option>
+                <option name="groups">
+                    <value>my_registration</value>
+                    <value>Profile</value>
+                </option>
+            </constraint>
+        </property>
+
+
+        <property name="plainPassword">
+            <constraint name="NotBlank">
+                <option name="message">Le champ est vide.</option>
+                <option name="groups">
+                    <value>my_registration</value>
+                    <value>ResetPassword</value>
+                    <value>ChangePassword</value>
+                </option>
+            </constraint>
+            <constraint name="Length">
+                <option name="min">8</option>
+                <option name="minMessage">Le mot de passe doit contenir au minimum 8 caractères.</option>
+                <option name="groups">
+                    <value>my_registration</value>
+                    <value>Profile</value>
+                    <value>ResetPassword</value>
+                    <value>ChangePassword</value>
+                </option>
+            </constraint>
+            <constraint name="Regex">
+                <option name="pattern">/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/</option>
+                <option name="message">Le mot de passe doit comporter au moins une lettre minuscule, une lettre majuscule et un chiffre.</option>
+                <option name="groups">
+                    <value>my_registration</value>
+                    <value>ResetPassword</value>
+                    <value>ChangePassword</value>
+                </option>
+            </constraint>
+            <constraint name="NotBlank">
+                <option name="message">Le champ est vide.</option>
+                <option name="groups">
+                    <value>my_registration</value>
+                    <value>ResetPassword</value>
+                    <value>ChangePassword</value>
+                </option>
+            </constraint>
+        </property>
+
+    </class>
+
+</constraint-mapping>

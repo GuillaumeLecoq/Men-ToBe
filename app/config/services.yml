@@ -1,0 +1,50 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/book/service_container.html
+parameters:
+#    parameter_name: value
+
+services:
+    fos_user.doctrine_registry:
+        alias: doctrine
+    app.provider.oauth:
+        class: UserBundle\UserProvider
+        arguments: [@fos_user.user_manager,{facebook: facebookID, twitter: twitterID}]
+    app_bundle.type.entity_hidden:
+        class: AppBundle\Form\Type\EntityHiddenType
+        arguments: ["@doctrine.orm.entity_manager"]
+        tags:
+        - { name: form.type, alias: entity_hidden }
+    send_to_mobile_service:
+        class: Mobile\Service\ArticleConsumer
+        arguments: ['@service_container']
+    redirect_register_user.registration.completed:
+            class: UserBundle\Event\RegistrationConfirmListener
+            arguments: [@router, '@service_container']
+            tags:
+                - { name: kernel.event_subscriber }
+    csv_export:
+        class: AdminBundle\Utils\ExportCSV
+    mentobe_paginator:
+        class: Service\Paginator
+        arguments: ['@router']
+    app.custom_user_manager:
+        class: Service\UserManager
+        arguments: ["@security.encoder_factory", "@fos_user.util.username_canonicalizer", "@fos_user.util.email_canonicalizer", "@doctrine.orm.entity_manager", UserBundle\Entity\User]
+
+    backoffice.event_listener.article_listener:
+        class: BackOfficeBundle\EventListener\ArticleListener
+        arguments: ['@service_container']
+        tags:
+            - { name: kernel.event_subscriber }
+
+    backoffice.event_listener.message_listener:
+        class: BackOfficeBundle\EventListener\MessageListener
+        arguments: ['@service_container']
+        tags:
+            - { name: kernel.event_subscriber }
+
+    twig.extension.intl:
+            class: Twig_Extensions_Extension_Intl
+            tags:
+                - { name: twig.extension }
+

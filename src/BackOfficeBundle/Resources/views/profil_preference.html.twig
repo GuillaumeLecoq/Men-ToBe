@@ -1,0 +1,34 @@
+{% extends 'BackOfficeBundle::profil_about.html.twig' %}
+
+{% block profil %}
+    <!-- Nav tab -->
+    <ul class="nav nav-tabs nav-justified">
+        <li><a href="{{ path('back_office_profil_about') }}"><i class="fa fa-user"></i> A propos</a></li>
+        <li><a href="{{ path('back_office_profil_informations') }}"><i class="fa fa-pencil"></i> Informations</a></li>
+        <li class="active"><a href="{{ path('back_office_profil_preference') }}"><i class="fa fa-beer"></i> Préférences</a></li>
+        {% if is_granted('ROLE_AUTHOR') %}
+            <li><a href="{{ path('back_office_profil_paypal') }}"><i class="fa fa-money"></i> Paypal</a></li>
+        {% endif %}
+    </ul>
+    <!-- End nav tab -->
+
+    <div class="tab-content">
+        <!-- Tab edit profile -->
+        <div class="tab-pane active animated fadeInRight" id="edit-profile">
+            <div class="user-profile-content">
+                {{ form_start(form) }}
+                {{ form_errors(form) }}
+
+                <div class="form-group">
+                    <label for="préférence">Mes préférences</label>
+                    {{ form_widget(form.categories, {"attr": {"class": "form-control", "style": "height: 155px"} }) }}
+                    {{ form_errors(form.categories) }}
+                </div>
+
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+
+                {{ form_end(form) }}
+            </div><!-- End div .user-profile-content -->
+        </div><!-- End div .tab-pane -->
+    </div>
+{% endblock %}

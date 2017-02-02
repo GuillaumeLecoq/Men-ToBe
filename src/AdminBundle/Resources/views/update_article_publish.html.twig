@@ -1,0 +1,79 @@
+{% extends 'AdminBundle::home_page.html.twig' %}
+
+{% block body %}
+    <!-- Page header -->
+    <div class="page-heading animated fadeInDownBig">
+        <h1>Modification d'un article</h1>
+    </div>
+
+    <!-- preview button  -->
+    <a href="{{ path('preview_article', {'id': article.id}) }}" target="_blank">
+        <button type="button" style="background-color: #5C4444;color: #FFFFFF;margin-bottom: 5px;" class="btn btn-lg"><i class="fa fa-eye"> </i> Visualiser l'article</button>
+    </a>
+
+    <div class="box-info">
+
+        {{ form_start(form, {"attr": {"class": "form-horizontal form-creation"} }) }}
+        {{ form_errors(form) }}
+
+        <section>
+
+            <div class="form-group">
+                {{ form_label(form.name, "Titre de l'article", {"label_attr": {"class": "col-sm-2 control-label"} }) }}
+                {{ form_errors(form.name) }}
+                <div class="col-sm-10">
+                    {{ form_widget(form.name, {"value": article.name, "attr": {"class": "form-control"} }) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.resume, "Résumé", {"label_attr": {"class": "col-sm-2 control-label"} }) }}
+                {{ form_errors(form.resume) }}
+                <div class="col-sm-10">
+                    {{ form_widget(form.resume, {"value": article.resume, "attr": {"class": "form-control summernote-small"} }) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.content, "Contenu", {"label_attr": {"class": "col-sm-2 control-label"} }) }}
+                {{ form_errors(form.content) }}
+                <div class="col-sm-10">
+                    {{ form_widget(form.content, {"value": article.content, "attr": {"class": "form-control summernote"} }) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label required" for="appbundle_article_content">Image à la Une</label>
+                <div class="col-sm-2">
+                    <img style="width: 100%; height: auto" src="{{ app.request.basePath }}{{ vich_uploader_asset(article, 'imageFile') }}" alt="{{ article.imageName }}" />
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.imageFile, "Modifier l'image à la une", {"label_attr": {"class": "col-sm-2 control-label", "style": "margin-right: 13px"} }) }}
+                {{ form_widget(form.imageFile, {"attr": {"class": "btn btn-default", "title": "Image"} }) }}
+                <div class="clear"></div>
+                <p class="help-block col-sm-2" style="text-align: right">Fichier autorisé : JPG, PNG | max. 1 Mo </p>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.linkImage, "Url de l'image", {"label_attr": {"class": "col-sm-2 control-label"} }) }}
+                {{ form_errors(form.linkImage) }}
+                <div class="col-sm-10">
+                    {{ form_widget(form.linkImage, {"attr": {"class": "form-control"} }) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.auteurImage, "Auteur de l'image", {"label_attr": {"class": "col-sm-2 control-label"} }) }}
+                {{ form_errors(form.auteurImage) }}
+                <div class="col-sm-3">
+                    {{ form_widget(form.auteurImage, {"attr": {"class": "form-control"} }) }}
+                </div>
+            </div>
+
+            {{ form_widget(form.tag, {"value": article.tag, "attr": {"class": "tag-selected"} }) }}
+            {{ form_widget(form.category, {"value": article.category.id, "attr": {"class": "category-selected"} }) }}
+
+        </section>
+
+        <button style="float: right; margin-left: 10px;" class="btn btn-success" type="submit" name="save_submit" value="submit">Publier</button>
+
+        {{ form_end(form) }}
+
+    </div>
+{% endblock %}

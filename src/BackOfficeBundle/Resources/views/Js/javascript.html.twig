@@ -1,0 +1,39 @@
+<!--
+	================================================
+	JAVASCRIPT
+	================================================
+	-->
+	<!-- SockJS -->
+	<script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
+
+	{% javascripts filter='yui_js'
+		'@BackOfficeBundle/Resources/public/js/jquery.js'
+		'@BackOfficeBundle/Resources/public/js/bootstrap.min.js'
+		'@BackOfficeBundle/Resources/public/third/slimscroll/jquery.slimscroll.min.js'
+		'@BackOfficeBundle/Resources/public/third/nifty-modal/js/classie.js'
+		'@BackOfficeBundle/Resources/public/third/nifty-modal/js/modalEffects.js'
+		'@BackOfficeBundle/Resources/public/third/sortable/sortable.min.js'
+		'@BackOfficeBundle/Resources/public/third/select/bootstrap-select.min.js'
+		'@BackOfficeBundle/Resources/public/third/summernote/summernote.js'
+		'@BackOfficeBundle/Resources/public/third/summernote/summernote-fr-FR.js'
+		'@BackOfficeBundle/Resources/public/third/magnific-popup/jquery.magnific-popup.min.js'
+		'@BackOfficeBundle/Resources/public/third/input/bootstrap.file-input.js'
+		'@BackOfficeBundle/Resources/public/third/datepicker/js/bootstrap-datepicker.js'
+		'@BackOfficeBundle/Resources/public/third/icheck/icheck.min.js'
+		'@BackOfficeBundle/Resources/public/third/wizard/jquery.snippet.js'
+		'@BackOfficeBundle/Resources/public/third/wizard/jquery.easyWizard.js'
+		'@BackOfficeBundle/Resources/public/third/wizard/scripts.js'
+		'@BackOfficeBundle/Resources/public/js/jquery.steps.min.js'
+		'@BackOfficeBundle/Resources/public/js/lanceng.js'
+		'@BackOfficeBundle/Resources/public/js/jqcloud.min.js'
+		'@BackOfficeBundle/Resources/public/js/stomp.js'
+		'@BackOfficeBundle/Resources/public/js/notify.js'
+		'@BackOfficeBundle/Resources/public/js/notification.js'
+		%}
+		<script src="{{ asset_url }}"></script>
+	{% endjavascripts %}
+
+	<!-- Morris js -->
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+	<script src="{{ asset('bundles/backoffice/third/morris/morris.js') }}"></script>
+

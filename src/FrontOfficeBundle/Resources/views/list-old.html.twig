@@ -1,0 +1,36 @@
+{% extends 'FrontOfficeBundle::index.html.twig' %}
+
+{% block contain %}
+	<div class="bloc-title">
+		{% if categoryName == "mes_preferences" %}
+			<h1>Mes Préférences</h1>
+		{% else %}
+			<h1>{{ categoryName }}</h1>
+		{% endif %}
+	</div>
+	{% for article in articles %}
+
+		<div class="high-mark-article">
+			<div class="bloc-high-mark">
+				<ul class="row">
+					<li class="col-md-6 col-sm-6" style="height: 250px;">
+						<a href="{{ path('article', {'selectCategory':article.category.name, 'slug': article.slug}) }}"><div style="background: url({{ app.request.basePath }}{{ vich_uploader_asset(article, 'imageFile') }}); background-size: cover;height: 250px;"></div></a>
+					</li>
+					<li class="col-md-6 col-sm-6" style="height: 250px;">
+						<div class="high-content" style="padding-bottom: 0px;">
+							<h3 style="color: #000000"><a href="{{ path('article', {'selectCategory':article.category.name, 'slug': article.slug}) }}">{{ article.name|length < 80 ? article.name : article.name|slice(0, 80) ~ '...' }}</a></h3>
+							<ul class="detail-post">
+								<li><i class="glyphicon glyphicon-time"></i>{{ article.HumanTiming(article.date.date|date("U")) }}</li>
+								<li><i class="glyphicon glyphicon-user"></i>{{ article.author.lastname|capitalize }} {{ article.author.firstname|capitalize }}</li>
+								<li><i class="glyphicon glyphicon-list-alt"></i><span class="disqus-comment-count" data-disqus-identifier="{{article.id}}">First article</span></li>
+							</ul>
+							<p>{{ article.resume|striptags|length < 180 ? article.resume|striptags : article.resume|striptags|slice(0, 180) ~ '...' }}</p>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	{% endfor %}
+	<!-- Pagination -->
+	{{ pagination|raw }}
+{% endblock %}

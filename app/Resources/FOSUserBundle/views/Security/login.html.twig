@@ -1,0 +1,70 @@
+  {{ include("BackOfficeBundle:Header:header.html.twig") }}
+	
+
+  {% trans_default_domain 'FOSUserBundle' %}
+	<!-- BODY -->
+	<body class="tooltips full-content">
+	
+	
+	<!-- BEGIN PAGE -->
+	<div class="container">
+		
+		<!-- Begin Login Page -->
+		<div class="full-content-center animated fadeInDownBig">
+			<a href="#fakelink"><img src="{{ asset('bundles/frontoffice/img/logo.png') }}" class="logo-login img-circle" alt="Logo"></a>
+			<div class="login-wrap">
+				<div class="box-info">
+				<h2 class="text-center"><strong>Page de connexion</strong></h2>
+				{% block fos_user_content %}
+					  {% if error %}
+						<div>Identifiant de connexion ou mot de passe invalide</div>
+					  {% endif %}
+					<form role="form" action="{{ path('fos_user_security_check') }}" method="post">
+    			        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+						<div class="form-group login-input">
+						<i class="fa fa-sign-in overlay"></i>
+						<input type="text" id="username" name="_username" value="{{ last_username }}" required="required" class="form-control text-input" placeholder="Nom d'utilisateur">
+						</div>
+						<div class="form-group login-input">
+						<i class="fa fa-key overlay"></i>
+						<input type="password" id="password" name="_password" required="required" class="form-control text-input" placeholder="Mot de passe">
+						</div>
+						<div class="checkbox">
+						<label>
+							<input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+							<span>Se souvenir de moi</span>
+						</label>
+						</div>
+						
+						<div class="row">
+							<div class="col-sm-6">
+
+							<button type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" class="btn btn-success btn-block"><i class="fa fa-unlock"></i> Connexion</button>
+							</div>
+							<div class="col-sm-6">
+							<a href="{{ path('fos_user_registration_register') }}" class="btn btn-default btn-block"><i class="fa fa-rocket"></i> Enregistrement</a>
+							</div>
+						</div>
+					</form>
+					{% endblock %}
+					<p class="text-center"><strong>- ou -</strong></p>
+
+					<a href="{{ path('hwi_oauth_service_redirect', {'service': 'facebook' }) }}" class="btn btn-primary btn-block btn-facebook">
+						<i class="fa fa-facebook"></i> Connexion avec Facebook
+					</a>
+					<a href="{{ path('hwi_oauth_service_redirect', {'service': 'twitter' }) }}" class="btn btn-primary btn-block btn-twitter">
+						<i class="fa fa-twitter"></i> Connexion avec Twitter
+					</a>
+							
+				</div>
+				<p class="text-center"><a href="{{ path('reset_password') }}"><i class="fa fa-lock"></i> Mot de passe oublié?</a></p>
+			</div>
+		</div>
+		<!-- End Login Page -->
+		
+	</div><!-- End div .container -->
+	<!-- END PAGE -->
+  {{ include("BackOfficeBundle:Js:javascript.html.twig") }}
+
+	</body>
+</html>

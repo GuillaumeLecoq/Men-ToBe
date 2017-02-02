@@ -1,0 +1,48 @@
+search_input:
+    path:     /search
+    defaults: { _controller: FrontOfficeBundle:FrontOffice:search }
+
+front_office_homepage:
+    path:     /
+    defaults: { _controller: FrontOfficeBundle:FrontOffice:index }
+
+categorie_article:
+    path:     /{idCategory}/{selectCategory}
+    defaults: { _controller: FrontOfficeBundle:FrontOffice:category }
+    requirements:
+        idCategory: "\d+"
+
+categorie_article_pagination:
+    path:     /{idCategory}/{selectCategory}/{page}
+    defaults: { _controller: FrontOfficeBundle:FrontOffice:category }
+    requirements:
+        idCategory: "\d+"
+        page: "\d+"
+
+category_preferences:
+    path:     /preferences
+    defaults: { _controller: FrontOfficeBundle:FrontOffice:categoryPreferences }
+
+category_preferences_pagination:
+    path:     /preferences/{page}
+    defaults: { _controller: FrontOfficeBundle:FrontOffice:categoryPreferences }
+    requirements:
+        page: "\d+"
+
+article:
+    path:     /{idCategory}/{selectCategory}/article/{slug}
+    defaults: { _controller: FrontOfficeBundle:FrontOffice:article }
+    requirements:
+        idCategory: "\d+"
+
+contact:
+    path:     /contact
+    defaults: { _controller: FrontOfficeBundle:FrontOffice:contact }
+
+privacy:
+    path:     /privacy
+    defaults: {_controller: FrontOfficeBundle:FrontOffice:privacy }
+
+presentation:
+    path:   /presentation
+    defaults: {_controller: FrontOfficeBundle:FrontOffice:presentation }

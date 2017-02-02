@@ -1,0 +1,49 @@
+{% extends 'BackOfficeBundle::home_page.html.twig' %}
+
+{% block body %}
+
+	<div class="row">
+		<div class="col-md-12">
+			<h1>Comment ajouté un article? </h1>
+		</div>
+		<div class="col-md-12">
+			<h3>Étape 1</h3>
+		</div>
+
+		<div class="col-md-12">
+			<p>Cliquer sur le bouton « Article » situé sur le menu déroulant à gauche de la fenêtre et sélectionner « Ajouter ».</p>
+			<img src="{{ asset('bundles/frontoffice/img/Tuto/1.gif') }}" class="img-thumbnail" >
+		</div>
+
+		<div class="col-md-12">
+			<h3>Étape 2</h3>
+			<p>Vous devez sélectionner le thème dans liste déroulante mise à votre disposition.</p>
+			<img src="{{ asset('bundles/frontoffice/img/Tuto/2.gif') }}" class="img-thumbnail">
+		</div>
+
+		<div class="col-md-12">
+			<h3>Étape 3</h3>
+			<p>Une fois le thème sélectionné, vous pouvez donc choisir un tag en cliquant sur l’image de celui-ci. Lorsque le tag est choisi, la bordure de couleur du tag passe du bleu au rouge. Vous pouvez alors passer à l'étape suivante.</p>
+			<img src="{{ asset('bundles/frontoffice/img/Tuto/3.gif') }}" class="img-thumbnail">
+		</div>
+
+		<div class="col-md-12">
+			<h3>Étape 4</h3>
+			<p>Donnez un titre, un résumé et un contenu dans les champs respectif.</p>
+			<img src="{{ asset('bundles/frontoffice/img/Tuto/4.gif') }}" class="img-thumbnail">
+		</div>
+
+		<div class="col-md-12">
+			<h3>Étape 5</h3>
+			<p>Charger une image directement depuis votre ordinateur et/ou indiquer un lien vers une image libre de droits en rapport avec l'article, sans oublier de citer l'auteur de celle-ci.</p>
+			<img src="{{ asset('bundles/frontoffice/img/Tuto/5.gif') }}" class="img-thumbnail">
+		</div>
+
+		<div class="col-md-12">
+			<h3>Étape 6</h3>
+			<p>Il ne vous reste plus qu'à patienter qu'un administrateur du site valide votre article.</p>
+			<img src="{{ asset('bundles/frontoffice/img/Tuto/6.gif') }}" class="img-thumbnail">
+		</div>
+	</div>
+
+{% endblock %}

@@ -1,0 +1,142 @@
+{% extends 'BackOfficeBundle::home_page.html.twig' %}
+
+{% block body %}
+    <!-- Page header -->
+    <div class="page-heading animated fadeInDownBig">
+        <h1>Rédaction d'un article</h1>
+    </div>
+    <!-- End page header -->
+    {% if logs|length > 0 %}
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="box-info full">
+                {#success#}
+                {% for flash_message in app.session.flashbag.get('notice') %}
+                    <div class="alert alert-success" style="margin: 10px">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong><i class="fa fa-check-circle"></i> Succès !</strong> {{ flash_message }}
+                    </div>
+                {% endfor %}
+                <div class="additional-btn">
+                    <a class="additional-icon" href="#fakelink" data-toggle="collapse" data-target="#revision"><i class="fa fa-chevron-down"></i></a>
+                </div><!-- End div .additional-btn-->
+                <h2>Anciennes versions de l'article</h2>
+                <div id="revision" class="table-responsive collapse">
+                    <table data-sortable class="table">
+                        <thead>
+                            <tr>
+                                <th>Version</th>
+                                <th>Date</th>
+                                <th>Etat</th>
+                                <th data-sortable="false">Option</th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody>
+                        {% for version, log in logs %}
+                            <tr>
+                                <td>{{ version }}</td>
+                                <td><strong>{{ log.date|date('d-m-Y H:i:s') }}</strong></td>
+                                <td>
+                                    {% if log.step == 0 %}
+                                        <span class="label label-default">Brouillon</span>
+                                    {% elseif log.step == 1 %}
+                                        <span class="label label-primary">En cours de validation</span>
+                                    {% elseif log.step == 2 %}
+                                        <span class="label label-danger">Article plagié</span>
+                                    {% elseif log.step == 3 %}
+                                        <span class="label label-danger">Fautes d'orthographes</span>
+                                    {% elseif log.step == 4 %}
+                                        <span class="label label-success">Article publié</span>
+                                    {% elseif log.step == 5 %}
+                                        <span class="label label-warning">Article en attente de suppression</span>
+                                    {% elseif log.step == 6 %}
+                                        <span class="label label-info">Présence de mot inapproprié</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <div class="btn-group btn-group-xs">
+                                        <a href="{{ path('revision_previous_article', {'id': log.id, 'version': version}) }}" data-toggle="tooltip" title="Revenir à cette version" class="btn btn-default"><i class="fa fa-step-backward"></i></a>
+                                        <a href="{{ path('revision_delete_article', {'id': log.id, 'version': version}) }}" data-toggle="tooltip" title="Supprimer" class="btn btn-default"><i class="fa fa-times"></i>
+</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div><!-- End div .table-responsive -->
+            </div><!-- End div .box-info .full -->
+            <!-- End sortable -->
+        </div>
+    </div>
+    {% endif %}
+    <div class="box-info">
+
+        {{ form_start(form, {"attr": {"class": "form-horizontal form-creation"} }) }}
+        {{ form_errors(form) }}
+
+        <section>
+
+            <div class="form-group">
+                {{ form_label(form.name, "Titre de l'article", {"label_attr": {"class": "col-sm-2 control-label"} }) }}
+                {{ form_errors(form.name) }}
+                <div class="col-sm-10">
+                    {{ form_widget(form.name, {"value": article.name, "attr": {"class": "form-control"} }) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.resume, "Résumé", {"label_attr": {"class": "col-sm-2 control-label"} }) }}
+                {{ form_errors(form.resume) }}
+                <div class="col-sm-10">
+                    {{ form_widget(form.resume, {"value": article.resume, "attr": {"class": "form-control summernote-small"} }) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.content, "Contenu", {"label_attr": {"class": "col-sm-2 control-label"} }) }}
+                {{ form_errors(form.content) }}
+                <div class="col-sm-10">
+                    {{ form_widget(form.content, {"value": article.content, "attr": {"class": "form-control summernote"} }) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label required" for="appbundle_article_content">Image à la Une</label>
+                <div class="col-sm-2">
+                    <img style="width: 100%; height: auto" src="{{ app.request.basePath }}{{ vich_uploader_asset(article, 'imageFile') }}" alt="{{ article.imageName }}" />
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.imageFile, "Modifier l'image à la une", {"label_attr": {"class": "col-sm-2 control-label", "style": "margin-right: 13px"} }) }}
+                {{ form_widget(form.imageFile, {"attr": {"class": "btn btn-default", "title": "Image"} }) }}
+                <div class="clear"></div>
+                <p class="help-block col-sm-2" style="text-align: right">Fichier autorisé : JPG, PNG | max. 1 Mo </p>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.linkImage, "Url de l'image", {"label_attr": {"class": "col-sm-2 control-label"} }) }}
+                {{ form_errors(form.linkImage) }}
+                <div class="col-sm-10">
+                    {{ form_widget(form.linkImage, {"attr": {"class": "form-control"} }) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.auteurImage, "Auteur de l'image", {"label_attr": {"class": "col-sm-2 control-label"} }) }}
+                {{ form_errors(form.auteurImage) }}
+                <div class="col-sm-3">
+                    {{ form_widget(form.auteurImage, {"attr": {"class": "form-control"} }) }}
+                </div>
+            </div>
+
+            {{ form_widget(form.tag, {"value": article.tag, "attr": {"class": "tag-selected"} }) }}
+            {{ form_widget(form.category, {"value": article.category.id, "attr": {"class": "category-selected"} }) }}
+
+        </section>
+
+
+        <button style="float: right; margin-left: 10px;" class="btn btn-success" type="submit" name="save_submit" value="submit">Publier</button>
+        <button style="float: right; margin-left: 10px;" class="btn btn-warning" type="submit" name="save_draft" value="draft">Brouillon</button>
+        <a href="{{ path('back_office_delete_article', {'id': article.id}) }}" class="btn btn-danger" style="float: right;">Supprimer</a>
+
+        {{ form_end(form) }}
+
+    </div>
+{% endblock %}

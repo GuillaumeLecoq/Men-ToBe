@@ -1,0 +1,7 @@
+user_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: UserBundle:Default:index }
+
+reset_password:
+    path:     /mentobe/reset_password
+    defaults: { _controller: UserBundle:Account:resetPassword }

@@ -1,0 +1,75 @@
+{% extends 'AdminBundle::home_page.html.twig' %}
+
+{% block body %}
+    <!-- Begin Sortable -->
+    <div class="box-info full">
+        <h2><strong>Liste</strong> des articles publiés : <strong>{{ totalPublish }}</strong></h2>
+
+        {#success#}
+        {% for flash_message in app.session.flashbag.get('notice') %}
+            <div class="alert alert-success" style="margin: 10px">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong><i class="fa fa-check-circle"></i> Succès !</strong> {{ flash_message }}
+            </div>
+        {% endfor %}
+
+        {#warning#}
+        {% for flash_message in app.session.flashbag.get('warning') %}
+            <div class="alert alert-danger" style="margin: 10px">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong><i class="fa fa-bell"></i> Attention !</strong> {{ flash_message }}
+            </div>
+        {% endfor %}
+
+        {#info#}
+        {% for flash_message in app.session.flashbag.get('info') %}
+            <div class="alert alert-info" style="margin: 10px">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong><i class="fa fa-eye"></i> Information !</strong> {{ flash_message }}
+            </div>
+        {% endfor %}
+
+
+        <div class="col-md-12 table-responsive">
+            <table data-sortable class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Catégorie</th>
+                    <th>Nom</th>
+                    <th>Date</th>
+                    <th style="text-align: center">Visualiser</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for article in articles %}
+                    <tr>
+                        <td><strong>{{ article.author.username}}</strong></td>
+                        <td>{{ article.category.name }}</td>
+                        <td>{{ article.name }}</td>
+                        <td>{{ article.updatedAt|date("d-m-Y") }}</td>
+                        <td style="text-align: center">
+                            <div class="btn-group btn-group-xs">
+                                <a target="_blank" href="{{ path('article', {'idCategory': article.category.id, 'selectCategory': article.category.name, 'slug': article.slug}) }}" data-toggle="tooltip" title="Visualiser" class="btn btn-default"><i class="fa fa-eye"></i></a>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="btn-group btn-group-xs">
+                                <a href="{{ path('delete_publish_article', {'idArticle': article.id}) }}" data-toggle="tooltip" title="Supprimer" class="btn btn-default" style="margin-right: 10px;"><i class="fa fa-times"></i></a>
+                                <a href="{{ path('update_publish_article', {'idArticle': article.id}) }}" data-toggle="tooltip" title="Modifier" class="btn btn-default"><i class="fa fa-edit"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div><!-- End div .table-responsive -->
+        <!-- Pagination -->
+        {{ pagination|raw }}
+    </div>
+    <!-- End div .box-info .full -->
+    <!-- End sortable -->
+
+{% endblock %}

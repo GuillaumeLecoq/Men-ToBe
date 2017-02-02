@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<title>Page admin Men-ToBe</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="description" content="">
+	<meta name="keywords" content="admin, bootstrap,admin template, bootstrap admin, simple, awesome">
+	<meta name="author" content="">
+
+	<!-- BOOTSTRAP -->
+	<link href="{{ asset('bundles/backoffice/css/bootstrap.min.css') }}" rel="stylesheet" />
+
+	<!-- VENDOR -->
+	<link href="{{ asset('bundles/backoffice/third/weather-icon/css/weather-icons.min.css') }}" rel="stylesheet">
+	<link href="{{ asset('bundles/backoffice/third/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+	<link href="{{ asset('bundles/backoffice/third/select/bootstrap-select.min.css') }}" rel="stylesheet">
+
+
+	<!-- Style minifier -->
+	{% stylesheets filter='cssrewrite, yui_css'
+	'@BackOfficeBundle/Resources/public/css/style.css'
+	'@BackOfficeBundle/Resources/public/css/style-responsive.css'
+	'@BackOfficeBundle/Resources/public/css/animate.css'
+	'@BackOfficeBundle/Resources/public/third/morris/morris.css'
+	'@BackOfficeBundle/Resources/public/third/nifty-modal/css/component.css'
+	'@BackOfficeBundle/Resources/public/third/sortable/sortable-theme-bootstrap.css'
+	'@BackOfficeBundle/Resources/public/third/summernote/summernote.css'
+	'@BackOfficeBundle/Resources/public/third/icheck/skins/minimal/grey.css'
+	'@BackOfficeBundle/Resources/public/third/magnific-popup/magnific-popup.css'
+	'@BackOfficeBundle/Resources/public/third/datepicker/css/datepicker.css'
+	%}
+	<link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+	{% endstylesheets %}
+
+
+
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+	<![endif]-->
+	
+	<!-- FAVICON -->
+	<link rel="shortcut icon" href="{{ asset('bundles/backoffice/img/favicon.ico') }}">
+
+	<!-- jQCloud -->
+	<link rel="stylesheet" href="{{ asset('bundles/backoffice/css/jqcloud.min.css') }}">
+
+</head>

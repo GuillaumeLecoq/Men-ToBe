@@ -1,0 +1,16 @@
+{% extends 'BackOfficeBundle::home_page.html.twig' %}
+
+{% block body %}
+	<div class="body content rows scroll-y" style="top: 0px;padding:0;">
+		<iframe id="chatIframe" height="100%" width="100%" src="http://mentobe.fr:3000"></iframe>
+	</div>
+<script type="text/javascript">
+    //iframe = document.getElementById('chatIframe');
+
+    window.parent.postMessage({
+        event: 'login-with-token',
+        "loginToken": 'FiF1L-dlDGPJCJPGgR4Oex1bo-oWcD8G-23hFF94qGQ'
+    }, "*");
+
+</script>
+{% endblock %}

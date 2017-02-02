@@ -1,0 +1,82 @@
+{% extends 'BackOfficeBundle::home_page.html.twig' %}
+
+{% block body %}
+    <!-- Page header -->
+    <div class="page-heading animated fadeInDownBig">
+        <h1>Devenir un Auteur</h1>
+    </div>
+    <!-- End page header -->
+
+    <div class="box-info">
+        <h2><strong>Conditions d'utilisation</strong> <span class="select_tag"></span></h2>
+
+        <form class="form-horizontal" method="post" action="">
+            <div class="notes">
+                <p>
+		Toutes utilisation du site est est soumise au présente conditions générales.
+Vous devez lire attentivement les conditions générales avant d'utiliser le site.
+Si vous êtes en désaccord avec les conditions générales vous ne devez pas utiliser le site.
+
+L'éditeur se reserve le droit de modifier a tout moment les conditions générales du site.
+Chaque modification prendra effet à compter de ça mise en ligne sur le site.
+Il est conseiller aux utilisateurs de prendre régulierement conaissance des conditions générales.
+
+L'éditeur peut à tout moment mettre en suspent ou mettre fin a la publication du site sur l'internet ainsi qu'aux
+publications des contenus rédiger par ses utilisateurs sans qu'ils puissent prétendre à une quelquonque indémnité.
+
+l'éditeur est libre d'ajouter et de suprimer des services du sites.
+L'éditeur ne garantie pas que le fonctionnement du site soit continue et sans erreur.
+L'éditeur ne pourra être tenu responsable de l'indisponibilité, de l'interruption ou du 
+dysfonctionnement du site pour quelque raison
+
+L'inscription au site est gratuite, elle est obligatoire pour avoir accès a certaines fonctionalité du site.
+Pour s'inscrire l'utilisateur doit être majeur, si il est mineur il doit avoir obtenue une autorisation de son
+representant légal.
+L'éditeur se réserve le droit de bannir tout utilisateur qui ne respect pas les conditions d'utilisations.
+
+Dès la validation de son inscription l'utilisateur peut utiliser les differents services du site pour lesquel
+l'inscription est requise.
+
+Chaques utilisateurs s'engage à respecter les conditions générales, les lois et règlements en vigueur ainsi 
+que les droits des tiers, en particulier dans le cadre de la publication de contenus et blogs. 
+
+L'utilisateur est seul responsable de l'utilisation qu'il fait du site et de ses services et des consequences de 
+cette utilisation.
+L'éditeur ne peut en aucun cas être tenus résponsable des different propos ou des contenus rediger par un utilisateur.
+
+IL EST STRICTEMENT INTERDIT AUX UTILISATEURS DE PUBLIER SUR LE SITE www.mentobe.fr DU CONTENU QUI
+SERAIT CONTRAIRE AUX LOIS ET REGLEMENTS, A L'ORDRE PUBLIC, AUX BONNES MOEURS, NUISANT, PORTANT ATTEINTE AUX
+DROIT D'UN TIERS OU SUSCEPTIBLES DE CAUSER DOMMAGE A UN TIERS.
+En particulier, il est interdit de publier un contenu:
+-difalmatoire, injurieux, offensant ou dégradant.
+-portant atteinte à la vie privée
+-incitant à la haine envers une culture.
+-publicitaire ou commercial
+-violent ou choquant.
+-contraire à la dignité humaine.
+-faisant l'appologie ou incitant à une activité criminelle
+-d'image d'une personne sans son autorisation préalable.
+
+Tout utilisateur témoins sur le site du non respect des regles énuméré ci dessus se doit d'alerter l'éditeur du site.
+ l'éditeur suprimera sans préavis tout contenus illicites ou en déssacord avec les conditions d'utilisation.
+                </p>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-10">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="accept" value="ok"> Veuillez cocher pour valider nos conditions d'utilisation.
+                        </label>
+                        {% if errorMessage is not empty %}
+                            <p style="color: #FF3232">{{ errorMessage }}</p>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn btn-primary pull-right" type="submit">Envoyer</button>
+        </form>
+
+    </div>
+{% endblock %}

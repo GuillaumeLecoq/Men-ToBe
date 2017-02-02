@@ -1,0 +1,43 @@
+{% extends 'FrontOfficeBundle::index.html.twig' %}
+
+{% block contain %}
+<div class="row">
+	<div class="bloc-title col-md-12">
+		<h1>{{ article.name }}</h1>
+		<p class="article-intro">{{ article.resume|striptags }}</p>
+	</div>
+
+	<div class="bloc-title col-md-12">
+		<img src="{{ article.linkImage }}" alt="{{ article.name }}" class="article-img" />
+	</div>
+
+
+	<div class="article-contenu col-md-12">
+		{{ article.content|purify }}
+  	</div>
+
+	<div id="disqus_thread"></div>
+	<script>
+		/**
+		 *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+		 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+		 */
+
+		 var disqus_config = function () {
+			 this.page.url = "{{ url('article', {'selectCategory':article.category.name, 'slug': article.slug}) }}";  // Replace PAGE_URL with your page's canonical URL variable
+			 this.page.identifier = {{ article.id }}; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+		 };
+
+		(function() {  // DON'T EDIT BELOW THIS LINE
+			var d = document, s = d.createElement('script');
+
+			s.src = '//mentobefr.disqus.com/embed.js';
+
+			s.setAttribute('data-timestamp', +new Date());
+			(d.head || d.body).appendChild(s);
+		})();
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+</div>
+{% endblock %}

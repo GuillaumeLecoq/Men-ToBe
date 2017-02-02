@@ -1,0 +1,92 @@
+body{
+  margin: 0px;
+  background-image: url("Paper.jpg");
+
+  width: 100%;
+  height: auto;
+}
+
+header{
+  background-color: #272727;
+  box-shadow: 5px 5px 8px #aaa;
+  border-radius: 2px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+}
+
+img {
+    width: 500px;
+    max-width: 70%;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 35px;
+    margin-bottom: 25px;
+    }
+    em{
+      background: yellow;
+      font-size: 1.5em;
+    }
+
+
+p1{
+  margin: 0px auto;
+  font-family:'Noto serif' Arial,sans-serif;
+  font-size: 1.5em;
+  text-align: center;
+  display: block;
+
+
+}
+
+p2{
+  margin: 0px auto;
+  font-family: Arial,sans-serif;
+  font-size: 1.0em;
+  text-align: center;
+  display: block;
+
+
+}
+h1{
+  margin: 0px auto;
+  color:white;
+  font-family: 'Noto Serif', serif;
+  text-align: center;
+  font-size: 1.5em;
+  display: block;
+
+}
+
+a:link, a:visited {
+
+    font-size: 1.5em;
+    margin: 50px auto;
+    width: 120px;
+    font-family: Arial,sans-serif;
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    border-radius: 10px;
+    box-shadow: 5px 5px 8px #aaa;
+    transition: all 0.3s ease 0s;
+}
+
+a:hover {
+  -webkit-animation-name: hvr-pop;
+  animation-name: hvr-pop;
+  background-color: yellow;
+  color: black;
+}
+
+a:active {
+      background-color: grey;
+
+      color:white;
+      box-shadow: 1px 1px 8px #aaa;
+}

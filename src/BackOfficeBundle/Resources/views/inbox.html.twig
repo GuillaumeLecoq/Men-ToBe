@@ -1,0 +1,87 @@
+{% extends 'BackOfficeBundle::home_page.html.twig' %}
+
+{% block body %}
+	<div class="body content rows scroll-y">	
+			<!-- Page header -->
+		<div class="page-heading animated fadeInDownBig">
+			<h1>Messagerie</h1>
+		</div>
+		<!-- End page header -->
+		
+		
+		<!-- Begin Inbox -->
+		<div class="box-info box-messages">
+			<div class="row">
+				<div class="col-md-2">
+					<!-- Sidebar Message -->
+					<a href="{{ path('user_new_message') }}" class="btn btn-success btn-block"><i class="fa fa-edit"></i> Nouveau message</a>
+					<div class="list-group menu-message">
+					  <a href="{{ path('user_list_inbox') }}" class="list-group-item active">
+						Boite de <strong>{{ nb_messages }}</strong> messages
+					  </a>
+					  <a href="{{ path('user_list_inbox_read_unread', {'mode': 'read'}) }}" class="list-group-item">Lu <strong>({{ nb_read }})</strong></a>
+					  <a href="{{ path('user_list_inbox_read_unread', {'mode': 'unread'}) }}" class="list-group-item">Non lu <strong>({{ nb_unread }})</strong></a>
+					</div>
+				</div><!-- ENd div .col-md-2 -->
+				
+				
+				<div class="col-md-10">
+					
+					<!-- Toolbar message -->
+					<div class="data-table-toolbar">
+						<div class="row">
+							<div class="col-sm-3">
+								{{ form_start(form) }}
+									{{ form_widget(form.search, {'attr': {'class': 'form-control'}}) }}
+								{{ form_end(form) }}
+							</div>
+							<div class="col-sm-6">
+								<div class="btn-group">
+								  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+									<i class="fa fa-cog"></i>
+								  </button>
+								  <ul class="dropdown-menu pull-right" role="menu">
+									<li><a href="#fakelink">Marquer comme non lu</a></li>
+									<li><a href="#fakelink">Marquer comme lu</a></li>
+									<li class="divider"></li>
+									<li><a href="#fakelink">Supprimer</a></li>
+								  </ul>
+								</div>
+							</div>
+						</div><!-- End div .row -->
+					</div><!-- End div .data-table-toolbar -->
+					<!-- End toolbar message -->
+					
+					
+					<!-- Message table -->
+					<div class="table-responsive">
+						<table class="table table-hover table-message">
+							<tbody>
+								{% for message in messages %}
+								<tr 
+								{% if message.status == 0 %}
+									class="unread"
+								{% endif %}>
+									<td style="width: 20px"><input type="checkbox" class="rows-check"></td>
+									<td><a href="{{ path('user_read_message', {'idMessage': message.id}) }}">{{ message.name }}</a></td>
+									<td><a href="{{ path('user_read_message', {'idMessage': message.id}) }}">{{ message.subject }}</a></td>
+									<td>{{ message.date|date("d/m/Y") }}</td>
+								</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div><!-- End div .table-responsive -->
+					<!-- End message table -->
+					
+					<!-- Footer message toolbar -->
+					<div class="data-table-toolbar">
+						{{ pagination|raw }}
+					</div><!-- End div .data-table-toolbar -->
+					<!-- End Footer message toolbar -->
+				</div><!-- End div .col-md-10 -->
+			</div><!-- End div .row -->
+		</div><!-- End div .box-info -->
+		<!-- End inbox -->
+		
+	</div>
+{% endblock %}

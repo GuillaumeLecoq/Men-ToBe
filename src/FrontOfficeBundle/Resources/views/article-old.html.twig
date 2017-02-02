@@ -1,0 +1,66 @@
+{% extends 'FrontOfficeBundle::index.html.twig' %}
+
+{% block contain %}
+<div class="row">
+	<div class="bloc-title col-md-12">
+		<h1 style="margin-top: 0px;">{{ article.name }}</h1>
+
+		<p style="font-size: 10px;">Rédigé par {{ article.author.lastname|capitalize }} {{ article.author.firstname|capitalize }}</p>
+
+		<p class="article-intro">{{ article.resume|striptags }}</p>
+	</div>
+
+	<div class="bloc-title col-md-12">
+		<img src="{{ app.request.basePath }}{{ vich_uploader_asset(article, 'imageFile') }}" alt="{{ article.name }}" class="article-img" />
+		<a href="{{ article.linkImage }}">
+			<i style="float: right;font-size: 9px;color: #000">
+				{% if article.auteurImage is empty %}
+					{{ article.author.lastname|capitalize }} {{ article.author.firstname|capitalize }}
+				{% else %}
+					{{ article.auteurImage|capitalize }}
+				{% endif %}
+			</i>
+		</a>
+	</div>
+
+
+	<div style="margin-bottom: 5px;" class="article-contenu col-md-12">
+		{{ article.content|purify }}
+  	</div>
+
+	{#advertisment#}
+	<div style="margin-bottom: 5px;" id="ad-block-bottom" class="col-md-12">
+		<script type="text/javascript" src="http://ads.allotraffic.com/bandeau?id=45373"></script>
+	</div>
+
+	{#Bouton facebook like and share#}
+	<div style="margin-bottom: 5px;" class="fb-like col-md-12" data-share="true"  data-width="450" data-show-faces="true"></div>
+
+	{#Disqus comment#}
+	<div id="disqus_thread" class="col-md-12"></div>
+	<script>
+		/**
+		 *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+		 *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+		 */
+
+		 var disqus_config = function () {
+			 this.page.url = "{{ url('article', {'selectCategory':article.category.name, 'slug': article.slug}) }}";  // Replace PAGE_URL with your page's canonical URL variable
+			 this.page.identifier = {{ article.id }}; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+			 this.page.title = "{{ article.name  }}"; // Tells the Disqus service the title of the current page
+
+		 };
+
+		(function() {  // DON'T EDIT BELOW THIS LINE
+			var d = document, s = d.createElement('script');
+
+			s.src = '//mentobefr.disqus.com/embed.js';
+
+			s.setAttribute('data-timestamp', +new Date());
+			(d.head || d.body).appendChild(s);
+		})();
+	</script>
+	<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+</div>
+{% endblock %}

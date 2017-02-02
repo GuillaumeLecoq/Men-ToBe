@@ -1,0 +1,19 @@
+# src/UserBundle/Resources/config/services.yml
+parameters:
+        login_success_handler.class: UserBundle\Component\Authentication\Handler\LoginSuccessHandler
+        rkueny.oauth.user_provider.class: UserBundle\UserProvider
+
+services:
+      login_success_handler:
+          class:  %login_success_handler.class%
+          arguments:  [@router, @security.context]
+          tags:
+              - { name: 'monolog.logger', channel: 'security' }
+      acme_user.registration.form.type:
+              class: UserBundle\Form\Type\RegistrationFormType
+              arguments: [%fos_user.model.user.class%]
+              tags:
+                  - { name: form.type, alias: acme_user_registration }
+      rkueny.oauth.user_provider:
+        class: %rkueny.oauth.user_provider.class%
+        arguments: ['@fos_user.user_manager', { facebook: facebookId }]

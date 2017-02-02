@@ -1,0 +1,96 @@
+{% extends 'BackOfficeBundle::home_page.html.twig' %}
+
+{% block body %}
+    <!-- Page header -->
+    <div class="page-heading animated fadeInDownBig">
+        <h1>Rédaction d'un article</h1>
+    </div>
+    <!-- End page header -->
+
+    <div class="row">
+        <div class="col-md-12">
+            <!-- <div id="demo_15" style="min-width: 200px;height: 100px;"></div> -->
+        </div>
+    </div>
+
+    <div class="box-info">
+
+        <div>
+            <ul class="easyWizardSteps">
+                <li {% if step == 1 %}class="current"{% endif %} data-step="1">
+                    <span>1</span>
+                    Choix du Tag
+                </li>
+                <li {% if step == 2 %}class="current"{% endif %} data-step="2">
+                    <span>2</span>
+                    Edition de l'article
+                </li>
+            </ul>
+        </div>
+
+
+        {{ form_start(form, {"attr": {"class": "form-horizontal form-creation"} }) }}
+        {{ form_errors(form) }}
+
+        <section>
+
+            <div class="form-group">
+                {{ form_label(form.name, "Titre de l'article", {"label_attr": {"class": "col-sm-2 control-label"} }) }}
+                {{ form_errors(form.name) }}
+                <div class="col-sm-10">
+                    {{ form_widget(form.name, {"attr": {"class": "form-control"} }) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.resume, "Résumé", {"label_attr": {"class": "col-sm-2 control-label"} }) }}
+                {{ form_errors(form.resume) }}
+                <div class="col-sm-10">
+                    {{ form_widget(form.resume, {"attr": {"class": "form-control summernote-small"} }) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.content, "Contenu", {"label_attr": {"class": "col-sm-2 control-label"} }) }}
+                {{ form_errors(form.content) }}
+                <div class="col-sm-10">
+                    {{ form_widget(form.content, {"attr": {"class": "form-control summernote"} }) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.imageFile, "Image à la une", {"label_attr": {"class": "col-sm-2 control-label", "style": "margin-right: 13px"} }) }}
+                {{ form_widget(form.imageFile, {"attr": {"class": "btn btn-default", "title": "Image"} }) }}
+                <div class="clear"></div>
+                <p class="help-block col-sm-2" style="text-align: right">Fichier autorisé : JPG, PNG | max. 1 Mo </p>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.linkImage, "Url de l'image", {"label_attr": {"class": "col-sm-2 control-label"} }) }}
+                {{ form_errors(form.linkImage) }}
+                <div class="col-sm-10">
+                    {{ form_widget(form.linkImage, {"attr": {"class": "form-control"} }) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.auteurImage, "Auteur de l'image", {"label_attr": {"class": "col-sm-2 control-label"} }) }}
+                {{ form_errors(form.auteurImage) }}
+                <div class="col-sm-3">
+                    {{ form_widget(form.auteurImage, {"attr": {"class": "form-control"} }) }}
+                </div>
+            </div>
+
+            {{ form_widget(form.tag, {"value": tag, "attr": {"class": "tag-selected"} }) }}
+            {{ form_widget(form.category, {"value": category, "attr": {"class": "category-selected"} }) }}
+
+        </section>
+
+        <button style="float: right; margin-left: 10px;" class="btn btn-success" type="submit" name="save_submit" value="submit">Publier</button>
+        <button style="float: right" class="btn btn-warning" type="submit" name="save_draft" value="draft">Brouillon</button>
+
+        {{ form_end(form) }}
+
+        <div style="float: left;">
+            <a href="{{ path('back_office_create_article_step_1', {'step': 1, 'category': category, 'tag': tag}) }}" class="step-2-button">
+                <button class="next btn btn-default">« Précédent</button>
+            </a>
+        </div>
+
+    </div>
+{% endblock %}

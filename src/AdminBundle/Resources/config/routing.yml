@@ -1,0 +1,200 @@
+admin_homepage:
+    path:     /admin
+    defaults: { _controller: AdminBundle:Admin:index }
+
+admin_maj_tags:
+    path:     /admin/maj-tags
+    defaults: { _controller: AdminBundle:Admin:majtag }
+
+admin_delete_category:
+    path:     /admin/delete/{name}
+    defaults: { _controller: AdminBundle:Admin:deletecategory }
+    requirements:
+        name: "[a-zA-Z\-]*"
+
+association_category_tag:
+    path:     /admin/association/category-tag/
+    defaults: { _controller: AdminBundle:Admin:associationcategorytag }
+
+ajax_rss_entity:
+    path:     /admin/association/category-tag/{id}
+    defaults: { _controller: AdminBundle:Admin:ajaxrssentity }
+
+maj_category_tag:
+    path:     /admin/maj/category-tag/{id}
+    defaults: { _controller: AdminBundle:Admin:majcategorytag }
+
+list_article_validation:
+    path:     /admin/article/validation/list
+    defaults: { _controller: AdminBundle:Admin:listarticlevalidation }
+
+list_article_validation_pagination:
+    path:     /admin/article/validation/list/{page}
+    defaults: { _controller: AdminBundle:Admin:listarticlevalidation }
+    requirements:
+        page: "\d+"
+
+list_article_publish:
+    path:     /admin/article/publish/list
+    defaults: { _controller: AdminBundle:Admin:listArticlePublish }
+
+delete_publish_article:
+    path:     /admin/article/publish/delete/{idArticle}
+    defaults: { _controller: AdminBundle:Admin:deletePublishArticle }
+    requirements:
+            idArticle: "\d+"
+
+update_publish_article:
+    path:     /admin/article/publish/update/{idArticle}
+    defaults: { _controller: AdminBundle:Admin:updatePublishArticle }
+    requirements:
+            idArticle: "\d+"
+
+list_article_publish_pagination:
+    path:     /admin/article/publish/list/{page}
+    defaults: { _controller: AdminBundle:Admin:listArticlePublish }
+    requirements:
+        page: "\d+"
+
+
+validation_admin:
+    path:     /admin/article/validation/confirmation/{step}/{id}
+    defaults: { _controller: AdminBundle:Admin:validationconfirmation }
+    requirements:
+            step: "\d+"
+            id: "\d+"
+
+list_flux_rss:
+    path:     /admin/tendance/fluxrss/list
+    defaults: { _controller: AdminBundle:Admin:listfluxrss }
+
+list_flux_rss_pagination:
+    path:     /admin/tendance/fluxrss/list/{page}
+    defaults: { _controller: AdminBundle:Admin:listfluxrss }
+    requirements:
+            page: "\d+"
+
+list_tag:
+    path:     /admin/tendance/tag/list
+    defaults: { _controller: AdminBundle:Admin:listTag }
+
+list_tag_pagination:
+    path:     /admin/tendance/tag/list/{page}
+    defaults: { _controller: AdminBundle:Admin:listTag }
+    requirements:
+            page: "\d+"
+
+update_tag:
+    path:     /admin/tendance/tag/update/{idTag}
+    defaults: { _controller: AdminBundle:Admin:updateTag }
+    requirements:
+        idTag: "\d+"
+
+delete_tag:
+    path:     /admin/tendance/tag/delete/{idTag}
+    defaults: { _controller: AdminBundle:Admin:deleteTag }
+    requirements:
+        idTag: "\d+"
+
+list_flux_rss_event:
+    path:     /admin/tendance/fluxrss/list/
+    defaults: { _controller: AdminBundle:Admin:listfluxrss }
+
+add_flux_rss:
+    path:     /admin/tendance/fluxrss/add/
+    defaults: { _controller: AdminBundle:Admin:addfluxrss }
+
+update_flux_rss:
+    path:     /admin/tendance/fluxrss/update/{idFluxRss}
+    defaults: { _controller: AdminBundle:Admin:updatefluxrss }
+    requirements:
+            idFluxRss: "\d+"
+
+delete_flux_rss:
+    path:     /admin/tendance/fluxrss/delete/{idFluxRss}
+    defaults: { _controller: AdminBundle:Admin:deletefluxrss }
+    requirements:
+            idFluxRss: "\d+"
+
+list_user:
+    path:     /admin/user/
+    defaults: { _controller: AdminBundle:Admin:listUser }
+
+list_user_pagination:
+    path:     /admin/user/{page}
+    defaults: { _controller: AdminBundle:Admin:listUser }
+    requirements:
+            page: "\d+"
+
+list_user_event:
+    path:     /admin/user
+    defaults: { _controller: AdminBundle:Admin:listUser }
+
+add_user:
+    path:     /admin/user/add/
+    defaults: { _controller: AdminBundle:Admin:addUser }
+
+delete_user:
+    path:     /admin/user/delete/{idUser}
+    defaults: { _controller: AdminBundle:Admin:deleteUser }
+    requirements:
+            idUser: "\d+"
+
+update_user:
+    path:     /admin/user/update/{idUser}
+    defaults: { _controller: AdminBundle:Admin:updateUser }
+    requirements:
+            idUser: "\d+"
+
+
+preview_article:
+    path:     /admin/preview/article/{id}
+    defaults: { _controller: AdminBundle:Admin:previewArticle }
+    requirements:
+        id: "\d+"
+
+list_inbox:
+    path:     /admin/inbox/list/
+    defaults: { _controller: AdminBundle:Admin:listInbox }
+
+list_inbox_read_unread:
+    path:     /admin/inbox/list/mode/{mode}
+    defaults: { _controller: AdminBundle:Admin:listInbox }
+
+list_inbox_read_unread_pagination:
+    path:     /admin/inbox/list/{page}/mode/{mode}
+    defaults: { _controller: AdminBundle:Admin:listInbox }
+
+list_inbox_pagination:
+    path:     /admin/inbox/list/{page}
+    defaults: { _controller: AdminBundle:Admin:listInbox }
+    requirements:
+        page: "\d+"
+
+read_message:
+    path:     /admin/inbox/read/{idMessage}
+    defaults: { _controller: AdminBundle:Admin:readMessage }
+    requirements:
+        idMessage: "\d+"
+
+delete_message:
+    path:     /admin/inbox/delete/{idMessage}
+    defaults: { _controller: AdminBundle:Admin:deleteMessage }
+    requirements:
+        idMessage: "\d+"
+
+reply_message:
+    path:     /admin/inbox/reply/{idMessage}
+    defaults: { _controller: AdminBundle:Admin:replyMessage }
+    requirements:
+        idMessage: "\d+"
+
+export_csv:
+    path:     /admin/export/csv
+    defaults: { _controller: AdminBundle:Admin:exportCsv }
+
+admin_update_article:
+    path:     /admin/update/article/{id}
+    defaults: { _controller: AdminBundle:Admin:updateArticle }
+    requirements:
+        id: "\d+"

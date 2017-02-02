@@ -1,0 +1,67 @@
+api:
+    resource: "@ApiBundle/Resources/config/routing.yml"
+    prefix:   /
+
+NelmioApiDocBundle:
+    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+    prefix:   /api_doc
+
+admin:
+    resource: "@AdminBundle/Resources/config/routing.yml"
+    prefix:   /
+
+fos_comment_api:
+    type: rest
+    resource: "@FOSCommentBundle/Resources/config/routing.yml"
+    prefix: /api_comment
+    defaults: { _format: html }
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+for_user_security_login:
+    path: /mentobe/login
+    defaults: { _controller: FOSUserBundle:Security:login, _method: POST }
+
+user:
+    resource: "@UserBundle/Resources/config/routing.yml"
+    prefix:   /
+
+hwi_oauth_security:
+    resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
+    prefix: /login
+
+hwi_oauth_connect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/connect.xml"
+    prefix: /login
+
+hwi_oauth_redirect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+    prefix:   /login
+
+facebook_login:
+    pattern: /facebook/login/check
+
+twitter_login:
+    pattern: /twitter/login/check
+
+back_office:
+    resource: "@BackOfficeBundle/Resources/config/routing.yml"
+    prefix:   /
+
+front_office:
+    resource: "@FrontOfficeBundle/Resources/config/routing.yml"
+    prefix:   /
+
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+
+feedio:
+    resource: @DebrilRssAtomBundle/Resources/config/routing.xml
+
+fos_oauth_server_token:
+    resource: "@FOSOAuthServerBundle/Resources/config/routing/token.xml"
+
+fos_oauth_server_authorize:
+    resource: "@FOSOAuthServerBundle/Resources/config/routing/authorize.xml"

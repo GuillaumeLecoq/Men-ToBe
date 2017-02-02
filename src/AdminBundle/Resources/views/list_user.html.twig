@@ -1,0 +1,86 @@
+{% extends 'AdminBundle::home_page.html.twig' %}
+
+{% block body %}
+    <!-- Begin Sortable -->
+    <div class="box-info full">
+
+        <h2>Liste des <strong>Utilisateurs</strong></h2>
+
+        {#success#}
+        {% for flash_message in app.session.flashbag.get('notice') %}
+            <div class="alert alert-success" style="margin: 10px">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong><i class="fa fa-check-circle"></i> Succès !</strong> {{ flash_message }}
+            </div>
+        {% endfor %}
+
+        {#warning#}
+        {% for flash_message in app.session.flashbag.get('warning') %}
+            <div class="alert alert-danger" style="margin: 10px">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong><i class="fa fa-bell"></i> Attention !</strong> {{ flash_message }}
+            </div>
+        {% endfor %}
+
+        {#info#}
+        {% for flash_message in app.session.flashbag.get('info') %}
+            <div class="alert alert-info" style="margin: 10px">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong><i class="fa fa-eye"></i> Information !</strong> {{ flash_message }}
+            </div>
+        {% endfor %}
+
+        <!-- Button add new User -->
+        <a href="{{ path('add_user') }}">
+            <button style="float: right;margin-right: 15px;" class="btn btn-primary" type="submit">Ajouter</button>
+        </a>
+        <div class="table-responsive clearfix">
+            <table data-sortable class="table">
+                <thead>
+                <tr>
+                    <th style="width: 80px">Id</th>
+                    <th>Pseudo</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>E-Mail</th>
+                    <th>Role</th>
+                    <th style="width: 100px">Modifier / Supprimer</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td><strong>{{ user.id }}</strong></td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.firstname }}</td>
+                        <td>{{ user.lastname }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>
+                            {% for userRole in user.roles %}
+                                {% if userRole == "ROLE_VISITOR" %}
+                                    <span class="label label-success">{{ userRole }}</span>
+                                {% elseif userRole == "ROLE_AUTHOR" %}
+                                    <span class="label label-warning">{{ userRole }}</span>
+                                {% elseif userRole == "ROLE_ADMIN" %}
+                                    <span class="label label-danger">{{ userRole }}</span>
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td style="text-align: center">
+                            <div class="btn-group btn-group-xs">
+                                <a href="{{ path('delete_user', {'idUser': user.id}) }}" data-toggle="tooltip" title="Supprimer" class="btn btn-default" style="margin-right: 10px;"><i class="fa fa-times"></i></a>
+                                <a href="{{ path('update_user', {'idUser': user.id}) }}" data-toggle="tooltip" title="Modifier" class="btn btn-default"><i class="fa fa-edit"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div><!-- End div .table-responsive -->
+        <!-- Pagination -->
+        {{ pagination|raw }}
+    </div><!-- End div .box-info .full -->
+    <!-- End sortable -->
+
+{% endblock %}

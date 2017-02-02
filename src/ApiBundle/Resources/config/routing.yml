@@ -1,0 +1,50 @@
+# liste de toutes les catégories exitentes
+api_category:
+    path:     /api/category
+    defaults: { _controller: ApiBundle:Api:category }
+    requirements:
+        _method: GET
+# List des "nb" derniers articles de la cétégorie "id"
+api_category_article:
+    path:     /api/category/{id}/article/offset/{offset}/total/{nb}
+    defaults: { _controller: ApiBundle:Api:categoryarticle }
+    requirements:
+        id: \d+
+        nb: \d+
+        offset: \d+
+        _method: GET
+# Affiche un article avec son id
+api_article:
+    path:     /api/article/{id}
+    defaults: { _controller: ApiBundle:Api:article }
+    requirements:
+        id: \d+
+        _method: GET
+# Affiche les "nb" derniers articles
+api_article_last:
+    path:     /api/article/offset/{offset}/total/{nb}
+    defaults: { _controller: ApiBundle:Api:articlelast }
+    requirements:
+        nb: \d+
+        offset: \d+
+        _method: GET
+
+# récupére toutes les catégories d'un utilisateur
+api_user_categories:
+    path:     /api/user/categories
+    defaults: { _controller: ApiBundle:Api:getUserCategories }
+    requirements:
+        _method: GET
+
+# modifie la liste de catégorie pour un utilisateur
+api_user_categories_edit:
+    path:     /api/user/categories
+    defaults: { _controller: ApiBundle:Api:editUserCategories }
+    requirements:
+        _method: PUT
+
+api_user_categories_get_form:
+    path:     /api/user/categories/form
+    defaults: { _controller: ApiBundle:Api:getForm }
+    requirements:
+        _method: GET

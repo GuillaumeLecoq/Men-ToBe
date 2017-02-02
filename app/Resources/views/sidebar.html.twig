@@ -1,0 +1,99 @@
+<div class="range">
+  <div class="cell-sm-8 cell-sm-preffix-2 cell-lg-12 cell-lg-preffix-0 cell-xs-push-7 cell-lg-push-2 text-center text-lg-left">
+    <div class="bg-gray-light section-top-15 section-bottom-30 inset-p-left-6 inset-p-right-6 offset-top-45 offset-xl-top-60">
+      <h3 class="heading-italic text-light">Suivez nous</h3>
+      <p>Venez découvrir nos derniers articles sur l'un des réseaux sociaux !</p>
+      <!-- Social list-->
+        <!-- list social-->
+        <ul class="list-inline-0">
+          <li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.facebook.com%2Fmentobe2%2F" target="_blank" class="icon icon-circle fa-facebook icon-gray-base"></a></li>
+          <li><a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftwitter.com%2Fmentobe_fr&via=mentobe_fr" target="_blank" class="icon icon-circle fa-twitter icon-gray-base"></a></li>
+          <li><a href="#" class="icon icon-circle fa-google-plus icon-gray-base"></a></li>
+        </ul>
+      <hr class="divider divider-dashed">
+      <h3 class="heading-italic text-light">S'abonner au newsletter</h3>
+      <p>Soyez le premier à lire nos articles</p>
+      <!-- RD Mailform-->
+      <div style="text-align: center">
+        <a href="http://eepurl.com/bYdvDL"><button style="width:355px;" class="btn btn-warning">Newsletter</button></a>
+      </div>
+    </div>
+  </div>
+  {% if popularArticles|length > 0 %}
+    <div class="cell-xs-12 cell-xs-push-3 cell-lg-push-3 offset-top-45">
+      <div class="heading-divider offset-top45">
+        <h3 class="heading-italic text-light">Articles populaires</h3>
+      </div>
+      <div class="range offset-top-30 offset-md-top-60">
+        <div class="cell-sm-6 cell-lg-12">
+
+          {% for popularArticle in popularArticles %}
+            <div class="post post-variant-2">
+              <div class="unit unit-xl-horizontal">
+                <div class="unit-left">
+                  <div class="post-inner">
+                    <div class="reveal-inline-block"><img src="{{ app.request.basePath }}{{ vich_uploader_asset(popularArticle, 'imageFile') }}" width="400" height="115" alt="" class="post-image"></div>
+                    <div class="post-caption">
+                      <ul>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div class="unit-body">
+                  <div class="h5 text-italic text-bold"><a href="{{ path('article', {'idCategory': popularArticle.category.id, 'selectCategory': popularArticle.category.slugify, 'slug': popularArticle.slug}) }}" class="post-link">{{ popularArticle.name }}</a></div>
+                  <div class="post-meta"><a href="{{ path('article', {'idCategory': popularArticle.category.id, 'selectCategory': popularArticle.category.slugify, 'slug': popularArticle.slug}) }}" class="post-meta-time">
+                  <time datetime="2016-06-06">{{ popularArticle.HumanTiming(popularArticle.updatedAt.date|date("U")) }}</time></a></div>
+                </div>
+              </div>
+            </div>
+            <hr class="divider divider-dashed">
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  {% endif %}
+  <div class="cell-xs-12 cell-xs-push-2 cell-lg-push-4 offset-top-45">
+    <div class="heading-divider">
+      <h3 class="heading-italic text-light">Plus commentés</h3>
+    </div>
+    <div class="range offset-top-45">
+      <div class="cell-sm-6 cell-lg-12">
+        
+        {% for article in mostCommentedArticles %}
+
+          {# Article publié #}
+          {% if article.step == 4 %}
+            <div class="post post-variant-1">
+              <div class="post-inner"><img src="{{ app.request.basePath }}{{ vich_uploader_asset(article, 'imageFile') }}" width="536" height="411" alt="" class="img-responsive post-image">
+                <div class="post-caption">
+                  <ul>
+                    <li><a href="{{ path('article', {'idCategory': article.category.id, 'selectCategory': article.category.slugify, 'slug': article.slug}) }}"><span class="label label-warning">{{ article.category.name }}</span></a></li>
+                  </ul>
+                  <div>
+                    <div class="h4 text-normal font-accent-2"><a href="{{ path('article', {'idCategory': article.category.id, 'selectCategory': article.category.slugify, 'slug': article.slug}) }}">{{ article.name }}</a></div>
+                      <div class="post-meta post-meta-hidden-outer">
+                        <div class="post-meta-hidden">
+                          <div class="icon text-gray icon-lg material-icons-share">
+                            <ul>
+                              <li><a href="https://www.facebook.com/sharer/sharer.php?u={{ url('article', {'idCategory': article.category.id, 'selectCategory':article.category.slugify, 'slug': article.slug})|url_encode }}" class="icon fa fa-facebook"></a></li>
+                              <li><a href="https://twitter.com/intent/tweet?url={{ url('article', {'idCategory': article.category.id, 'selectCategory':article.category.slugify, 'slug': article.slug})|url_encode }}" class="icon fa fa-twitter"></a></li>
+                              <li><a href="https://plus.google.com/share?url={{ url('article', {'idCategory': article.category.id, 'selectCategory':article.category.slugify, 'slug': article.slug})|url_encode }}" class="icon fa fa-google-plus"></a></li>
+                              <li><a href="http://www.linkedin.com/shareArticle?mini=true&url={{ url('article', {'idCategory': article.category.id, 'selectCategory':article.category.slugify, 'slug': article.slug})|url_encode }}" class="icon fa fa-linkedin"></a></li>
+                              <li><a href="http://pinterest.com/pin/create/button/?url={{ url('article', {'idCategory': article.category.id, 'selectCategory':article.category.slugify, 'slug': article.slug})|url_encode }}" class="icon fa fa-pinterest"></a></li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="element-groups-custom veil reveal-md-block"><a href="{{ path('article', {'idCategory': article.category.id, 'selectCategory': article.category.slugify, 'slug': article.slug}) }}" class="post-meta-author">{{ article.author.firstname}} {{ article.author.lastname}}</a><a href="{{ path('article', {'idCategory': article.category.id, 'selectCategory': article.category.slugify, 'slug': article.slug}) }}" class="post-meta-time">
+                            <time datetime="2016-06-06">{{ article.HumanTiming(article.updatedAt.date|date("U")) }}</time></a></div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr class="divider divider-dashed">
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>

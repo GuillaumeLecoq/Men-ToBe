@@ -1,0 +1,61 @@
+{% extends 'AdminBundle::home_page.html.twig' %}
+
+{% block body %}
+	<div class="box-info full">
+
+        <h2>Liste des <strong>Messages</strong></h2>
+		
+		<!-- Begin Inbox -->
+		<div class="box-info box-messages">
+			<div class="row">
+				<div class="col-md-2">
+					<!-- Sidebar Message -->
+					<div class="list-group menu-message">
+					  <a href="{{ path('list_inbox') }}" class="list-group-item active">
+						Boite de <strong>{{ nb_messages }}</strong> messages
+					  </a>
+					  <a href="{{ path('list_inbox_read_unread', {'mode': 'read'}) }}" class="list-group-item">Lu <strong>({{ nb_read }})</strong></a>
+					  <a href="{{ path('list_inbox_read_unread', {'mode': 'unread'}) }}" class="list-group-item">Non lu <strong>({{ nb_unread }})</strong></a>
+					</div>
+				</div><!-- ENd div .col-md-2 -->
+				
+				
+				<div class="col-md-10">
+					<table class="table">
+						<tbody>
+							<tr>
+								<td><strong>Action</strong></td>
+								<td>
+									<a href="{{ path('reply_message', {'idMessage': message.id}) }}" class="btn btn-default btn-sm"><i class="fa fa-mail-reply"></i> Répondre</a>
+									<a href="{{ path('delete_message', {'idMessage': message.id}) }}" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i> Supprimer</a>
+								</td>
+							</tr>
+							<tr>
+								<td><strong>Le</strong></td>
+								<td>{{ message.date|date("d/m/Y H:i:s") }}</td>
+							</tr>
+							<tr>
+								<td style="width: 100px;"><strong>De</strong></td>
+								<td><a href="#fakelink">{{ message.name }}</a></td>
+							</tr>
+							<tr>
+								<td><strong>Sujet</strong></td>
+								<td>{{ message.subject }}</td>
+							</tr>
+							<tr>
+								<td style="width: 100px;"><strong>Message</strong></td>
+								<td>
+									<p style="text-align: justify">
+									{{ message.message }}
+									</p>	
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div><!-- End div .col-md-10 -->
+			</div><!-- End div .row -->
+		</div><!-- End div .box-info -->
+		<!-- End inbox -->
+		
+	</div>
+{% endblock %}

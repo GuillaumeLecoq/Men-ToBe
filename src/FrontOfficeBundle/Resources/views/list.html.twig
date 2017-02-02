@@ -1,0 +1,75 @@
+{% extends 'FrontOfficeBundle::index.html.twig' %}
+
+{% block contain %}
+  <div class="shell">
+      <div class="reveal-sm-flex range-xs-middle offset-top-12">
+        <h3 class="heading-italic text-light">{{ categoryName }}</h3>
+        <div class="divider-vertical divider-xs veil reveal-sm-inline-block offset-top-5"></div>
+        <ol class="breadcrumb">
+          <li><a href="{{path('front_office_homepage')}}">Accueil</a></li>
+          {% if categoryName != "Préférences" %}
+          	<li><a href="#">{% if searchWorld is defined %} Recherche {% else %} Actus {% endif %}</a></li>
+          {% endif %}
+          <li class="active">{% if searchWorld is defined %} {{ searchWorld }} {% else %} {{ categoryName }} {% endif %}</li>
+        </ol>
+      </div>
+    </div>
+    <section class="offset-top-25">
+      <div class="shell">
+        <div class="range text-md-left">
+          <div class="cell-lg-8">
+            <div class="heading-divider offset-top-0">
+              <h2>{% if searchWorld is defined %} {{ searchWorld }} {% else %} {{ categoryName }} {% endif %}</h2>
+            </div>
+            {% for article in articles %}
+	            <div class="post post-variant-2">
+	              <div class="unit unit-xl-horizontal text-sm-left unit-sm-horizontal unit-md-horizontal unit-lg-horizontal">
+	                <div class="unit-left">
+	                  <div class="post-inner">
+	                    <div class="reveal-inline-block"><img src="{{ app.request.basePath }}{{ vich_uploader_asset(article, 'imageFile') }}" width="150" height="115" alt="" class="post-image"/></div>
+	                    <div class="post-caption">
+	                      <ul>
+	                        <li><a href="{{ path('article', {'idCategory': article.category.id, 'selectCategory': article.category.slugify, 'slug': article.slug}) }}"><span class="label label-warning">{{ article.category.name }}</span></a></li>
+	                      </ul>
+	                    </div>
+	                  </div>
+	                </div>
+	                <div class="unit-body">
+	                  <div class="h5 text-bold"><a href="{{ path('article', {'idCategory': article.category.id, 'selectCategory': article.category.slugify, 'slug': article.slug}) }}" class="post-link">{{ article.name }}</a></div>
+	                  <p>{{ article.resume|striptags }}</p>
+	                  <div class="post-meta post-meta-hidden-outer">
+	                    <div class="post-meta-hidden">
+	                      <div class="icon text-gray icon-lg material-icons-share">
+	                        <ul>
+	                          	<li><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ url('article', {'idCategory': article.category.id, 'selectCategory':article.category.slugify, 'slug': article.slug})|url_encode }}" class="icon fa fa-facebook"></a></li>
+								<li><a target="_blank" href="https://twitter.com/intent/tweet?url={{ url('article', {'idCategory': article.category.id, 'selectCategory':article.category.slugify, 'slug': article.slug})|url_encode }}" class="icon fa fa-twitter"></a></li>
+								<li><a target="_blank" href="https://plus.google.com/share?url={{ url('article', {'idCategory': article.category.id, 'selectCategory':article.category.slugify, 'slug': article.slug})|url_encode }}" class="icon fa fa-google-plus"></a></li>
+								<li><a target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&url={{ url('article', {'idCategory': article.category.id, 'selectCategory':article.category.slugify, 'slug': article.slug})|url_encode }}" class="icon fa fa-linkedin"></a></li>
+								<li><a target="_blank" href="http://pinterest.com/pin/create/button/?url={{ url('article', {'idCategory': article.category.id, 'selectCategory':article.category.slugify, 'slug': article.slug})|url_encode }}" class="icon fa fa-pinterest"></a></li>
+	                        </ul>
+	                      </div>
+	                    </div>
+	                    <div class="element-groups-custom"><a href="{{ path('article', {'idCategory': article.category.id, 'selectCategory': article.category.slugify, 'slug': article.slug}) }}" class="post-meta-author">{{ article.author.firstname}} {{ article.author.lastname}}</a><a href="politics.html" class="post-meta-time">
+	                        <time datetime="2016-06-06">{{ article.HumanTiming(article.updatedAt.date|date("U")) }}</t ime></a><a href="{{ path('article', {'idCategory': article.category.id, 'selectCategory': article.category.slugify, 'slug': article.slug}) }}" class="post-meta-comment disqus-comment-count" data-disqus-identifier="{{article.id}}">0 comment</a></div>
+	                  </div>
+	                </div>
+	              </div>
+	            </div>
+	            <div class="divider divider-dashed"></div>
+	        {% endfor %}
+
+          {% if pagination is defined %}
+
+  	        <!-- Pagination -->
+  			    {{ pagination|raw }}
+
+          {% endif %}
+          </div>
+          <div class="cell-lg-4 offset-top-36">
+            <!-- Sidebar-->
+            {{ include('sidebar.html.twig', {'mostCommentedArticles' : mostCommentedArticles}) }}
+          </div>
+        </div>
+      </div>
+    </section>
+{% endblock %}

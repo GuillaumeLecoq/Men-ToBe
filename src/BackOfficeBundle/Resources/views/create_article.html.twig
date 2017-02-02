@@ -1,0 +1,71 @@
+{% extends 'BackOfficeBundle::home_page.html.twig' %}
+
+{% block body %}
+	<!-- Page header -->
+	<div class="page-heading animated fadeInDownBig">
+		<h1>Rédaction d'un article</h1>
+	</div>
+	<!-- End page header -->
+	
+	<div class="row">
+		<div class="col-md-12">
+			<!-- <div id="demo_15" style="min-width: 200px;height: 100px;"></div> -->
+		</div>
+	</div>
+
+	<div class="box-info create-article-step-1">
+
+		<div>
+			<ul class="easyWizardSteps">
+				<li {% if step == 1 %}class="current"{% endif %} data-step="1">
+					<span>1</span>
+					Choix du thème
+				</li>
+				<li {% if step == 2 %}class="current"{% endif %} data-step="2">
+					<span>2</span>
+					Edition de l'article
+				</li>
+			</ul>
+		</div>
+
+		<section class="step" data-step-title="Choix du Tag">
+			<div class="row">
+				<div class="box-info">
+
+					<div class="form-group">
+						<label>Choisir une catégorie</label>
+						<select class="form-control selectpicker category">
+							{% for cat in categories %}
+								<option {% if category == cat.id %} selected {% endif %} value="{{ cat.id }}">{{ cat.name }}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="row bloc-tag-entity">
+
+						{% for categoryTag in categoryTagDefault %}
+							<div class="col-sm-12 tag-element" data-id="{{ categoryTag.id }}" data-content="{{ categoryTag.category.id }}">
+									<div class="row the-notes info">
+										<div class="col-sm-8">
+											<h4>{{ categoryTag.name }}</h4>
+										</div>
+										<div class="col-sm-4">
+											<img src="{{ categoryTag.imageUrl }}" style="height: auto; width: 100%">
+										</div>
+									</div>
+								</div>
+						{% endfor %}
+
+					</div>
+				</div>
+			</div><!-- End div .row -->
+
+			<div style="float: right;">
+				<a href="{{ path('back_office_create_article') }}" class="step-2-button" data-href="{{ path('back_office_create_article') }}">
+					<button class="next btn btn-default">Suivant »</button>
+				</a>
+			</div>
+
+		</section>
+
+	</div>
+{% endblock %}

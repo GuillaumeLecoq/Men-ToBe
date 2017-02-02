@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="fr" class="wide wow-animation">
+  <head>
+    <!-- Site Title-->
+    <title>Men-ToBe - Site communautaire d'actualités masculines</title>
+    <meta name="description" content="Le site communautaire d'actualités masculines - Partageons ensemble notre passion, rejoignez-nous et devenez auteur, être rémunéré pour ce que vous aimez que demander de plus !"/>
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-TileImage" content="{{ asset('bundles/frontoffice/img/favicon/mstile-144x144.png')}}">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta charset="utf-8">
+
+  <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('bundles/frontoffice/img/favicon/apple-touch-icon-57x57.png')}} ">
+  <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('bundles/frontoffice/img/favicon/apple-touch-icon-60x60.png') }} ">
+  <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('bundles/frontoffice/img/favicon/apple-touch-icon-72x72.png') }} ">
+  <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('bundles/frontoffice/img/favicon/apple-touch-icon-76x76.png') }} ">
+  <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('bundles/frontoffice/img/favicon/apple-touch-icon-114x114.png') }}">
+  <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('bundles/frontoffice/img/favicon/apple-touch-icon-120x120.png') }}">
+  <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('bundles/frontoffice/img/favicon/apple-touch-icon-144x144.png') }}">
+  <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('bundles/frontoffice/img/favicon/apple-touch-icon-152x152.png') }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('bundles/frontoffice/img/favicon/apple-touch-icon-180x180.png') }}">
+  <link rel="icon" type="image/png" href="{{ asset('bundles/frontoffice/img/favicon/favicon-32x32.png')}}" sizes="32x32">
+  <link rel="icon" type="image/png" href="{{ asset('bundles/frontoffice/img/favicon/android-chrome-192x192.png') }}" sizes="192x192">
+  <link rel="icon" type="image/png" href="{{ asset('bundles/frontoffice/img/favicon/favicon-96x96.png') }}" sizes="96x96">
+  <link rel="icon" type="image/png" href="{{ asset('bundles/frontoffice/img/favicon/favicon-16x16.png') }}" sizes="16x16">
+  <link rel="manifest" href="{{ asset('bundles/frontoffice/img/favicon/manifest.json')}}">
+  <link rel="mask-icon" href="{{ asset('bundles/frontoffice/img/favicon/safari-pinned-tab.svg')}}" color="#5bbad5">
+    
+  <!-- Stylesheets-->
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:400,500,300,300italic,500%7CNoto+Serif:400italic,700%7CNoto+Sans:700,700italic">
+
+
+  <!-- Our stylesheet compiled and minified css -->
+  {% stylesheets filter='cssrewrite, yui_css'
+    '@FrontOfficeBundle/Resources/public/css/style.css'
+    '@FrontOfficeBundle/Resources/public/css/component.css'
+    %}
+    <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+  {% endstylesheets %}
+
+  <!--[if lt IE 10]>
+  <div style="background: #212121; padding: 10px 0; box-shadow: 3px 3px 5px 0 rgba(0,0,0,.3); clear: both; text-align:center; position: relative; z-index:1;"><a href="http://windows.microsoft.com/en-US/internet-explorer/"><img src="images/ie8-panel/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."></a></div>
+  <script src="js/html5shiv.min.js"></script>
+  <![endif]-->
+  </head>
+  <body>
+    <!-- Page-->
+    <div class="page text-center">
+      <!-- Page Header-->
+      <header class="page-head">
+        <!-- RD Navbar-->
+        <div class="rd-navbar-wrap">
+          <nav data-lg-device-layout="rd-navbar-static" data-md-device-layout="rd-navbar-fullwidth" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fullwidth" data-lg-layout="rd-navbar-static" class="rd-navbar rd-navbar-default" data-stick-up-offset="198" data-md-layout="rd-navbar-fullwidth">
+            <div class="rd-navbar-inner">
+              <!-- RD Navbar Top part-->
+              <div class="rd-navbar-top-part text-sm-left small">
+                <!-- RD Calendar-->
+                <span class="rd-calendar">
+                  <span class="rdc-today_day"></span>. <span class="rdc-today_date"></span> <span>{{ "now"|date('F')|slice(0, 3) }}</span>, <span class="rdc-today_fullyear"></span>
+                </span>
+                <div class="rd-navbar-top-part-right">
+                  <!-- RD Navbar Search-->
+                  <div data-rd-navbar-toggle=".rd-navbar-search-wrap" class="rd-navbar-search-toggle"></div>
+                  <div class="rd-navbar-search-wrap">
+                    <div class="rd-navbar-search">
+                      <form action="{{ path('search_input') }}" method="post" class="rd-navbar-search-form">
+                        <label class="rd-navbar-search-form-input">
+                          <input type="text" name="input-search" placeholder="Recherche..." autocomplete="off">
+                        </label>
+                        <button type="submit" class="rd-navbar-search-form-submit"></button>
+                      </form><span class="rd-navbar-live-search-results"></span>
+                    </div>
+                  </div>
+                  <div class="divider-vertical divider-xs"></div>
+                  <div class="element-groups-xl-custom user-forms">
+                    {% if app.user %}
+                      <a class="md-trigger" data-modal="logout-modal">
+                        Déconnexion
+                      </a>
+                      {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('admin_homepage') }}" title="Mon compte" rel="nofollow">Mon compte</a>
+                      {% else %}
+                        <a href="{{ path('back_office_homepage') }}" title="Mon compte" rel="nofollow">Mon compte</a>
+                      {% endif %}
+                    {% else %}
+                      <a href="{{ path('fos_user_registration_register') }}" class="subscribe">
+                        S'inscrire
+                      </a>
+                      <a href="{{ path('for_user_security_login') }}" class="authentification" title="Se connecter" rel="nofollow">Se connecter</a>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+              <!-- RD Navbar Panel-->
+              <div class="rd-navbar-panel">
+                <!-- RD Navbar Toggle-->
+                <button data-rd-navbar-toggle=".rd-navbar-nav-wrap" class="rd-navbar-toggle"><span></span></button>
+                <!-- RD Navbar Brand-->
+                <div class="rd-navbar-brand"><a href="{{ path('front_office_homepage') }}" class="brand-name"><span>Men</span>-ToBe</a></div>
+              </div>
+              <!-- RD Navbar Wrap-->
+              <div class="rd-navbar-nav-wrap">
+                <div class="rd-navbar-social-list">
+                  <!-- list social-->
+                  <ul class="list-inline-0">
+                    <li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.facebook.com%2Fmentobe2%2F" target="_blank" class="icon icon-circle fa-facebook icon-default"></a></li>
+                    <li><a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftwitter.com%2Fmentobe_fr&via=mentobe_fr" target="_blank" class="icon icon-circle fa-twitter icon-default"></a></li>
+                    <li><a href="#" class="icon icon-circle fa-google-plus icon-default"></a></li>
+                  </ul>
+                </div>
+                <!-- RD Navbar Nav-->
+                <ul class="rd-navbar-nav">
+                  {% set currentPath = path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) %}
+                  {% set homePagePath = path('front_office_homepage') %}
+                  <li {% if currentPath == homePagePath %} class="active"{%endif%}><a href="{{ path('front_office_homepage') }}">Accueil</a></li>
+                  {% for menu in menus %}
+                    {% set categoryPath = path('categorie_article', {'idCategory': menu.id, 'selectCategory': menu.slugify}) %}
+                    <li {% if categoryPath in currentPath  %} class="active" {%endif%}><a href="{{ path('categorie_article', {'idCategory': menu.id, 'selectCategory': menu.slugify}) }}">{{ menu.name }}</a></li>
+                  {% endfor %}
+                  {% if app.user %}
+                    {% if app.user.categories is not empty %}
+                      {% if is_granted('ROLE_ADMIN') == false %}
+                        {% set preferencePath = path('category_preferences') %}
+                        <li {% if preferencePath in currentPath %} class="active" {% endif %}>
+                          <a href="{{ path('category_preferences') }}">Préférences</a>
+                        </li>
+                      {% endif %}
+                    {% endif %}
+                  {% endif %}
+                </ul>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </header>
+      <!-- Page Content-->
+      <main class="page-content">
+        {% block contain %}
+          <section class="section-top-50">
+            <div class="shell">
+              <div class="range">
+                <div class="cell-lg-6">
+                  <div class="offset-lg-negative-right-26">
+                    <div class="post post-variant-1">
+                      <div class="post-inner"><img src="{{ app.request.basePath }}{{ vich_uploader_asset(lastArticles[0], 'imageFile') }}" width="880" height="662" alt="" class="img-responsive post-image"/>
+                        <div class="post-caption">
+                          <ul>
+                            <li><a href="{{ path('article', {'idCategory': lastArticles[0].category.id, 'selectCategory':lastArticles[0].category.slugify, 'slug': lastArticles[0].slug}) }}"><span class="label label-warning">{{ lastArticles[0].category.name }}</span></a></li>
+                          </ul>
+                          <div>
+                            <div class="h1"><a href="{{ path('article', {'idCategory': lastArticles[0].category.id, 'selectCategory':lastArticles[0].category.slugify, 'slug': lastArticles[0].slug}) }}">{{ lastArticles[0].name }}</a></div>
+                            <div class="post-meta post-meta-hidden-outer">
+                              <div class="post-meta-hidden">
+                                <div class="icon text-gray icon-lg material-icons-share">
+                                  <ul>
+                                    <li><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ url('article', {'idCategory': lastArticles[0].category.id, 'selectCategory':lastArticles[0].category.slugify, 'slug': lastArticles[0].slug})|url_encode }}" class="icon fa fa-facebook"></a></li>
+                                    <li><a target="_blank" href="https://twitter.com/intent/tweet?url={{ url('article', {'idCategory': lastArticles[0].category.id, 'selectCategory':lastArticles[0].category.slugify, 'slug': lastArticles[0].slug})|url_encode }}" class="icon fa fa-twitter"></a></li>
+                                    <li><a target="_blank" href="https://plus.google.com/share?url={{ url('article', {'idCategory': lastArticles[0].category.id, 'selectCategory':lastArticles[0].category.slugify, 'slug': lastArticles[0].slug})|url_encode }}" class="icon fa fa-google-plus"></a></li>
+                                    <li><a target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&url={{ url('article', {'idCategory': lastArticles[0].category.id, 'selectCategory':lastArticles[0].category.slugify, 'slug': lastArticles[0].slug})|url_encode }}" class="icon fa fa-linkedin"></a></li>
+                                    <li><a target="_blank" href="http://pinterest.com/pin/create/button/?url={{ url('article', {'idCategory': lastArticles[0].category.id, 'selectCategory':lastArticles[0].category.slugify, 'slug': lastArticles[0].slug})|url_encode }}" class="icon fa fa-pinterest"></a></li>
+                                  </ul>
+                                </div>
+                              </div><a href="{{ path('article', {'idCategory': lastArticles[0].category.id, 'selectCategory':lastArticles[0].category.slugify, 'slug': lastArticles[0].slug}) }}" class="post-meta-time">
+                                <time datetime="2016-06-06" class="htmlme">{{ lastArticles[0].HumanTiming(lastArticles[0].updatedAt.date|date("U")) }}</time></a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="cell-lg-6 offset-top-12 offset-lg-top-0 offset-lg-negative-left-26">
+                  <div class="range">
+                    <div class="cell-sm-6">
+                      <div class="offset-lg-negative-right-38 offset-sm-negative-right-23">
+                        {% for lastArticle in lastArticles[1:2] %}
+                          <div class="post post-variant-1">
+                            <div class="post-inner"><img src="{{ app.request.basePath }}{{ vich_uploader_asset(lastArticle, 'imageFile') }}" width="426" height="327" alt="" class="img-responsive post-image"/>
+                              <div class="post-caption">
+                                <ul>
+                                  <li><a href="{{ path('article', {'idCategory': lastArticle.category.id, 'selectCategory':lastArticle.category.slugify, 'slug': lastArticle.slug}) }}"><span class="label label-warning">{{ lastArticle.category.name }}</span></a></li>
+                                </ul>
+                                <div>
+                                  <div class="h5"><a href="{{ path('article', {'idCategory': lastArticle.category.id, 'selectCategory':lastArticle.category.slugify, 'slug': lastArticle.slug}) }}">{{ lastArticle.name }}</a></div>
+                                  <div class="post-meta post-meta-hidden-outer">
+                                    <div class="post-meta-hidden">
+                                      <div class="icon text-gray icon-lg material-icons-share">
+                                        <ul>
+                                          <li><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ url('article', {'idCategory': lastArticle.category.id, 'selectCategory':lastArticle.category.slugify, 'slug': lastArticle.slug})|url_encode }}" class="icon fa fa-facebook"></a></li>
+                                          <li><a target="_blank" href="https://twitter.com/intent/tweet?url={{ url('article', {'idCategory': lastArticle.category.id, 'selectCategory':lastArticle.category.slugify, 'slug': lastArticle.slug})|url_encode }}" class="icon fa fa-twitter"></a></li>
+                                          <li><a target="_blank" href="https://plus.google.com/share?url={{ url('article', {'idCategory': lastArticle.category.id, 'selectCategory':lastArticle.category.slugify, 'slug': lastArticle.slug})|url_encode }}" class="icon fa fa-google-plus"></a></li>
+                                          <li><a target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&url={{ url('article', {'idCategory': lastArticle.category.id, 'selectCategory':lastArticle.category.slugify, 'slug': lastArticle.slug})|url_encode }}" class="icon fa fa-linkedin"></a></li>
+                                          <li><a target="_blank" href="http://pinterest.com/pin/create/button/?url={{ url('article', {'idCategory': lastArticle.category.id, 'selectCategory':lastArticle.category.slugify, 'slug': lastArticle.slug})|url_encode }}" class="icon fa fa-pinterest"></a></li>
+                                        </ul>
+                                      </div>
+                                    </div>
+                                    <div><a href="{{ path('article', {'idCategory': lastArticle.category.id, 'selectCategory':lastArticle.category.slugify, 'slug': lastArticle.slug}) }}" class="post-meta-time">
+                                        <time datetime="2016-06-06">{{ lastArticle.HumanTiming(lastArticle.updatedAt.date|date("U")) }}</time></a></div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        {%endfor%}
+                      </div>
+                    </div>
+                    <div class="cell-sm-6 offset-top-12 offset-sm-top-0">
+                      <div class="offset-lg-negative-left-14 offset-lg-negative-right-24 offset-sm-negative-left-23">
+                        {% for lastArticle in lastArticles[3:2] %}
+                          <div class="post post-variant-1">
+                            <div class="post-inner"><img src="{{ app.request.basePath }}{{ vich_uploader_asset(lastArticle, 'imageFile') }}" width="426" height="327" alt="" class="img-responsive post-image"/>
+                              <div class="post-caption">
+                                <ul>
+                                  <li><a href="{{ path('article', {'idCategory': lastArticle.category.id, 'selectCategory':lastArticle.category.slugify, 'slug': lastArticle.slug}) }}"><span class="label label-warning">{{ lastArticle.category.name }}</span></a></li>
+                                </ul>
+                                <div>
+                                  <div class="h5"><a href="{{ path('article', {'idCategory': lastArticle.category.id, 'selectCategory':lastArticle.category.slugify, 'slug': lastArticle.slug}) }}">{{ lastArticle.name }}</a></div>
+                                  <div class="post-meta post-meta-hidden-outer">
+                                    <div class="post-meta-hidden">
+                                      <div class="icon text-gray icon-lg material-icons-share">
+                                        <ul>
+                                          <li><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ url('article', {'idCategory': lastArticle.category.id, 'selectCategory':lastArticle.category.slugify, 'slug': lastArticle.slug})|url_encode }}" class="icon fa fa-facebook"></a></li>
+                                          <li><a target="_blank" href="https://twitter.com/intent/tweet?url={{ url('article', {'idCategory': lastArticle.category.id, 'selectCategory':lastArticle.category.slugify, 'slug': lastArticle.slug})|url_encode }}" class="icon fa fa-twitter"></a></li>
+                                          <li><a target="_blank" href="https://plus.google.com/share?url={{ url('article', {'idCategory': lastArticle.category.id, 'selectCategory':lastArticle.category.slugify, 'slug': lastArticle.slug})|url_encode }}" class="icon fa fa-google-plus"></a></li>
+                                          <li><a target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&url={{ url('article', {'idCategory': lastArticle.category.id, 'selectCategory':lastArticle.category.slugify, 'slug': lastArticle.slug})|url_encode }}" class="icon fa fa-linkedin"></a></li>
+                                          <li><a target="_blank" href="http://pinterest.com/pin/create/button/?url={{ url('article', {'idCategory': lastArticle.category.id, 'selectCategory':lastArticle.category.slugify, 'slug': lastArticle.slug})|url_encode }}" class="icon fa fa-pinterest"></a></li>
+                                        </ul>
+                                      </div>
+                                    </div>
+                                    <div><a href="{{ path('article', {'idCategory': lastArticle.category.id, 'selectCategory':lastArticle.category.slugify, 'slug': lastArticle.slug}) }}" class="post-meta-time">
+                                        <time datetime="2016-06-06">{{ lastArticle.HumanTiming(lastArticle.updatedAt.date|date("U")) }}</time></a></div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section class="section-top-26">
+            <div class="shell">
+              <div class="range text-md-left">
+                <div class="cell-lg-8">
+                  <!-- Responsive-tabs-->
+                  <div class="responsive-tabs responsive-tabs-variant-2">
+                    <div class="heading-divider offset-bottom-0">
+                      <h2>L'Actus</h2>
+                    </div>
+                    <ul class="resp-tabs-list">
+                      <li>Tous</li>
+                      {% for menu in menus %}
+                        <li>{{ menu.name }}</li>
+                      {% endfor %}
+                    </ul>
+                    <div class="resp-tabs-container offset-xl-top-45 offset-top-20">
+                      <!-- Tab content-1-->
+                      <div>
+                        <div class="range">
+                          <div class="cell-md-6">
+
+                          {% for lastArticleBC in lastArticlesByCategory[:3] %}
+
+                              {% if lastArticleBC[0] %}
+
+                                <div class="post post-variant-1">
+                                  <div class="post-inner"><img src="{{ app.request.basePath }}{{ vich_uploader_asset(lastArticleBC[0], 'imageFile') }}" alt="" class="img-responsive post-image"/>
+                                    <div class="post-caption">
+                                      <ul>
+                                        <li><a href="{{ path('article', {'idCategory': lastArticleBC[0].category.id, 'selectCategory':lastArticleBC[0].category.slugify, 'slug': lastArticleBC[0].slug}) }}"><span class="label label-warning">{{ lastArticleBC[0].category.name }}</span></a></li>
+                                      </ul>
+                                      <div>
+                                        <div class="h4 text-normal font-accent-2"><a href="{{ path('article', {'idCategory': lastArticleBC[0].category.id, 'selectCategory':lastArticleBC[0].category.slugify, 'slug': lastArticleBC[0].slug}) }}">{{ lastArticleBC[0].name }}</a></div>
+                                        <div class="post-meta post-meta-hidden-outer">
+                                          <div class="post-meta-hidden">
+                                            <div class="icon text-gray icon-lg material-icons-share">
+                                              <ul>
+                                                <li><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ url('article', {'idCategory': lastArticleBC[0].category.id, 'selectCategory':lastArticleBC[0].category.slugify, 'slug': lastArticleBC[0].slug})|url_encode }}" class="icon fa fa-facebook"></a></li>
+                                                <li><a target="_blank" href="https://twitter.com/intent/tweet?url={{ url('article', {'idCategory': lastArticleBC[0].category.id, 'selectCategory':lastArticleBC[0].category.slugify, 'slug': lastArticleBC[0].slug})|url_encode }}" class="icon fa fa-twitter"></a></li>
+                                                <li><a target="_blank" href="https://plus.google.com/share?url={{ url('article', {'idCategory': lastArticleBC[0].category.id, 'selectCategory':lastArticleBC[0].category.slugify, 'slug': lastArticleBC[0].slug})|url_encode }}" class="icon fa fa-google-plus"></a></li>
+                                                <li><a target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&url={{ url('article', {'idCategory': lastArticleBC[0].category.id, 'selectCategory':lastArticleBC[0].category.slugify, 'slug': lastArticleBC[0].slug})|url_encode }}" class="icon fa fa-linkedin"></a></li>
+                                                <li><a target="_blank" href="http://pinterest.com/pin/create/button/?url={{ url('article', {'idCategory': lastArticleBC[0].category.id, 'selectCategory':lastArticleBC[0].category.slugify, 'slug': lastArticleBC[0].slug})|url_encode }}" class="icon fa fa-pinterest"></a></li>
+                                              </ul>
+                                            </div>
+                                          </div>
+                                          <div><a href="{{ path('article', {'idCategory': lastArticleBC[0].category.id, 'selectCategory':lastArticleBC[0].category.slugify, 'slug': lastArticleBC[0].slug}) }}" class="post-meta-time">
+                                              <time datetime="2016-06-06">{{ lastArticleBC[0].HumanTiming(lastArticleBC[0].updatedAt.date|date("U")) }}</time></a></div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+                              {% endif %}
+
+                            {% endfor %}  
+                            
+                            <div class="divider divider-dashed veil-md"></div>
+                          </div>
+                          
+                          <div class="cell-md-6">
+
+                            {% for lastArticleBC in lastArticlesByCategory[3:3] %}
+
+                              {% if lastArticleBC[0] %}
+
+                                <div class="post post-variant-1">
+                                  <div class="post-inner"><img src="{{ app.request.basePath }}{{ vich_uploader_asset(lastArticleBC[0], 'imageFile') }}" alt="" class="img-responsive post-image"/>
+                                    <div class="post-caption">
+                                      <ul>
+                                        <li><a href="{{ path('article', {'idCategory': lastArticleBC[0].category.id, 'selectCategory':lastArticleBC[0].category.slugify, 'slug': lastArticleBC[0].slug}) }}"><span class="label label-warning">{{ lastArticleBC[0].category.name }}</span></a></li>
+                                      </ul>
+                                      <div>
+                                        <div class="h4 text-normal font-accent-2"><a href="{{ path('article', {'idCategory': lastArticleBC[0].category.id, 'selectCategory':lastArticleBC[0].category.slugify, 'slug': lastArticleBC[0].slug}) }}">{{ lastArticleBC[0].name }}</a></div>
+                                        <div class="post-meta post-meta-hidden-outer">
+                                          <div class="post-meta-hidden">
+                                            <div class="icon text-gray icon-lg material-icons-share">
+                                              <ul>
+                                                <li><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ url('article', {'idCategory': lastArticleBC[0].category.id, 'selectCategory':lastArticleBC[0].category.slugify, 'slug': lastArticleBC[0].slug})|url_encode }}" class="icon fa fa-facebook"></a></li>
+                                                <li><a target="_blank" href="https://twitter.com/intent/tweet?url={{ url('article', {'idCategory': lastArticleBC[0].category.id, 'selectCategory':lastArticleBC[0].category.slugify, 'slug': lastArticleBC[0].slug})|url_encode }}" class="icon fa fa-twitter"></a></li>
+                                                <li><a target="_blank" href="https://plus.google.com/share?url={{ url('article', {'idCategory': lastArticleBC[0].category.id, 'selectCategory':lastArticleBC[0].category.slugify, 'slug': lastArticleBC[0].slug})|url_encode }}" class="icon fa fa-google-plus"></a></li>
+                                                <li><a target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&url={{ url('article', {'idCategory': lastArticleBC[0].category.id, 'selectCategory':lastArticleBC[0].category.slugify, 'slug': lastArticleBC[0].slug})|url_encode }}" class="icon fa fa-linkedin"></a></li>
+                                                <li><a target="_blank" href="http://pinterest.com/pin/create/button/?url={{ url('article', {'idCategory': lastArticleBC[0].category.id, 'selectCategory':lastArticleBC[0].category.slugify, 'slug': lastArticleBC[0].slug})|url_encode }}" class="icon fa fa-pinterest"></a></li>
+                                              </ul>
+                                            </div>
+                                          </div>
+                                          <div><a href="{{ path('article', {'idCategory': lastArticleBC[0].category.id, 'selectCategory':lastArticleBC[0].category.slugify, 'slug': lastArticleBC[0].slug}) }}" class="post-meta-time">
+                                              <time datetime="2016-06-06">{{ lastArticleBC[0].HumanTiming(lastArticleBC[0].updatedAt.date|date("U")) }}</time></a></div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+                              {% endif %}
+
+                            {% endfor %}  
+                                                    
+                          </div>
+
+                        </div>
+                      </div>
+                      <!-- Tab content-2-->
+                      <div>
+                        <div class="range">
+                          <div class="cell-md-6">
+
+                            {% for lastArticleBC1 in lastArticlesByCategory[0][:3] %}
+
+                              <div class="post post-variant-1">
+                                <div class="post-inner"><img src="{{ app.request.basePath }}{{ vich_uploader_asset(lastArticleBC1, 'imageFile') }}" alt="" class="img-responsive post-image"/>
+                                  <div class="post-caption">
+                                    <ul>
+                                      <li><a href="{{ path('article', {'idCategory': lastArticleBC1.category.id, 'selectCategory':lastArticleBC1.category.slugify, 'slug': lastArticleBC1.slug}) }}"><span class="label label-warning">{{ lastArticleBC1.category.name }}</span></a></li>
+                                    </ul>
+                                    <div>
+                                      <div class="h4 text-normal font-accent-2"><a href="{{ path('article', {'idCategory': lastArticleBC1.category.id, 'selectCategory':lastArticleBC1.category.slugify, 'slug': lastArticleBC1.slug}) }}">{{ lastArticleBC1.name }}</a></div>
+                                      <div class="post-meta post-meta-hidden-outer">
+                                        <div class="post-meta-hidden">
+                                          <div class="icon text-gray icon-lg material-icons-share">
+                                            <ul>
+                                              <li><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ url('article', {'idCategory': lastArticleBC1.category.id, 'selectCategory':lastArticleBC1.category.slugify, 'slug': lastArticleBC1.slug})|url_encode }}" class="icon fa fa-facebook"></a></li>
+                                              <li><a target="_blank" href="https://twitter.com/intent/tweet?url={{ url('article', {'idCategory': lastArticleBC1.category.id, 'selectCategory':lastArticleBC1.category.slugify, 'slug': lastArticleBC1.slug})|url_encode }}" class="icon fa fa-twitter"></a></li>
+                                              <li><a target="_blank" href="https://plus.google.com/share?url={{ url('article', {'idCategory': lastArticleBC1.category.id, 'selectCategory':lastArticleBC1.category.slugify, 'slug': lastArticleBC1.slug})|url_encode }}" class="icon fa fa-google-plus"></a></li>
+                                              <li><a target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&url={{ url('article', {'idCategory': lastArticleBC1.category.id, 'selectCategory':lastArticleBC1.category.slugify, 'slug': lastArticleBC1.slug})|url_encode }}" class="icon fa fa-linkedin"></a></li>
+                                              <li><a target="_blank" href="http://pinterest.com/pin/create/button/?url={{ url('article', {'idCategory': lastArticleBC1.category.id, 'selectCategory':lastArticleBC1.category.slugify, 'slug': lastArticleBC1.slug})|url_encode }}" class="icon fa fa-pinterest"></a></li>  
+                                            </ul>
+                                          </div>
+                                        </div>
+                                        <div><a href="{{ path('article', {'idCategory': lastArticleBC1.category.id, 'selectCategory':lastArticleBC1.category.slugify, 'slug': lastArticleBC1.slug}) }}" class="post-meta-time">
+                                            <time datetime="2016-06-06">{{ lastArticleBC1.HumanTiming(lastArticleBC1.updatedAt.date|date("U")) }}</time></a></div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            {% endfor %}  
+                            
+                            <div class="divider divider-dashed veil-md"></div>
+                          </div>
+                          
+                          <div class="cell-md-6">
+
+                            {% for lastArticleBC1 in lastArticlesByCategory[0][3:3] %}
+
+                              <div class="post post-variant-1">
+                                <div class="post-inner"><img src="{{ app.request.basePath }}{{ vich_uploader_asset(lastArticleBC1, 'imageFile') }}" alt="" class="img-responsive post-image"/>
+                                  <div class="post-caption">
+                                    <ul>
+                                      <li><a href="{{ path('article', {'idCategory': lastArticleBC1.category.id, 'selectCategory':lastArticleBC1.category.slugify, 'slug': lastArticleBC1.slug}) }}"><span class="label label-warning">{{ lastArticleBC1.category.name }}</span></a></li>
+                                    </ul>
+                                    <div>
+                                      <div class="h4 text-normal font-accent-2"><a href="{{ path('article', {'idCategory': lastArticleBC1.category.id, 'selectCategory':lastArticleBC1.category.slugify, 'slug': lastArticleBC1.slug}) }}">{{ lastArticleBC1.name }}</a></div>
+                                      <div class="post-meta post-meta-hidden-outer">
+                                        <div class="post-meta-hidden">
+                                          <div class="icon text-gray icon-lg material-icons-share">
+                                            <ul>
+                                              <li><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ url('article', {'idCategory': lastArticleBC1.category.id, 'selectCategory':lastArticleBC1.category.slugify, 'slug': lastArticleBC1.slug})|url_encode }}" class="icon fa fa-facebook"></a></li>
+                                              <li><a target="_blank" href="https://twitter.com/intent/tweet?url={{ url('article', {'idCategory': lastArticleBC1.category.id, 'selectCategory':lastArticleBC1.category.slugify, 'slug': lastArticleBC1.slug})|url_encode }}" class="icon fa fa-twitter"></a></li>
+                                              <li><a target="_blank" href="https://plus.google.com/share?url={{ url('article', {'idCategory': lastArticleBC1.category.id, 'selectCategory':lastArticleBC1.category.slugify, 'slug': lastArticleBC1.slug})|url_encode }}" class="icon fa fa-google-plus"></a></li>
+                                              <li><a target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&url={{ url('article', {'idCategory': lastArticleBC1.category.id, 'selectCategory':lastArticleBC1.category.slugify, 'slug': lastArticleBC1.slug})|url_encode }}" class="icon fa fa-linkedin"></a></li>
+                                              <li><a target="_blank" href="http://pinterest.com/pin/create/button/?url={{ url('article', {'idCategory': lastArticleBC1.category.id, 'selectCategory':lastArticleBC1.category.slugify, 'slug': lastArticleBC1.slug})|url_encode }}" class="icon fa fa-pinterest"></a></li>
+                                            </ul>
+                                          </div>
+                                        </div>
+                                        <div><a href="{{ path('article', {'idCategory': lastArticleBC1.category.id, 'selectCategory':lastArticleBC1.category.slugify, 'slug': lastArticleBC1.slug}) }}" class="post-meta-time">
+                                            <time datetime="2016-06-06">{{ lastArticleBC1.HumanTiming(lastArticleBC1.updatedAt.date|date("U")) }}</time></a></div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                            {% endfor %}  
+                          </div>                       
+                        </div>
+                      </div>
+
+                      <!-- Tab content-3-->
+                      <div>
+                        <div class="range">
+                          
+                          <div class="cell-md-6">
+                            {% for lastArticleBC2 in lastArticlesByCategory[1][:3] %}
+                              <div class="post post-variant-1">
+                                <div class="post-inner"><img src="{{ app.request.basePath }}{{ vich_uploader_asset(lastArticleBC2, 'imageFile') }}" alt="" class="img-responsive post-image"/>
+                                  <div class="post-caption">
+                                    <ul>
+                                      <li><a href="{{ path('article', {'idCategory': lastArticleBC2.category.id, 'selectCategory':lastArticleBC2.category.slugify, 'slug': lastArticleBC2.slug}) }}"><span class="label label-warning">{{ lastArticleBC2.category.name }}</span></a></li>
+                                    </ul>
+                                    <div>
+                                      <div class="h4 text-normal font-accent-2"><a href="{{ path('article', {'idCategory': lastArticleBC2.category.id, 'selectCategory':lastArticleBC2.category.slugify, 'slug': lastArticleBC2.slug}) }}">{{ lastArticleBC2.name }}</a></div>
+                                      <div class="post-meta post-meta-hidden-outer">
+                                        <div class="post-meta-hidden">
+                                          <div class="icon text-gray icon-lg material-icons-share">
+                                            <ul>
+                                              <li><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ url('article', {'idCategory': lastArticleBC2.category.id, 'selectCategory':lastArticleBC2.category.slugify, 'slug': lastArticleBC2.slug})|url_encode }}" class="icon fa fa-facebook"></a></li>
+                                              <li><a target="_blank" href="https://twitter.com/intent/tweet?url={{ url('article', {'idCategory': lastArticleBC2.category.id, 'selectCategory':lastArticleBC2.category.slugify, 'slug': lastArticleBC2.slug})|url_encode }}" class="icon fa fa-twitter"></a></li>
+                                              <li><a target="_blank" href="https://plus.google.com/share?url={{ url('article', {'idCategory': lastArticleBC2.category.id, 'selectCategory':lastArticleBC2.category.slugify, 'slug': lastArticleBC2.slug})|url_encode }}" class="icon fa fa-google-plus"></a></li>
+                                              <li><a target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&url={{ url('article', {'idCategory': lastArticleBC2.category.id, 'selectCategory':lastArticleBC2.category.slugify, 'slug': lastArticleBC2.slug})|url_encode }}" class="icon fa fa-linkedin"></a></li>
+                                              <li><a target="_blank" href="http://pinterest.com/pin/create/button/?url={{ url('article', {'idCategory': lastArticleBC2.category.id, 'selectCategory':lastArticleBC2.category.slugify, 'slug': lastArticleBC2.slug})|url_encode }}" class="icon fa fa-pinterest"></a></li>
+                                            </ul>
+                                          </div>
+                                        </div>
+                                        <div><a href="{{ path('article', {'idCategory': lastArticleBC2.category.id, 'selectCategory':lastArticleBC2.category.slugify, 'slug': lastArticleBC2.slug}) }}" class="post-meta-time">
+                                            <time datetime="2016-06-06">{{ lastArticleBC2.HumanTiming(lastArticleBC2.updatedAt.date|date("U")) }}</time></a></div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            {% endfor %}  
+                            <div class="divider divider-dashed veil-md"></div>
+                          </div>
+                          
+                          <div class="cell-md-6">
+                            {% for lastArticleBC2 in lastArticlesByCategory[1][3:3] %}
+                              <div class="post post-variant-1">
+                                <div class="post-inner"><img src="{{ app.request.basePath }}{{ vich_uploader_asset(lastArticleBC2, 'imageFile') }}" alt="" class="img-responsive post-image"/>
+                                  <div class="post-caption">
+                                    <ul>
+                                      <li><a href="{{ path('article', {'idCategory': lastArticleBC2.category.id, 'selectCategory':lastArticleBC2.category.slugify, 'slug': lastArticleBC2.slug}) }}"><span class="label label-warning">{{ lastArticleBC2.category.name }}</span></a></li>
+                                    </ul>
+                                    <div>
+                                      <div class="h4 text-normal font-accent-2"><a href="{{ path('article', {'idCategory': lastArticleBC2.category.id, 'selectCategory':lastArticleBC2.category.slugify, 'slug': lastArticleBC2.slug}) }}">{{ lastArticleBC2.name }}</a></div>
+                                      <div class="post-meta post-meta-hidden-outer">
+                                        <div class="post-meta-hidden">
+                                          <div class="icon text-gray icon-lg material-icons-share">
+                                            <ul>
+                                              <li><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ url('article', {'idCategory': lastArticleBC2.category.id, 'selectCategory':lastArticleBC2.category.slugify, 'slug': lastArticleBC2.slug})|url_encode }}" class="icon fa fa-facebook"></a></li>
+                                              <li><a target="_blank" href="https://twitter.com/intent/tweet?url={{ url('article', {'idCategory': lastArticleBC2.category.id, 'selectCategory':lastArticleBC2.category.slugify, 'slug': lastArticleBC2.slug})|url_encode }}" class="icon fa fa-twitter"></a></li>
+                                              <li><a target="_blank" href="https://plus.google.com/share?url={{ url('article', {'idCategory': lastArticleBC2.category.id, 'selectCategory':lastArticleBC2.category.slugify, 'slug': lastArticleBC2.slug})|url_encode }}" class="icon fa fa-google-plus"></a></li>
+                                              <li><a target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&url={{ url('article', {'idCategory': lastArticleBC2.category.id, 'selectCategory':lastArticleBC2.category.slugify, 'slug': lastArticleBC2.slug})|url_encode }}" class="icon fa fa-linkedin"></a></li>
+                                              <li><a target="_blank" href="http://pinterest.com/pin/create/button/?url={{ url('article', {'idCategory': lastArticleBC2.category.id, 'selectCategory':lastArticleBC2.category.slugify, 'slug': lastArticleBC2.slug})|url_encode }}" class="icon fa fa-pinterest"></a></li>
+                                            </ul>
+                                          </div>
+                                        </div>
+                                        <div><a href="{{ path('article', {'idCategory': lastArticleBC2.category.id, 'selectCategory':lastArticleBC2.category.slugify, 'slug': lastArticleBC2.slug}) }}" class="post-meta-time">
+                                            <time datetime="2016-06-06">{{ lastArticleBC2.HumanTiming(lastArticleBC2.updatedAt.date|date("U")) }}</time></a></div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            {% endfor %}
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <!-- Tab content-4-->
+                      <div>
+                        <div class="range">
+                          <div class="cell-md-6">
+                            {% for lastArticleBC3 in lastArticlesByCategory[2][:3] %}
+                              <div class="post post-variant-1">
+                                <div class="post-inner"><img src="{{ app.request.basePath }}{{ vich_uploader_asset(lastArticleBC3, 'imageFile') }}" alt="" class="img-responsive post-image"/>
+                                  <div class="post-caption">
+                                    <ul>
+                                      <li><a href="{{ path('article', {'idCategory': lastArticleBC3.category.id, 'selectCategory':lastArticleBC3.category.slugify, 'slug': lastArticleBC3.slug}) }}"><span class="label label-warning">{{ lastArticleBC3.category.name }}</span></a></li>
+                                    </ul>
+                                    <div>
+                                      <div class="h4 text-normal font-accent-2"><a href="{{ path('article', {'idCategory': lastArticleBC3.category.id, 'selectCategory':lastArticleBC3.category.slugify, 'slug': lastArticleBC3.slug}) }}">{{ lastArticleBC3.name }}</a></div>
+                                      <div class="post-meta post-meta-hidden-outer">
+                                        <div class="post-meta-hidden">
+                                          <div class="icon text-gray icon-lg material-icons-share">
+                                            <ul>
+                                              <li><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ url('article', {'idCategory': lastArticleBC3.category.id, 'selectCategory':lastArticleBC3.category.slugify, 'slug': lastArticleBC3.slug})|url_encode }}" class="icon fa fa-facebook"></a></li>
+                                              <li><a target="_blank" href="https://twitter.com/intent/tweet?url={{ url('article', {'idCategory': lastArticleBC3.category.id, 'selectCategory':lastArticleBC3.category.slugify, 'slug': lastArticleBC3.slug})|url_encode }}" class="icon fa fa-twitter"></a></li>
+                                              <li><a target="_blank" href="https://plus.google.com/share?url={{ url('article', {'idCategory': lastArticleBC3.category.id, 'selectCategory':lastArticleBC3.category.slugify, 'slug': lastArticleBC3.slug})|url_encode }}" class="icon fa fa-google-plus"></a></li>
+                                              <li><a target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&url={{ url('article', {'idCategory': lastArticleBC3.category.id, 'selectCategory':lastArticleBC3.category.slugify, 'slug': lastArticleBC3.slug})|url_encode }}" class="icon fa fa-linkedin"></a></li>
+                                              <li><a target="_blank" href="http://pinterest.com/pin/create/button/?url={{ url('article', {'idCategory': lastArticleBC3.category.id, 'selectCategory':lastArticleBC3.category.slugify, 'slug': lastArticleBC3.slug})|url_encode }}" class="icon fa fa-pinterest"></a></li>
+                                            </ul>
+                                          </div>
+                                        </div>
+                                        <div><a href="{{ path('article', {'idCategory': lastArticleBC3.category.id, 'selectCategory':lastArticleBC3.category.slugify, 'slug': lastArticleBC3.slug}) }}" class="post-meta-time">
+                                            <time datetime="2016-06-06">{{ lastArticleBC3.HumanTiming(lastArticleBC3.updatedAt.date|date("U")) }}</time></a></div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            {% endfor %}  
+                            <div class="divider divider-dashed veil-md"></div>
+                          </div>
+                          
+                          <div class="cell-md-6">
+                            {% for lastArticleBC3 in lastArticlesByCategory[2][3:3] %}
+                              <div class="post post-variant-1">
+                                <div class="post-inner"><img src="{{ app.request.basePath }}{{ vich_uploader_asset(lastArticleBC3, 'imageFile') }}" alt="" class="img-responsive post-image"/>
+                                  <div class="post-caption">
+                                    <ul>
+                                      <li><a href="{{ path('article', {'idCategory': lastArticleBC3.category.id, 'selectCategory':lastArticleBC3.category.slugify, 'slug': lastArticleBC3.slug}) }}"><span class="label label-warning">{{ lastArticleBC3.category.name }}</span></a></li>
+                                    </ul>
+                                    <div>
+                                      <div class="h4 text-normal font-accent-2"><a href="{{ path('article', {'idCategory': lastArticleBC3.category.id, 'selectCategory':lastArticleBC3.category.slugify, 'slug': lastArticleBC3.slug}) }}">{{ lastArticleBC3.name }}</a></div>
+                                      <div class="post-meta post-meta-hidden-outer">
+                                        <div class="post-meta-hidden">
+                                          <div class="icon text-gray icon-lg material-icons-share">
+                                            <ul>
+                                              <li><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ url('article', {'idCategory': lastArticleBC3.category.id, 'selectCategory':lastArticleBC3.category.slugify, 'slug': lastArticleBC3.slug})|url_encode }}" class="icon fa fa-facebook"></a></li>
+                                              <li><a target="_blank" href="https://twitter.com/intent/tweet?url={{ url('article', {'idCategory': lastArticleBC3.category.id, 'selectCategory':lastArticleBC3.category.slugify, 'slug': lastArticleBC3.slug})|url_encode }}" class="icon fa fa-twitter"></a></li>
+                                              <li><a target="_blank" href="https://plus.google.com/share?url={{ url('article', {'idCategory': lastArticleBC3.category.id, 'selectCategory':lastArticleBC3.category.slugify, 'slug': lastArticleBC3.slug})|url_encode }}" class="icon fa fa-google-plus"></a></li>
+                                              <li><a target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&url={{ url('article', {'idCategory': lastArticleBC3.category.id, 'selectCategory':lastArticleBC3.category.slugify, 'slug': lastArticleBC3.slug})|url_encode }}" class="icon fa fa-linkedin"></a></li>
+                                              <li><a target="_blank" href="http://pinterest.com/pin/create/button/?url={{ url('article', {'idCategory': lastArticleBC3.category.id, 'selectCategory':lastArticleBC3.category.slugify, 'slug': lastArticleBC3.slug})|url_encode }}" class="icon fa fa-pinterest"></a></li>
+                                            </ul>
+                                          </div>
+                                        </div>
+                                        <div><a href="{{ path('article', {'idCategory': lastArticleBC3.category.id, 'selectCategory':lastArticleBC3.category.slugify, 'slug': lastArticleBC3.slug}) }}" class="post-meta-time">
+                                            <time datetime="2016-06-06">{{ lastArticleBC3.HumanTiming(lastArticleBC3.updatedAt.date|date("U")) }}</time></a></div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            {% endfor %}
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <!-- Tab content-5-->
+                      <div>
+                        <div class="range">
+                          <div class="cell-md-6">
+                            {% for lastArticleBC4 in lastArticlesByCategory[3][:3] %}
+                              <div class="post post-variant-1">
+                                <div class="post-inner"><img src="{{ app.request.basePath }}{{ vich_uploader_asset(lastArticleBC4, 'imageFile') }}" alt="" class="img-responsive post-image"/>
+                                  <div class="post-caption">
+                                    <ul>
+                                      <li><a href="{{ path('article', {'idCategory': lastArticleBC4.category.id, 'selectCategory':lastArticleBC4.category.slugify, 'slug': lastArticleBC4.slug}) }}"><span class="label label-warning">{{ lastArticleBC4.category.name }}</span></a></li>
+                                    </ul>
+                                    <div>
+                                      <div class="h4 text-normal font-accent-2"><a href="{{ path('article', {'idCategory': lastArticleBC4.category.id, 'selectCategory':lastArticleBC4.category.slugify, 'slug': lastArticleBC4.slug}) }}">{{ lastArticleBC4.name }}</a></div>
+                                      <div class="post-meta post-meta-hidden-outer">
+                                        <div class="post-meta-hidden">
+                                          <div class="icon text-gray icon-lg material-icons-share">
+                                            <ul>
+                                              <li><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ url('article', {'idCategory': lastArticleBC4.category.id, 'selectCategory':lastArticleBC4.category.slugify, 'slug': lastArticleBC4.slug})|url_encode }}" class="icon fa fa-facebook"></a></li>
+                                              <li><a target="_blank" href="https://twitter.com/intent/tweet?url={{ url('article', {'idCategory': lastArticleBC4.category.id, 'selectCategory':lastArticleBC4.category.slugify, 'slug': lastArticleBC4.slug})|url_encode }}" class="icon fa fa-twitter"></a></li>
+                                              <li><a target="_blank" href="https://plus.google.com/share?url={{ url('article', {'idCategory': lastArticleBC4.category.id, 'selectCategory':lastArticleBC4.category.slugify, 'slug': lastArticleBC4.slug})|url_encode }}" class="icon fa fa-google-plus"></a></li>
+                                              <li><a target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&url={{ url('article', {'idCategory': lastArticleBC4.category.id, 'selectCategory':lastArticleBC4.category.slugify, 'slug': lastArticleBC4.slug})|url_encode }}" class="icon fa fa-linkedin"></a></li>
+                                              <li><a target="_blank" href="http://pinterest.com/pin/create/button/?url={{ url('article', {'idCategory': lastArticleBC4.category.id, 'selectCategory':lastArticleBC4.category.slugify, 'slug': lastArticleBC4.slug})|url_encode }}" class="icon fa fa-pinterest"></a></li>
+                                            </ul>
+                                          </div>
+                                        </div>
+                                        <div><a href="{{ path('article', {'idCategory': lastArticleBC4.category.id, 'selectCategory':lastArticleBC4.category.slugify, 'slug': lastArticleBC4.slug}) }}" class="post-meta-time">
+                                            <time datetime="2016-06-06">{{ lastArticleBC4.HumanTiming(lastArticleBC4.updatedAt.date|date("U")) }}</time></a></div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            {% endfor %}  
+                            <div class="divider divider-dashed veil-md"></div>
+                          </div>
+                          
+                          <div class="cell-md-6">
+                            {% for lastArticleBC4 in lastArticlesByCategory[3][3:3] %}
+                              <div class="post post-variant-1">
+                                <div class="post-inner"><img src="{{ app.request.basePath }}{{ vich_uploader_asset(lastArticleBC4, 'imageFile') }}" alt="" class="img-responsive post-image"/>
+                                  <div class="post-caption">
+                                    <ul>
+                                      <li><a href="{{ path('article', {'idCategory': lastArticleBC4.category.id, 'selectCategory':lastArticleBC4.category.slugify, 'slug': lastArticleBC4.slug}) }}"><span class="label label-warning">{{ lastArticleBC4.category.name }}</span></a></li>
+                                    </ul>
+                                    <div>
+                                      <div class="h4 text-normal font-accent-2"><a href="{{ path('article', {'idCategory': lastArticleBC4.category.id, 'selectCategory':lastArticleBC4.category.slugify, 'slug': lastArticleBC4.slug}) }}">{{ lastArticleBC4.name }}</a></div>
+                                      <div class="post-meta post-meta-hidden-outer">
+                                        <div class="post-meta-hidden">
+                                          <div class="icon text-gray icon-lg material-icons-share">
+                                            <ul>
+                                              <li><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ url('article', {'idCategory': lastArticleBC4.category.id, 'selectCategory':lastArticleBC4.category.slugify, 'slug': lastArticleBC4.slug})|url_encode }}" class="icon fa fa-facebook"></a></li>
+                                              <li><a target="_blank" href="https://twitter.com/intent/tweet?url={{ url('article', {'idCategory': lastArticleBC4.category.id, 'selectCategory':lastArticleBC4.category.slugify, 'slug': lastArticleBC4.slug})|url_encode }}" class="icon fa fa-twitter"></a></li>
+                                              <li><a target="_blank" href="https://plus.google.com/share?url={{ url('article', {'idCategory': lastArticleBC4.category.id, 'selectCategory':lastArticleBC4.category.slugify, 'slug': lastArticleBC4.slug})|url_encode }}" class="icon fa fa-google-plus"></a></li>
+                                              <li><a target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&url={{ url('article', {'idCategory': lastArticleBC4.category.id, 'selectCategory':lastArticleBC4.category.slugify, 'slug': lastArticleBC4.slug})|url_encode }}" class="icon fa fa-linkedin"></a></li>
+                                              <li><a target="_blank" href="http://pinterest.com/pin/create/button/?url={{ url('article', {'idCategory': lastArticleBC4.category.id, 'selectCategory':lastArticleBC4.category.slugify, 'slug': lastArticleBC4.slug})|url_encode }}" class="icon fa fa-pinterest"></a></li>
+                                            </ul>
+                                          </div>
+                                        </div>
+                                        <div><a href="{{ path('article', {'idCategory': lastArticleBC4.category.id, 'selectCategory':lastArticleBC4.category.slugify, 'slug': lastArticleBC4.slug}) }}" class="post-meta-time">
+                                            <time datetime="2016-06-06">{{ lastArticleBC4.HumanTiming(lastArticleBC4.updatedAt.date|date("U")) }}</time></a></div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            {% endfor %}
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Tab content-6-->
+                      <div>
+                        <div class="range">
+                          <div class="cell-md-6">
+                            {% for lastArticleBC5 in lastArticlesByCategory[4][:3] %}
+                              <div class="post post-variant-1">
+                                <div class="post-inner"><img src="{{ app.request.basePath }}{{ vich_uploader_asset(lastArticleBC5, 'imageFile') }}" alt="" class="img-responsive post-image"/>
+                                  <div class="post-caption">
+                                    <ul>
+                                      <li><a href="{{ path('article', {'idCategory': lastArticleBC5.category.id, 'selectCategory':lastArticleBC5.category.slugify, 'slug': lastArticleBC5.slug}) }}"><span class="label label-warning">{{ lastArticleBC5.category.name }}</span></a></li>
+                                    </ul>
+                                    <div>
+                                      <div class="h4 text-normal font-accent-2"><a href="{{ path('article', {'idCategory': lastArticleBC5.category.id, 'selectCategory':lastArticleBC5.category.slugify, 'slug': lastArticleBC5.slug}) }}">{{ lastArticleBC5.name }}</a></div>
+                                      <div class="post-meta post-meta-hidden-outer">
+                                        <div class="post-meta-hidden">
+                                          <div class="icon text-gray icon-lg material-icons-share">
+                                            <ul>
+                                              <li><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ url('article', {'idCategory': lastArticleBC5.category.id, 'selectCategory':lastArticleBC5.category.slugify, 'slug': lastArticleBC5.slug})|url_encode }}" class="icon fa fa-facebook"></a></li>
+                                              <li><a target="_blank" href="https://twitter.com/intent/tweet?url={{ url('article', {'idCategory': lastArticleBC5.category.id, 'selectCategory':lastArticleBC5.category.slugify, 'slug': lastArticleBC5.slug})|url_encode }}" class="icon fa fa-twitter"></a></li>
+                                              <li><a target="_blank" href="https://plus.google.com/share?url={{ url('article', {'idCategory': lastArticleBC5.category.id, 'selectCategory':lastArticleBC5.category.slugify, 'slug': lastArticleBC5.slug})|url_encode }}" class="icon fa fa-google-plus"></a></li>
+                                              <li><a target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&url={{ url('article', {'idCategory': lastArticleBC5.category.id, 'selectCategory':lastArticleBC5.category.slugify, 'slug': lastArticleBC5.slug})|url_encode }}" class="icon fa fa-linkedin"></a></li>
+                                              <li><a target="_blank" href="http://pinterest.com/pin/create/button/?url={{ url('article', {'idCategory': lastArticleBC5.category.id, 'selectCategory':lastArticleBC5.category.slugify, 'slug': lastArticleBC5.slug})|url_encode }}" class="icon fa fa-pinterest"></a></li>
+                                            </ul>
+                                          </div>
+                                        </div>
+                                        <div><a href="{{ path('article', {'idCategory': lastArticleBC5.category.id, 'selectCategory':lastArticleBC5.category.slugify, 'slug': lastArticleBC5.slug}) }}" class="post-meta-time">
+                                            <time datetime="2016-06-06">{{ lastArticleBC5.HumanTiming(lastArticleBC5.updatedAt.date|date("U")) }}</time></a></div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            {% endfor %}  
+                            <div class="divider divider-dashed veil-md"></div>
+                          </div>
+                          
+                          <div class="cell-md-6">
+                            {% for lastArticleBC5 in lastArticlesByCategory[4][3:3] %}
+                              <div class="post post-variant-1">
+                                <div class="post-inner"><img src="{{ app.request.basePath }}{{ vich_uploader_asset(lastArticleBC5, 'imageFile') }}" alt="" class="img-responsive post-image"/>
+                                  <div class="post-caption">
+                                    <ul>
+                                      <li><a href="{{ path('article', {'idCategory': lastArticleBC5.category.id, 'selectCategory':lastArticleBC5.category.slugify, 'slug': lastArticleBC5.slug}) }}"><span class="label label-warning">{{ lastArticleBC5.category.name }}</span></a></li>
+                                    </ul>
+                                    <div>
+                                      <div class="h4 text-normal font-accent-2"><a href="{{ path('article', {'idCategory': lastArticleBC5.category.id, 'selectCategory':lastArticleBC5.category.slugify, 'slug': lastArticleBC5.slug}) }}">{{ lastArticleBC5.name }}</a></div>
+                                      <div class="post-meta post-meta-hidden-outer">
+                                        <div class="post-meta-hidden">
+                                          <div class="icon text-gray icon-lg material-icons-share">
+                                            <ul>
+                                              <li><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ url('article', {'idCategory': lastArticleBC5.category.id, 'selectCategory':lastArticleBC5.category.slugify, 'slug': lastArticleBC5.slug})|url_encode }}" class="icon fa fa-facebook"></a></li>
+                                              <li><a target="_blank" href="https://twitter.com/intent/tweet?url={{ url('article', {'idCategory': lastArticleBC5.category.id, 'selectCategory':lastArticleBC5.category.slugify, 'slug': lastArticleBC5.slug})|url_encode }}" class="icon fa fa-twitter"></a></li>
+                                              <li><a target="_blank" href="https://plus.google.com/share?url={{ url('article', {'idCategory': lastArticleBC5.category.id, 'selectCategory':lastArticleBC5.category.slugify, 'slug': lastArticleBC5.slug})|url_encode }}" class="icon fa fa-google-plus"></a></li>
+                                              <li><a target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&url={{ url('article', {'idCategory': lastArticleBC5.category.id, 'selectCategory':lastArticleBC5.category.slugify, 'slug': lastArticleBC5.slug})|url_encode }}" class="icon fa fa-linkedin"></a></li>
+                                              <li><a target="_blank" href="http://pinterest.com/pin/create/button/?url={{ url('article', {'idCategory': lastArticleBC5.category.id, 'selectCategory':lastArticleBC5.category.slugify, 'slug': lastArticleBC5.slug})|url_encode }}" class="icon fa fa-pinterest"></a></li>
+                                            </ul>
+                                          </div>
+                                        </div>
+                                        <div><a href="{{ path('article', {'idCategory': lastArticleBC5.category.id, 'selectCategory':lastArticleBC5.category.slugify, 'slug': lastArticleBC5.slug}) }}" class="post-meta-time">
+                                            <time datetime="2016-06-06">{{ lastArticleBC5.HumanTiming(lastArticleBC5.updatedAt.date|date("U")) }}</time></a></div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            {% endfor %}
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Tab content-7-->
+                      <div>
+                        <div class="range">
+                          
+                          <div class="cell-md-6">
+                            {% for lastArticleBC6 in lastArticlesByCategory[5][:3] %}
+                              <div class="post post-variant-1">
+                                <div class="post-inner"><img src="{{ app.request.basePath }}{{ vich_uploader_asset(lastArticleBC6, 'imageFile') }}" alt="" class="img-responsive post-image"/>
+                                  <div class="post-caption">
+                                    <ul>
+                                      <li><a href="{{ path('article', {'idCategory': lastArticleBC6.category.id, 'selectCategory':lastArticleBC6.category.slugify, 'slug': lastArticleBC6.slug}) }}"><span class="label label-warning">{{ lastArticleBC6.category.name }}</span></a></li>
+                                    </ul>
+                                    <div>
+                                      <div class="h4 text-normal font-accent-2"><a href="{{ path('article', {'idCategory': lastArticleBC6.category.id, 'selectCategory':lastArticleBC6.category.slugify, 'slug': lastArticleBC6.slug}) }}">{{ lastArticleBC6.name }}</a></div>
+                                      <div class="post-meta post-meta-hidden-outer">
+                                        <div class="post-meta-hidden">
+                                          <div class="icon text-gray icon-lg material-icons-share">
+                                            <ul>
+                                              <li><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ url('article', {'idCategory': lastArticleBC6.category.id, 'selectCategory':lastArticleBC6.category.slugify, 'slug': lastArticleBC6.slug})|url_encode }}" class="icon fa fa-facebook"></a></li>
+                                              <li><a target="_blank" href="https://twitter.com/intent/tweet?url={{ url('article', {'idCategory': lastArticleBC6.category.id, 'selectCategory':lastArticleBC6.category.slugify, 'slug': lastArticleBC6.slug})|url_encode }}" class="icon fa fa-twitter"></a></li>
+                                              <li><a target="_blank" href="https://plus.google.com/share?url={{ url('article', {'idCategory': lastArticleBC6.category.id, 'selectCategory':lastArticleBC6.category.slugify, 'slug': lastArticleBC6.slug})|url_encode }}" class="icon fa fa-google-plus"></a></li>
+                                              <li><a target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&url={{ url('article', {'idCategory': lastArticleBC6.category.id, 'selectCategory':lastArticleBC6.category.slugify, 'slug': lastArticleBC6.slug})|url_encode }}" class="icon fa fa-linkedin"></a></li>
+                                              <li><a target="_blank" href="http://pinterest.com/pin/create/button/?url={{ url('article', {'idCategory': lastArticleBC6.category.id, 'selectCategory':lastArticleBC6.category.slugify, 'slug': lastArticleBC6.slug})|url_encode }}" class="icon fa fa-pinterest"></a></li>
+                                            </ul>
+                                          </div>
+                                        </div>
+                                        <div><a href="{{ path('article', {'idCategory': lastArticleBC6.category.id, 'selectCategory':lastArticleBC6.category.slugify, 'slug': lastArticleBC6.slug}) }}" class="post-meta-time">
+                                            <time datetime="2016-06-06">{{ lastArticleBC6.HumanTiming(lastArticleBC6.updatedAt.date|date("U")) }}</time></a></div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            {% endfor %}  
+                            <div class="divider divider-dashed veil-md"></div>
+                          </div>
+                          
+                          <div class="cell-md-6">
+                            {% for lastArticleBC6 in lastArticlesByCategory[5][3:3] %}
+                              <div class="post post-variant-1">
+                                <div class="post-inner"><img src="{{ app.request.basePath }}{{ vich_uploader_asset(lastArticleBC6, 'imageFile') }}" alt="" class="img-responsive post-image"/>
+                                  <div class="post-caption">
+                                    <ul>
+                                      <li><a href="{{ path('article', {'idCategory': lastArticleBC6.category.id, 'selectCategory':lastArticleBC6.category.slugify, 'slug': lastArticleBC6.slug}) }}"><span class="label label-warning">{{ lastArticleBC6.category.name }}</span></a></li>
+                                    </ul>
+                                    <div>
+                                      <div class="h4 text-normal font-accent-2"><a href="{{ path('article', {'idCategory': lastArticleBC6.category.id, 'selectCategory':lastArticleBC6.category.slugify, 'slug': lastArticleBC6.slug}) }}">{{ lastArticleBC6.name }}</a></div>
+                                      <div class="post-meta post-meta-hidden-outer">
+                                        <div class="post-meta-hidden">
+                                          <div class="icon text-gray icon-lg material-icons-share">
+                                            <ul>
+                                              <li><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ url('article', {'idCategory': lastArticleBC6.category.id, 'selectCategory':lastArticleBC6.category.slugify, 'slug': lastArticleBC6.slug})|url_encode }}" class="icon fa fa-facebook"></a></li>
+                                              <li><a target="_blank" href="https://twitter.com/intent/tweet?url={{ url('article', {'idCategory': lastArticleBC6.category.id, 'selectCategory':lastArticleBC6.category.slugify, 'slug': lastArticleBC6.slug})|url_encode }}" class="icon fa fa-twitter"></a></li>
+                                              <li><a target="_blank" href="https://plus.google.com/share?url={{ url('article', {'idCategory': lastArticleBC6.category.id, 'selectCategory':lastArticleBC6.category.slugify, 'slug': lastArticleBC6.slug})|url_encode }}" class="icon fa fa-google-plus"></a></li>
+                                              <li><a target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&url={{ url('article', {'idCategory': lastArticleBC6.category.id, 'selectCategory':lastArticleBC6.category.slugify, 'slug': lastArticleBC6.slug})|url_encode }}" class="icon fa fa-linkedin"></a></li>
+                                              <li><a target="_blank" href="http://pinterest.com/pin/create/button/?url={{ url('article', {'idCategory': lastArticleBC6.category.id, 'selectCategory':lastArticleBC6.category.slugify, 'slug': lastArticleBC6.slug})|url_encode }}" class="icon fa fa-pinterest"></a></li>
+                                            </ul>
+                                          </div>
+                                        </div>
+                                        <div><a href="{{ path('article', {'idCategory': lastArticleBC6.category.id, 'selectCategory':lastArticleBC6.category.slugify, 'slug': lastArticleBC6.slug}) }}" class="post-meta-time">
+                                            <time datetime="2016-06-06">{{ lastArticleBC6.HumanTiming(lastArticleBC6.updatedAt.date|date("U")) }}</time></a></div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            {% endfor %}
+                          </div>
+                          
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="heading-divider offset-top-45 offset-md-top-25">
+                    <h2>À la une</h2>
+                  </div>
+
+                  {% for lastArticle in lastArticles[5:] %}
+                    
+                    <div class="post post-variant-2">
+                      <div class="unit unit-xl-horizontal text-sm-left unit-sm-horizontal unit-md-horizontal unit-lg-horizontal offset-top-25 offset-md-top-0">
+                        <div class="unit-left">
+                          <div class="post-inner">
+                            <div class="reveal-inline-block"><img src="{{ app.request.basePath }}{{ vich_uploader_asset(lastArticle, 'imageFile') }}" width="150" height="115" alt="" class="post-image"/></div>
+                            <div class="post-caption">
+                              <ul>
+                                <li><a href="{{ path('article', {'idCategory': lastArticle.category.id, 'selectCategory':lastArticle.category.slugify, 'slug': lastArticle.slug}) }}"><span class="label label-warning">{{ lastArticle.category.name }}</span></a></li>
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="unit-body">
+                          <div class="h5 text-bold"><a href="{{ path('article', {'idCategory': lastArticle.category.id, 'selectCategory':lastArticle.category.slugify, 'slug': lastArticle.slug}) }}" class="post-link">{{ lastArticle.name }}</a></div>
+                          <p>{{ lastArticle.resume|striptags }}</p>
+                          <div class="post-meta post-meta-hidden-outer">
+                            <div class="post-meta-hidden">
+                              <div class="icon text-gray icon-lg material-icons-share">
+                                <ul>
+                                  <li><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ url('article', {'idCategory': lastArticle.category.id, 'selectCategory':lastArticle.category.slugify, 'slug': lastArticle.slug})|url_encode }}" class="icon fa fa-facebook"></a></li>
+                                  <li><a target="_blank" href="https://twitter.com/intent/tweet?url={{ url('article', {'idCategory': lastArticle.category.id, 'selectCategory':lastArticle.category.slugify, 'slug': lastArticle.slug})|url_encode }}" class="icon fa fa-twitter"></a></li>
+                                  <li><a target="_blank" href="https://plus.google.com/share?url={{ url('article', {'idCategory': lastArticle.category.id, 'selectCategory':lastArticle.category.slugify, 'slug': lastArticle.slug})|url_encode }}" class="icon fa fa-google-plus"></a></li>
+                                  <li><a target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&url={{ url('article', {'idCategory': lastArticle.category.id, 'selectCategory':lastArticle.category.slugify, 'slug': lastArticle.slug})|url_encode }}" class="icon fa fa-linkedin"></a></li>
+                                  <li><a target="_blank" href="http://pinterest.com/pin/create/button/?url={{ url('article', {'idCategory': lastArticle.category.id, 'selectCategory':lastArticle.category.slugify, 'slug': lastArticle.slug})|url_encode }}" class="icon fa fa-pinterest"></a></li>
+                                </ul>
+                              </div>
+                            </div>
+                            <div class="element-groups-custom"><a href="{{ path('article', {'idCategory': lastArticle.category.id, 'selectCategory':lastArticle.category.slugify, 'slug': lastArticle.slug}) }}" class="post-meta-author">{{ lastArticle.author.firstname|capitalize }} {{ lastArticle.author.lastname|capitalize }}</a><a href="{{ path('article', {'idCategory': lastArticle.category.id, 'selectCategory':lastArticle.category.slugify, 'slug': lastArticle.slug}) }}" class="post-meta-time">
+                                <time datetime="2016-06-06">{{ lastArticle.HumanTiming(lastArticle.updatedAt.date|date("U")) }}</time></a><a href="post-default.html#comments" class="post-meta-comment disqus-comment-count" data-disqus-identifier="{{lastArticle.id}}">0 comment</a></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="divider divider-dashed"></div>
+
+                  {% endfor %}
+      <div id="ad-block-bottom">
+        <script type="text/javascript" src="http://ads.allotraffic.com/bandeau?id=45373"></script>
+      </div>
+      
+                  <div class="heading-divider">
+                    <h2>{{ discoverCategory.name }}</h2>
+                  </div>
+
+                  {% for discoverCategoryArticle in discoverCategoryArticles[0:1] %}
+                    <!-- Post-->
+                    <div class="offset-top-45 range range-sm-center range-lg-left post post-variant-3">
+                      <div class="cell-sm-10 cell-md-6">
+                        <div class="post-inner"><img src="{{ app.request.basePath }}{{ vich_uploader_asset(discoverCategoryArticle, 'imageFile') }}" height="411" width="536" alt="" class="img-responsive post-image reveal-inline-block">
+                          <div class="post-caption post-caption-lg">
+                            <ul>
+                              <li><a href="{{ path('article', {'idCategory': discoverCategoryArticle.category.id, 'selectCategory': discoverCategoryArticle.category.slugify, 'slug': discoverCategoryArticle.slug}) }}"><span class="label label-warning">{{ discoverCategoryArticle.category.name }}</span></a></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="cell-sm-10 cell-md-6 offset-top-36 offset-md-top-0">
+                        <div class="h4 text-normal font-accent-2 offset-top-0">
+                          <a href="{{ path('article', {'idCategory': discoverCategoryArticle.category.id, 'selectCategory': discoverCategoryArticle.category.slugify, 'slug': discoverCategoryArticle.slug}) }}" class="post-link">
+                            {{ discoverCategoryArticle.name }}
+                          </a>
+                        </div>
+
+                        <div class="post-meta element-groups-custom offset-top-12">
+                          <a href="{{ path('article', {'idCategory': discoverCategoryArticle.category.id, 'selectCategory': discoverCategoryArticle.category.slugify, 'slug': discoverCategoryArticle.slug}) }}" class="post-meta-author">{{ discoverCategoryArticle.author.firstname|capitalize }} {{ discoverCategoryArticle.author.lastname|capitalize }}</a>
+                          <a href="{{ path('article', {'idCategory': discoverCategoryArticle.category.id, 'selectCategory': discoverCategoryArticle.category.slugify, 'slug': discoverCategoryArticle.slug}) }}" class="post-meta-time">
+                            <time datetime="2016-06-06">{{ discoverCategoryArticle.HumanTiming(discoverCategoryArticle.updatedAt.date|date("U")) }}</time>
+                          </a>
+                          <a href="{{ path('article', {'idCategory': discoverCategoryArticle.category.id, 'selectCategory': discoverCategoryArticle.category.slugify, 'slug': discoverCategoryArticle.slug}) }}" class="post-meta-comment disqus-comment-count" data-disqus-identifier="{{discoverCategoryArticle.id}}">0 comment</a>
+                        </div>
+                        <p>{{ discoverCategoryArticle.resume|striptags }}</p>
+                        <div class="reveal-xs-flex range-xs-middle range-xs-justify offset-top-25">
+                          <a href="{{ path('article', {'idCategory': discoverCategoryArticle.category.id, 'selectCategory': discoverCategoryArticle.category.slugify, 'slug': discoverCategoryArticle.slug}) }}" class="btn btn-warning">Lire plus</a>
+                          <div class="veil reveal-xs-block">
+                            <div class="post-meta post-meta-hidden-outer">
+                              <div class="post-meta-hidden">
+                                <div class="icon text-gray icon-lg material-icons-share">
+                                  <ul>
+                                    <li><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ url('article', {'idCategory': discoverCategoryArticle.category.id, 'selectCategory':discoverCategoryArticle.category.slugify, 'slug': discoverCategoryArticle.slug})|url_encode }}" class="icon fa fa-facebook"></a></li>
+                                    <li><a target="_blank" href="https://twitter.com/intent/tweet?url={{ url('article', {'idCategory': discoverCategoryArticle.category.id, 'selectCategory':discoverCategoryArticle.category.slugify, 'slug': discoverCategoryArticle.slug})|url_encode }}" class="icon fa fa-twitter"></a></li>
+                                    <li><a target="_blank" href="https://plus.google.com/share?url={{ url('article', {'idCategory': discoverCategoryArticle.category.id, 'selectCategory':discoverCategoryArticle.category.slugify, 'slug': discoverCategoryArticle.slug})|url_encode }}" class="icon fa fa-google-plus"></a></li>
+                                    <li><a target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&url={{ url('article', {'idCategory': discoverCategoryArticle.category.id, 'selectCategory':discoverCategoryArticle.category.slugify, 'slug': discoverCategoryArticle.slug})|url_encode }}" class="icon fa fa-linkedin"></a></li>
+                                    <li><a target="_blank" href="http://pinterest.com/pin/create/button/?url={{ url('article', {'idCategory': discoverCategoryArticle.category.id, 'selectCategory':discoverCategoryArticle.category.slugify, 'slug': discoverCategoryArticle.slug})|url_encode }}" class="icon fa fa-pinterest"></a></li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="divider divider-dashed"></div>
+                  {% endfor %}
+
+                  <div class="range offset-top-30 offset-md-top-60">
+                    {% for discoverCategoryArticle in discoverCategoryArticles[1:2] %}
+                      <div class="cell-md-6">
+                        <div class="post post-variant-2">
+                          <div class="unit unit-xl-horizontal unit-lg-horiaontal unit-md-horizontal unit-sm-horizontal text-sm-left">
+                            <div class="unit-left">
+                              <div class="post-inner">
+                                <div class="reveal-inline-block"><img src="{{ app.request.basePath }}{{ vich_uploader_asset(discoverCategoryArticle, 'imageFile') }}" width="150" height="115" alt="" class="post-image"/></div>
+                                <div class="post-caption">
+                                  <ul>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="unit-body">
+                              <div class="h5 text-bold">
+                                <a href="{{ path('article', {'idCategory': discoverCategoryArticle.category.id, 'selectCategory': discoverCategoryArticle.category.slugify, 'slug': discoverCategoryArticle.slug}) }}" class="post-link">{{ discoverCategoryArticle.name }}</a>
+                              </div>
+                              <div class="post-meta post-meta-hidden-outer">
+                                <div class="post-meta-hidden">
+                                  <div class="icon text-gray icon-lg material-icons-share">
+                                    <ul>
+                                      <li><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ url('article', {'idCategory': discoverCategoryArticle.category.id, 'selectCategory':discoverCategoryArticle.category.slugify, 'slug': discoverCategoryArticle.slug})|url_encode }}" class="icon fa fa-facebook"></a></li>
+                                      <li><a target="_blank" href="https://twitter.com/intent/tweet?url={{ url('article', {'idCategory': discoverCategoryArticle.category.id, 'selectCategory':discoverCategoryArticle.category.slugify, 'slug': discoverCategoryArticle.slug})|url_encode }}" class="icon fa fa-twitter"></a></li>
+                                      <li><a target="_blank" href="https://plus.google.com/share?url={{ url('article', {'idCategory': discoverCategoryArticle.category.id, 'selectCategory':discoverCategoryArticle.category.slugify, 'slug': discoverCategoryArticle.slug})|url_encode }}" class="icon fa fa-google-plus"></a></li>
+                                      <li><a target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&url={{ url('article', {'idCategory': discoverCategoryArticle.category.id, 'selectCategory':discoverCategoryArticle.category.slugify, 'slug': discoverCategoryArticle.slug})|url_encode }}" class="icon fa fa-linkedin"></a></li>
+                                      <li><a target="_blank" href="http://pinterest.com/pin/create/button/?url={{ url('article', {'idCategory': discoverCategoryArticle.category.id, 'selectCategory':discoverCategoryArticle.category.slugify, 'slug': discoverCategoryArticle.slug})|url_encode }}" class="icon fa fa-pinterest"></a></li>
+                                    </ul>
+                                  </div>
+                                </div>
+                                <div class="element-groups-custom"><a href="{{ path('article', {'idCategory': discoverCategoryArticle.category.id, 'selectCategory': discoverCategoryArticle.category.slugify, 'slug': discoverCategoryArticle.slug}) }}" class="post-meta-time">
+                                    <time datetime="2016-06-06">{{ discoverCategoryArticle.HumanTiming(discoverCategoryArticle.updatedAt.date|date("U")) }}</time></a><a href="{{ path('article', {'idCategory': discoverCategoryArticle.category.id, 'selectCategory': discoverCategoryArticle.category.slugify, 'slug': discoverCategoryArticle.slug}) }}" class="post-meta-comment disqus-comment-count" data-disqus-identifier="{{discoverCategoryArticle.id}}">0 comment</a></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="divider divider-dashed"></div>
+                      </div>
+                    {% endfor %}
+                  </div>
+                </div>
+                <div class="cell-lg-4 offset-top-36">
+                  <!-- Sidebar-->
+                  {{ include('sidebar.html.twig', {'mostCommentedArticles' : mostCommentedArticles}) }}
+                </div>
+              </div>
+            </div>
+          </section>
+        {% endblock %}
+      </main>
+      <!-- Page Footer-->
+      <footer class="page-footer">
+        <div class="shell offset-top-60">
+          <hr class="divider divider-lg offset-0">
+          <div class="range text-center text-lg-left section offset-top-0">
+            <div class="cell-sm-preffix-2 cell-sm-8 cell-lg-4 cell-xl-3 cell-lg-preffix-0 cell-lg-push-4">
+              <h3 class="text-regular text-italic font-accent">S'abonner au newsletter</h3>
+              <br />
+              <!-- RD Mailform-->
+              <button style="width: 355px;" class="btn btn-warning">Newsletter</button>
+            </div>
+            <div class="cell-sm-preffix-1 cell-sm-10 cell-lg-4 cell-xl-3 cell-lg-preffix-0 offset-top-45 offset-lg-top-0 cell-lg-push-3" style="visibility: hidden">
+            </div>
+            <div class="cell-xs-6 cell-xl-3 cell-lg-2 offset-top-45 offset-lg-top-0">
+              <h6>Categories</h6>
+              <ul class="small text-center text-lg-left list-unstyled list text-italic font-accent">
+                {% for menu in menus %}
+                    <li><a href="{{ path('categorie_article', {'idCategory': menu.id, 'selectCategory': menu.slugify}) }}">{{ menu.name }}</a></li>
+                {% endfor %}
+              </ul>
+            </div>
+            <div class="cell-xs-6 cell-lg-2 cell-xl-3 offset-top-45 offset-lg-top-0">
+              <h6>Information</h6>
+              <ul class="small text-center text-lg-left list-unstyled list text-italic font-accent">
+                <li><a href="{{ path('presentation')  }}">A propos de nous</a></li>
+                <li><a href="{{ path('contact')  }}">Nous conctacter</a></li>
+              </ul>
+            </div>
+          </div>
+          <hr class="divider divider-offset-top-52">
+          <div class="range text-left offset-top-36">
+            <div class="cell-md-5 cell-md-push-1 text-center text-md-right">
+              <!-- list social-->
+              <ul class="list-inline-0">
+                <li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.facebook.com%2Fmentobe2%2F" target="_blank" class="icon icon-circle fa-facebook icon-default"></a></li>
+                <li><a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftwitter.com%2Fmentobe_fr&via=mentobe_fr" target="_blank" class="icon icon-circle fa-twitter icon-default"></a></li>
+                <li><a href="#" class="icon icon-circle fa-google-plus icon-default"></a></li>
+              </ul>
+            </div>
+            <div class="cell-md-7 text-center text-md-left offset-top-25 offset-md-top-0">
+              <div class="brand reveal-md-inline-block">
+                <a href="./" class="brand-name">
+                  <img src="{{ asset('bundles/frontoffice/img/logo.png') }}" alt="" width="20" height="20" style="margin-top: 20px;">
+                </a>
+              </div>
+              <p class="reveal-md-inline-block offset-top-20 offset-top-md-0 small">© 2017 Men-ToBe, Inc. <a href="{{ path('privacy')  }}">Privacy policy</a></p>
+            </div>
+          </div>
+        </div>
+      </footer>
+      <!-- FOOTER_LINK-->
+    </div>
+
+    <!-- Modal Logout Primary -->
+    <div class="md-modal md-fall" id="logout-modal">
+      <div class="md-content">
+        <h3><strong>Déconnexion</strong> Confirmation</h3>
+        <div>
+          <p class="text-center">Etes-vous sur de vouloir vous déconnecter ?</p>
+          <p class="text-center">
+            <button class="btn btn-danger md-close">Non !</button>
+            <a href="{{ path('fos_user_security_logout') }}" class="btn btn-success md-close">Oui, je suis sur.</a>
+          </p>
+        </div>
+      </div>
+    </div><!-- End .md-modal -->
+
+    <div class="md-overlay"></div>
+
+    <!-- minified js -->
+  {% javascripts filter='yui_js'
+    '@FrontOfficeBundle/Resources/public/js/core.min.js'
+    '@FrontOfficeBundle/Resources/public/js/script.js'
+    '@BackOfficeBundle/Resources/public/third/nifty-modal/js/classie.js'
+    '@BackOfficeBundle/Resources/public/third/nifty-modal/js/modalEffects.js'
+    %}
+      <script src="{{ asset_url }}"></script>
+  {% endjavascripts %}
+
+    <!-- DISQUS -->
+    <script id="dsq-count-scr" src="//mentobefr.disqus.com/count.js" async></script>
+    <!-- Loader -->
+
+  </body>
+
+    <!-- Google Tag Manager -->
+    <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-5PLFFP"
+          height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-5PLFFP');</script>
+    <!-- End Google Tag Manager -->
+</html>

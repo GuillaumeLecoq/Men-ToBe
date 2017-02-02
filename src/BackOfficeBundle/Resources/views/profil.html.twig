@@ -1,0 +1,294 @@
+{% extends 'BackOfficeBundle::home_page.html.twig' %}
+
+{% block body %}
+    <!-- Page header -->
+    <div class="page-heading animated fadeInDownBig">
+        <h1>Mon Profil</h1>
+    </div>
+    <!-- End page header -->
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="box-info">
+                <!-- User profile avatar, name and location -->
+                <div class="user-profile-sidebar">
+                    <h2>Profil <strong>{{ user.username }}</strong></h2>
+                    <div class="row">
+                        <div class="col-md-4">
+                            {% if  user.imageName is empty %}
+                                <img class="img-circle" src="{{ asset('images/users/default.png') }}" alt="{{ user.firstname }}" />
+                            {% else %}
+                                <img class="img-circle" src="{{ app.request.basePath }}{{ vich_uploader_asset(user, 'imageFile') }}" alt="{{ user.firstname }}" />
+                            {% endif %}
+                        </div>
+                        <div class="col-md-8">
+                            <!-- User identity -->
+                            <div class="user-identity">
+                                <h4><strong>{{ user.lastname }}</strong> {{ user.firstname }}</h4>
+                                {% if user.city %}
+                                    <p><i class="fa fa-map-marker"></i> {{ user.city }}</p>
+                                {% endif %}
+                            </div><!-- End div .user-identity -->
+                        </div>
+                    </div>
+                </div><!-- End div .user-profile-sidebar -->
+
+                {% if is_granted('ROLE_AUTHOR') %}
+
+                    <!-- Account status -->
+                    <div class="account-status-data">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h5><strong>12</strong> Articles publiés</h5>
+                            </div>
+                        </div>
+                    </div><!-- End div .account-status-data -->
+
+                {% endif %}
+
+                <!-- User button -->
+                <div class="user-button">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-primary btn-sm btn-block"><i class="fa fa-envelope"></i> Envoyer un message</button>
+                        </div>
+                    </div>
+                </div><!-- End div .user-button -->
+
+            </div><!-- End div .box-info -->
+        </div><!-- End div .col-sm-4 -->
+
+        <div class="col-sm-8">
+            <div class="box-info full">
+                <!-- Nav tab -->
+                <ul class="nav nav-tabs nav-justified">
+                    <li class="active"><a href="#about" data-toggle="tab"><i class="fa fa-user"></i> A propos</a></li>
+                    <li {% if errorForm == true %} class="error-profil" {% endif %} ><a href="#edit-profile" data-toggle="tab" ><i class="fa fa-pencil"></i> Informations</a></li>
+                    <li><a href="{{ path('back_office_profil_preference') }}"><i class="fa fa-beer"></i> Préférences</a></li>
+                    <li><a href="{{ path('back_office_profil_paypal') }}"><i class="fa fa-money"></i> Paypal</a></li>
+                </ul>
+                <!-- End nav tab -->
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <!-- Tab about -->
+                    <div class="tab-pane active animated fadeInRight" id="about">
+                        <div class="user-profile-content">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <h5>Mes <strong>Informations</strong></h5>
+                                    <address>
+                                        <strong>Pseudo</strong><br>
+                                        <p title="Pseudo">{{ user.username }}</p>
+                                    </address>
+                                    <address>
+                                        <strong>Nom</strong><br>
+                                        <p title="Nom">{{ user.lastname }}</p>
+                                    </address>
+                                    <address>
+                                        <strong>Prénom</strong><br>
+                                        <p title="Prénom">{{ user.firstname }}</p>
+                                    </address>
+                                    <address>
+                                        <strong>Ville</strong><br>
+                                        <p title="Ville">{{ user.city }}</p>
+                                    </address>
+                                    <address>
+                                        <strong>Email</strong><br>
+                                        <p title="Email">{{ user.email }}</p>
+                                    </address>
+                                </div>
+                                <div class="col-sm-6">
+                                    <h5>Mes <strong>Préférences</strong></h5>
+                                    {%  for category in user.categories %}
+                                        <p>- {{ category.name }}</p>
+                                    {% endfor %}
+                                </div>
+                            </div><!-- End div .row -->
+                        </div><!-- End div .user-profile-content -->
+                    </div><!-- End div .tab-pane -->
+                    <!-- End Tab about -->
+
+
+                    <!-- Tab edit profile -->
+                    <div class="tab-pane animated fadeInRight" id="edit-profile">
+                        <div class="user-profile-content">
+                            {{ form_start(form) }}
+                                {{ form_errors(form) }}
+
+                            <div class="form-group">
+                                <label for="Username">Pseudo</label>
+                                {{ form_widget(form.username, {"attr": {"class": "form-control", "required": "required"} }) }}
+                                {{ form_errors(form.username) }}
+                            </div>
+                            <div class="form-group">
+                                <label for="Lastname">Nom</label>
+                                {{ form_widget(form.lastname, {"attr": {"class": "form-control", "required": "required"} }) }}
+                                {{ form_errors(form.lastname) }}
+                            </div>
+                            <div class="form-group">
+                                <label for="Firstname">Prénom</label>
+                                {{ form_widget(form.firstname, {"attr": {"class": "form-control", "required": "required"} }) }}
+                                {{ form_errors(form.firstname) }}
+                            </div>
+                            <div class="form-group">
+                                <label for="Lastname">Ville</label>
+                                {{ form_widget(form.city, {"attr": {"class": "form-control"} }) }}
+                                {{ form_errors(form.city) }}
+                            </div>
+                            <div class="form-group">
+                                <label for="Email">Email</label>
+                                {{ form_widget(form.email, {"attr": {"class": "form-control", "required": "required"} }) }}
+                                {{ form_errors(form.email) }}
+                            </div>
+                            <div class="form-group">
+                                <label for="Password">Mot de passe</label>
+                                {{ form_widget(form.plainPassword.first, {'attr': {'class': 'form-control text-input', "required": "required", 'placeholder': 'Mot de passe'}}) }}
+                                {{ form_errors(form.plainPassword.first) }}
+                            </div>
+                            <div class="form-group">
+                                <label for="RePassword">Mot de passe</label>
+                                {{ form_widget(form.plainPassword.second, {'attr': {'class': 'form-control text-input', "required": "required", 'placeholder': 'Retaper le mot de passe'}}) }}
+                                {{ form_errors(form.plainPassword.second) }}
+                            </div>
+
+                            <div class="form-group">
+                                {{ form_widget(form.imageFile, {"attr": {"class": "btn btn-default", "title": "Image"} }) }}
+                                <p class="help-block">Fichier autorisé : JPG, PNG | max. 15 Ko </p>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="préférence">Mes préférences</label>
+                                {{ form_widget(form.categories, {"attr": {"class": "form-control"} }) }}
+                                {{ form_errors(form.categories) }}
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+
+                            {{ form_end(form) }}
+                        </div><!-- End div .user-profile-content -->
+                    </div><!-- End div .tab-pane -->
+                    <!-- End Tab Edit profile -->
+
+
+                    <!-- Tab user activities -->
+                    <div class="tab-pane animated fadeInRight" id="user-activities">
+                        <div class="scroll-user-widget">
+                            <ul class="media-list">
+                            {% for event in userEvents %}
+                                <li class="media">
+                                    <a href="#fakelink">
+                                        <p><strong>{{ event.message }}</strong>
+                                            <br /><i>{{ event.date|date('Y-m-d H:i:s') }}</i></p>
+                                    </a>
+                                </li>
+                            {% endfor %}
+                            </ul>
+                        </div><!-- End div .scroll-user-widget -->
+                    </div><!-- End div .tab-pane -->
+                    <!-- End Tab user activities -->
+
+                    <!-- Tab user messages -->
+                    <div class="tab-pane animated fadeInRight" id="mymessage">
+                        <div class="scroll-user-widget">
+                            <ul class="media-list">
+                                <li class="media">
+                                    <a class="pull-left" href="#fakelink">
+                                        <img class="media-object" src="{{ asset('bundles/backoffice/img/avatar/2.jpg') }}" alt="Avatar">
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading"><a href="#fakelink">John Doe</a> <small>Just now</small></h4>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+                                    </div>
+                                </li>
+                                <li class="media">
+                                    <a class="pull-left" href="#fakelink">
+                                        <img class="media-object" src="{{ asset('bundles/backoffice/img/avatar/1.jpg') }}" alt="Avatar">
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading"><a href="#fakelink">Annisa</a> <small>Yesterday at 04:00 AM</small></h4>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam rhoncus</p>
+                                    </div>
+                                </li>
+                                <li class="media">
+                                    <a class="pull-left" href="#fakelink">
+                                        <img class="media-object" src="{{ asset('bundles/backoffice/img/avatar/5.jpg') }}" alt="Avatar">
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading"><a href="#fakelink">Rusmanovski</a> <small>January 17, 2014 05:35 PM</small></h4>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+                                    </div>
+                                </li>
+                                <li class="media">
+                                    <a class="pull-left" href="#fakelink">
+                                        <img class="media-object" src="{{ asset('bundles/backoffice/img/avatar/4.jpg') }}" alt="Avatar">
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading"><a href="#fakelink">Ari Rusmanto</a> <small>January 17, 2014 05:35 PM</small></h4>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+                                    </div>
+                                </li>
+                                <li class="media">
+                                    <a class="pull-left" href="#fakelink">
+                                        <img class="media-object" src="{{ asset('bundles/backoffice/img/avatar/3.jpg') }}" alt="Avatar">
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading"><a href="#fakelink">Jenny Doe</a> <small>January 17, 2014 05:35 PM</small></h4>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+                                    </div>
+                                </li>
+                                <li class="media">
+                                    <a class="pull-left" href="#fakelink">
+                                        <img class="media-object" src="{{ asset('bundles/backoffice/img/avatar/2.jpg') }}" alt="Avatar">
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading"><a href="#fakelink">John Doe</a> <small>Just now</small></h4>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+                                    </div>
+                                </li>
+                                <li class="media">
+                                    <a class="pull-left" href="#fakelink">
+                                        <img class="media-object" src="{{ asset('bundles/backoffice/img/avatar/1.jpg') }}" alt="Avatar">
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading"><a href="#fakelink">Annisa</a> <small>Yesterday at 04:00 AM</small></h4>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam rhoncus</p>
+                                    </div>
+                                </li>
+                                <li class="media">
+                                    <a class="pull-left" href="#fakelink">
+                                        <img class="media-object" src="{{ asset('bundles/backoffice/img/avatar/5.jpg') }}" alt="Avatar">
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading"><a href="#fakelink">Rusmanovski</a> <small>January 17, 2014 05:35 PM</small></h4>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+                                    </div>
+                                </li>
+                                <li class="media">
+                                    <a class="pull-left" href="#fakelink">
+                                        <img class="media-object" src="{{ asset('bundles/backoffice/img/avatar/4.jpg') }}" alt="Avatar">
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading"><a href="#fakelink">Ari Rusmanto</a> <small>January 17, 2014 05:35 PM</small></h4>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+                                    </div>
+                                </li>
+                                <li class="media">
+                                    <a class="pull-left" href="#fakelink">
+                                        <img class="media-object" src="{{ asset('bundles/backoffice/img/avatar/3.jpg') }}" alt="Avatar">
+                                    </a>
+                                    <div class="media-body">
+                                        <h4 class="media-heading"><a href="#fakelink">Jenny Doe</a> <small>January 17, 2014 05:35 PM</small></h4>
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div><!-- End div .scroll-user-widget -->
+                    </div><!-- End div .tab-pane -->
+                    <!-- End Tab user messages -->
+                </div><!-- End div .tab-content -->
+            </div><!-- End div .box-info -->
+        </div><!-- End div .col-sm-8 -->
+    </div><!-- End div .row -->
+
+{% endblock %}

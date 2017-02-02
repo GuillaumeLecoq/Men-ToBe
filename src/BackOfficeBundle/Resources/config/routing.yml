@@ -1,0 +1,135 @@
+back_office_homepage:
+    path:     /mon-espace
+    defaults: { _controller: BackOfficeBundle:BackOffice:index }
+
+back_office_tuto_article:
+    path:     /mon-espace/tutorial/article
+    defaults: { _controller: BackOfficeBundle:BackOffice:tutoArticle }
+
+back_office_create_article:
+    path:     /mon-espace/create/article
+    defaults: { _controller: BackOfficeBundle:BackOffice:createArticle }
+
+back_office_create_article_step_1:
+    path:     /mon-espace/create/article/{step}/{category}/{tag}
+    defaults: { _controller: BackOfficeBundle:BackOffice:createArticle }
+    requirements:
+        step: "\d+"
+        category: "\d+"
+        tag: "\d+"
+
+back_office_create_article_step_2:
+    path:     /mon-espace/create/article/{step}/{category}/{tag}
+    defaults: { _controller: BackOfficeBundle:BackOffice:createArticle }
+    requirements:
+        step: "\d+"
+        category: "\d+"
+        tag: "\d+"
+
+back_office_update_article:
+    path:     /mon-espace/update/article/{id}
+    defaults: { _controller: BackOfficeBundle:BackOffice:updateArticle }
+    requirements:
+        id: "\d+"
+
+back_office_list_article:
+    path:     /mon-espace/list/article
+    defaults: { _controller: BackOfficeBundle:BackOffice:listArticle }
+
+back_office_delete_article:
+    path:     /mon-espace/delete/article/{id}
+    defaults: { _controller: BackOfficeBundle:BackOffice:deleteArticle }
+    requirements:
+        id: "\d+"
+
+back_office_list_article_pagination:
+    path:     /mon-espace/list_article/{page}
+    defaults: { _controller: BackOfficeBundle:BackOffice:listArticle }
+    requirements:
+        page: "\d+"
+
+back_office_become_author:
+    path:     /mon-espace/become_author
+    defaults: { _controller: BackOfficeBundle:BackOffice:becomeauthor }
+
+
+back_office_profil_about:
+    path:     /mon-espace/profil/about
+    defaults: { _controller: BackOfficeBundle:BackOffice:profilAbout }
+
+
+back_office_profil_informations:
+    path:     /mon-espace/profil/informations
+    defaults: { _controller: BackOfficeBundle:BackOffice:profilInformations }
+
+back_office_profil_paypal:
+    path:     /mon-espace/profil/paypal
+    defaults: { _controller: BackOfficeBundle:BackOffice:profilPaypal }
+
+back_office_profil_preference:
+    path:     /mon-espace/profil/preference
+    defaults: { _controller: BackOfficeBundle:BackOffice:profilPreference }
+
+ajax_category_tag:
+    path:     /mon-espace/ajax/category/tag/{id}
+    defaults: { _controller: BackOfficeBundle:BackOffice:ajaxcategorytag }
+    requirements:
+        page: "\d+"
+
+revision_previous_article:
+    path:     /mon-espace/revision/previous/{id}/version/{version}
+    defaults: { _controller: BackOfficeBundle:BackOffice:revisionPrevious }
+    requirements:
+        version: "\d+"
+        id: "\d+"
+
+revision_delete_article:
+    path:     /mon-espace/revision/delete/{id}/version/{version}
+    defaults: { _controller: BackOfficeBundle:BackOffice:revisionDelete }
+    requirements:
+        version: "\d+"
+        id: "\d+"
+
+user_chat:
+    path:     /mon-espace/chat/
+    defaults: { _controller: BackOfficeBundle:BackOffice:chat }
+
+user_list_inbox:
+    path:     /mon-espace/inbox/list/
+    defaults: { _controller: BackOfficeBundle:BackOffice:listInbox }
+
+user_list_inbox_read_unread:
+    path:     /mon-espace/inbox/list/mode/{mode}
+    defaults: { _controller: BackOfficeBundle:BackOffice:listInbox }
+
+user_list_inbox_read_unread_pagination:
+    path:     /mon-espace/inbox/list/{page}/mode/{mode}
+    defaults: { _controller: BackOfficeBundle:BackOffice:listInbox }
+
+user_list_inbox_pagination:
+    path:     /mon-espace/inbox/list/{page}
+    defaults: { _controller: BackOfficeBundle:BackOffice:listInbox }
+    requirements:
+        id: "\d+"
+
+user_read_message:
+    path:     /mon-espace/inbox/read/{idMessage}
+    defaults: { _controller: BackOfficeBundle:BackOffice:readMessage }
+    requirements:
+        id: "\d+"
+
+user_delete_message:
+    path:     /mon-espace/inbox/delete/{idMessage}
+    defaults: { _controller: BackOfficeBundle:BackOffice:deleteMessage }
+    requirements:
+        id: "\d+"
+
+user_reply_message:
+    path:     /mon-espace/inbox/reply/{idMessage}
+    defaults: { _controller: BackOfficeBundle:BackOffice:replyMessage }
+    requirements:
+        id: "\d+"
+
+user_new_message:
+    path:     /mon-espace/inbox/new
+    defaults: { _controller: BackOfficeBundle:BackOffice:newMessage }

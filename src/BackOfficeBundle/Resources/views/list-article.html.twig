@@ -1,0 +1,87 @@
+{% extends 'BackOfficeBundle::home_page.html.twig' %}
+
+{% block body %}
+	<!-- Begin Sortable -->
+	<div class="box-info full">
+		<h2><strong>Liste de mes articles</strong></h2>
+
+		{#success#}
+		{% for flash_message in app.session.flashbag.get('notice') %}
+			<div class="alert alert-success" style="margin: 10px">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				<strong><i class="fa fa-check-circle"></i> Succès !</strong> {{ flash_message }}
+			</div>
+		{% endfor %}
+
+		{#warning#}
+		{% for flash_message in app.session.flashbag.get('warning') %}
+			<div class="alert alert-danger" style="margin: 10px">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				<strong><i class="fa fa-bell"></i> Attention !</strong> {{ flash_message }}
+			</div>
+		{% endfor %}
+
+		{#info#}
+		{% for flash_message in app.session.flashbag.get('info') %}
+			<div class="alert alert-info" style="margin: 10px">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				<strong><i class="fa fa-eye"></i> Information !</strong> {{ flash_message }}
+			</div>
+		{% endfor %}
+
+
+
+		<div class="table-responsive">
+			<table data-sortable class="table">
+				<thead>
+					<tr>
+						<th style="width: 80px">Num.</th>
+						<th style="width: 30px" data-sortable="false"><input type="checkbox" class="rows-check"></th>
+						<th>Nom de l'article</th>
+						<th>Date</th>
+						<th>Catégorie</th>
+						<th>Statut</th>
+						<th data-sortable="false">Option</th>
+					</tr>
+				</thead>
+				
+				<tbody>
+				{% for article in list_articles %}
+					<tr>
+						<td>{{ article.id }}</td><td><input type="checkbox" class="rows-check"></td><td><strong>{{ article.name }}</strong></td>
+						<td>{{ article.date|date("m/d/Y") }}</td><td>{{ article.category.name }}</td>
+						<td>
+							{% if article.step == 0%}
+								<span class="label label-default">Brouillon</span>
+							{% elseif article.step == 1 %}
+								<span class="label label-primary">En cours de validation</span>
+							{% elseif article.step == 2 %}
+								<span class="label label-danger">Article plagié</span>
+							{% elseif article.step == 3 %}
+								<span class="label label-danger">Fautes d'orthographes</span>
+							{% elseif article.step == 4 %}
+								<span class="label label-success">Article publié</span>
+							{% elseif article.step == 5 %}
+								<span class="label label-warning">Article en attente de suppression</span>
+							{% elseif article.step == 6 %}
+								<span class="label label-info">Présence de mot inapproprié</span>
+							{% endif %}
+						</td>
+						<td>
+							<div class="btn-group btn-group-xs">
+								{% if article.step != 4 %}
+									<a href="{{ path('back_office_delete_article', {'id': article.id}) }}" data-toggle="tooltip" title="Suppression" class="btn btn-default"><i class="fa fa-times"></i></a>
+									<a href="{{ path('back_office_update_article', {'id': article.id}) }}" data-toggle="tooltip" title="Edition" class="btn btn-default"><i class="fa fa-edit"></i></a>
+								{% endif %}
+							</div>
+						</td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div><!-- End div .table-responsive -->
+		<!-- Pagination -->
+		{{ pagination|raw }}
+	</div><!-- End div .box-info .full -->
+	<!-- End sortable -->
+	
+{% endblock %}

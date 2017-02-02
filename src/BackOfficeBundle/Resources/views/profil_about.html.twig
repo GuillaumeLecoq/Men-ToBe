@@ -1,0 +1,144 @@
+{% extends 'BackOfficeBundle::home_page.html.twig' %}
+
+{% block body %}
+    <!-- Page header -->
+    <div class="page-heading animated fadeInDownBig">
+        <h1>Mon Profil</h1>
+    </div>
+    <!-- End page header -->
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="box-info">
+                <!-- User profile avatar, name and location -->
+                <div class="user-profile-sidebar">
+                    <h2>Profil <strong>{{ user.username }}</strong></h2>
+                    <div class="row">
+                        <div class="col-md-4">
+                            {% if  user.imageName is empty %}
+                                <img class="img-circle" src="{{ asset('images/users/default.png') }}" alt="{{ user.firstname }}" />
+                            {% else %}
+                                <img class="img-circle" src="{{ app.request.basePath }}{{ vich_uploader_asset(user, 'imageFile') }}" alt="{{ user.firstname }}" />
+                            {% endif %}
+                        </div>
+                        <div class="col-md-8">
+                            <!-- User identity -->
+                            <div class="user-identity">
+                                <h4><strong>{{ user.lastname }}</strong> {{ user.firstname }}</h4>
+                                {% if user.city %}
+                                    <p><i class="fa fa-map-marker"></i> {{ user.city }}</p>
+                                {% endif %}
+                            </div><!-- End div .user-identity -->
+                        </div>
+                    </div>
+                </div><!-- End div .user-profile-sidebar -->
+
+                {% if is_granted('ROLE_AUTHOR') %}
+
+                    <!-- Account status -->
+                    <div class="account-status-data">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h5><strong>12</strong> Articles publiés</h5>
+                            </div>
+                        </div>
+                    </div><!-- End div .account-status-data -->
+
+                {% endif %}
+
+            </div><!-- End div .box-info -->
+        </div><!-- End div .col-sm-4 -->
+
+        <div class="col-sm-8">
+            <div class="box-info full">
+
+                {% block profil %}
+
+                    <!-- Nav tab -->
+                    <ul class="nav nav-tabs nav-justified">
+                        <li class="active"><a href="{{ path('back_office_profil_about') }}"><i class="fa fa-user"></i> A propos</a></li>
+                        <li><a href="{{ path('back_office_profil_informations') }}"><i class="fa fa-pencil"></i> Informations</a></li>
+                        <li><a href="{{ path('back_office_profil_preference') }}"><i class="fa fa-cog"></i> Préférences</a></li>
+                        {% if is_granted('ROLE_AUTHOR') %}
+                            <li><a href="{{ path('back_office_profil_paypal') }}"><i class="fa fa-money"></i> Paypal</a></li>
+                        {% endif %}
+                    </ul>
+                    <!-- End nav tab -->
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <!-- Tab about -->
+                        <div class="tab-pane active animated fadeInRight" id="about">
+                            <div class="user-profile-content">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h5 style="text-transform: uppercase"><i class="fa fa-info-circle fa-3" aria-hidden="true"></i> Informations</h5>
+                                        <hr />
+                                        <address>
+                                            <strong>Pseudo</strong><br>
+                                            <p title="Pseudo">{{ user.username }}</p>
+                                        </address>
+                                        <address>
+                                            <strong>Nom</strong><br>
+                                            <p title="Nom">{{ user.lastname }}</p>
+                                        </address>
+                                        <address>
+                                            <strong>Prénom</strong><br>
+                                            <p title="Prénom">{{ user.firstname }}</p>
+                                        </address>
+                                        <address>
+                                            <strong>Ville</strong><br>
+                                            <p title="Ville">{{ user.city }}</p>
+                                        </address>
+                                        <address>
+                                            <strong>Email</strong><br>
+                                            <p title="Email">{{ user.email }}</p>
+                                        </address>
+                                    </div>
+                                    {% if is_granted('ROLE_AUTHOR') %}
+                                        <div class="col-md-6">
+                                            <h5 style="text-transform: uppercase"><i class="fa fa-money fa-3" aria-hidden="true"></i> Paypal</h5>
+                                            <hr />
+                                            <address>
+                                                <strong>Email Paypal</strong><br>
+                                                <p title="Email Paypal">{{ user.emailPaypal }}</p>
+                                            </address>
+                                            <address>
+                                                <strong>Fréquence</strong><br>
+                                                <p title="Fréquence">{{ user.frequency}}</p>
+                                            </address>
+                                            <address>
+                                                <strong>Seuil</strong><br>
+                                                <p title="Seuil">{{ user.threshold}} €</p>
+                                            </address>
+                                            <address>
+                                                <strong>Solde</strong><br>
+                                                <p title="Solde">{{ user.balance}} €</p>
+                                            </address>
+                                            <address>
+                                                <strong>Total</strong><br>
+                                                <p title="Total">{{ user.totalAmount}} €</p>
+                                            </address>
+                                        </div>
+                                    {% endif %}
+                                    <div class="clearfix"></div>
+                                    <div class="col-md-12">
+                                        <h5 style="text-transform: uppercase"><i class="fa fa-cog fa-3" aria-hidden="true"></i> Préférences</h5>
+                                        <hr />
+                                        {%  for category in user.categories %}
+                                            <p>- {{ category.name }}</p>
+                                        {% endfor %}
+                                    </div>
+                                </div><!-- End div .row -->
+                            </div><!-- End div .user-profile-content -->
+                        </div><!-- End div .tab-pane -->
+                            <!-- End Tab about -->
+                    </div><!-- End div .tab-content -->
+                </div><!-- End div .box-info -->
+
+            {% endblock %}
+
+        </div><!-- End div .col-sm-8 -->
+    </div><!-- End div .row -->
+
+{% endblock %}

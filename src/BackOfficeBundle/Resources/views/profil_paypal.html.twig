@@ -1,0 +1,56 @@
+{% extends 'BackOfficeBundle::profil_about.html.twig' %}
+
+{% block profil %}
+    <!-- Nav tab -->
+    <ul class="nav nav-tabs nav-justified">
+        <li><a href="{{ path('back_office_profil_about') }}"><i class="fa fa-user"></i> A propos</a></li>
+        <li><a href="{{ path('back_office_profil_informations') }}"><i class="fa fa-pencil"></i> Informations</a></li>
+        <li><a href="{{ path('back_office_profil_preference') }}"><i class="fa fa-beer"></i> Préférences</a></li>
+        <li class="active"><a href="{{ path('back_office_profil_paypal') }}"><i class="fa fa-money"></i> Paypal</a></li>
+    </ul>
+    <!-- End nav tab -->
+
+    <div class="tab-content">
+        <!-- Tab edit profile -->
+        <div class="tab-pane active animated fadeInRight" id="edit-profile">
+            <div class="user-profile-content">
+
+                <div class="col-md-6">
+                    <p style="font-size: 30px;text-align: center">TOTAL : {{ user.totalAmount|number_format }} ‎€</p>
+                </div>
+
+                <div class="col-md-6">
+                    <p style="font-size: 30px;text-align: center">SOLDE : {{ user.balance|number_format }} ‎€</p>
+                </div>
+
+                <div class="clearfix"></div>
+
+                {{ form_start(form) }}
+                {{ form_errors(form) }}
+
+                    <div class="form-group">
+                        <label for="email_paypal">Email Paypal</label>
+                        {{ form_widget(form.emailPaypal, {"attr": {"class": "form-control"} }) }}
+                        {{ form_errors(form.emailPaypal) }}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="frequency">Fréquence</label>
+                        {{ form_widget(form.frequency, {"attr": {"class": "form-control"} }) }}
+                        {{ form_errors(form.frequency) }}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="seuil">Seuil</label>
+                        {{ form_widget(form.threshold, {"attr": {"class": "form-control", "min": "20", "max": "1000"} }) }}
+                        {#<p class="help-block">Indiquer une somme en euros</p>#}
+                        {{ form_errors(form.threshold) }}
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Enregistrer</button>
+
+                {{ form_end(form) }}
+            </div><!-- End div .user-profile-content -->
+        </div><!-- End div .tab-pane -->
+    </div>
+{% endblock %}

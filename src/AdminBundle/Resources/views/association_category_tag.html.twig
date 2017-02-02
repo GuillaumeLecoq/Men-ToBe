@@ -1,0 +1,53 @@
+{% extends 'AdminBundle::home_page.html.twig' %}
+
+{% block body %}
+
+    <!-- Page header -->
+    <div class="page-heading animated fadeInDownBig">
+        <h1>Choix du Tag</h1>
+    </div>
+    <!-- End page header -->
+
+
+    <div class="box-info">
+
+        <div class="form-group">
+            <label>Choisir Flux Rss</label>
+            <select class="form-control selectpicker flux-rss">
+                {% for flux in fluxRss %}
+                    <option value="{{ flux.id }}" {% if flux.id == defaultRssId %} selected {% endif %} >{{ flux.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+
+        <div class="row bloc-rss-entity">
+
+            {% for entity in rssEntity %}
+
+                <a href="{{ path('maj_category_tag', {'id': entity.id}) }}" style="color: #000000;">
+                    <div class="col-sm-12">
+                        <div class="row the-notes info">
+                            <div class="col-sm-8">
+                                <h4>{{ entity.name }}</h4>
+                                <p>
+                                    {{ entity.date.date|date("d/m/y h:i:s") }}
+                                </p>
+                            </div>
+                            <div class="col-sm-4">
+                                {% if entity.imageUrl == "default.jpg" %}
+                                    <img src="{{ asset('bundles/frontoffice/img/logo.png') }}" style="height: auto; width: 100%">
+                                {% else %}
+                                    <img src="{{ entity.imageUrl }}" style="height: auto; width: 100%">
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+{% endblock %}

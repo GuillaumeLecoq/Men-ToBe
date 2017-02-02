@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Erreur {{ status_code }}</title>
+        	{% stylesheets filter='cssrewrite, yui_css'
+				'@AppBundle/Resources/public/css/style.css'
+				%}
+				<link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+			{% endstylesheets %}
+    </head>
+    <header>
+      <h1>Page non touvé</h1>
+    </header>
+    <body style="background-image: url({{ asset('bundles/app/img/Paper.jpg') }});">
+
+	<div>
+		<img src="{{ asset('bundles/app/img/404.png') }}"></img>
+		<p1><em>hum</em>... La page que vous rechercher n'existe pas ou plus.</p1>
+		<a href="http://www.mentobe.fr">Accueil</a>
+		<p2>© 2016 All Rights Reserved | Design by Men-tobe<p2>
+	</div>
+  </body>
+</html>

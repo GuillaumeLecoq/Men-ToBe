@@ -1,0 +1,327 @@
+{% extends 'FrontOfficeBundle::index.html.twig' %}
+
+{% block contain %}
+<div class="shell">
+  <div class="reveal-sm-flex range-xs-middle offset-top-12">
+    <h3 class="heading-italic text-light">Contacts</h3>
+    <div class="divider-vertical divider-xs veil reveal-sm-inline-block offset-top-5"></div>
+    <ol class="breadcrumb">
+      <li><a href="{{path('front_office_homepage')}}">Accueil</a></li>
+      <li class="active">Contacts
+      </li>
+    </ol>
+  </div>
+</div>
+<section class="section-top-26">
+  <div class="shell">
+    <div class="range text-md-left">
+      <div class="cell-lg-8">
+        <div class="heading-divider">
+          <h2 class="heading-italic text-light">Contacts</h2>
+        </div>
+        {% for flash_message in app.session.flashbag.get('notice') %}
+          <div class="alert alert-success" style="margin: 10px">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong><i class="fa fa-check-circle"></i> Succès !</strong> {{ flash_message }}
+          </div>
+        {% endfor %}
+        
+        {% if not form.vars.valid %}
+          <div class="alert alert-danger">
+              {{ form_errors(form.email) }}
+          </div> 
+        {% endif %}
+
+        <div class="heading-divider offset-top-20">
+          <h2 class="heading-italic text-light">Nous contacter</h2>
+        </div>
+        {{ form_start(form, {'attr': {'class': 'mtb-mailform mtb-mailform-gray-light-skin offset-top-30'}}) }}
+          {{ form_widget(form.name, {'attr': {'placeholder': 'Nom'}}) }}
+          {{ form_widget(form.email, {'attr': {'placeholder': 'Adresse mail'}}) }}
+          {{ form_widget(form.subject, {'attr': {'placeholder': 'Sujet'}}) }}
+          {{ form_widget(form.message, {'attr': {'placeholder': 'Message'}}) }}
+
+          <div class="offset-top-30 text-md-left">
+            {{ form_widget(form.send, {'attr': {'class': 'btn btn-primary'}}) }}
+          </div>
+          
+        {{ form_end(form) }}
+      </div>
+      <div class="cell-lg-4 offset-top-45 offset-lg-top-0">
+        <!-- Sidebar-->
+        <div class="range">
+          <div class="cell-sm-8 cell-sm-preffix-2 cell-lg-12 cell-lg-preffix-0 cell-xs-push-7 cell-lg-push-2 text-center text-lg-left">
+            <div class="bg-gray-light section-top-15 section-bottom-30 inset-p-left-6 inset-p-right-6 offset-top-45 offset-xl-top-60">
+              <h3 class="heading-italic text-light">Suivez nous</h3>
+              <p>Venez découvrir nos derniers articles sur l'un des réseaux sociaux !</p>
+              <!-- Social list-->
+                <!-- list social-->
+                <ul class="list-inline-0">
+                  <li><a href="#" class="icon icon-circle fa-facebook icon-gray-base"></a></li>
+                  <li><a href="#" class="icon icon-circle fa-twitter icon-gray-base"></a></li>
+                  <li><a href="#" class="icon icon-circle fa-google-plus icon-gray-base"></a></li>
+                  <li><a href="#" class="icon icon-circle fa-youtube icon-gray-base"></a></li>
+                  <li><a href="#" class="icon icon-circle fa-feed icon-gray-base"></a></li>
+                </ul>
+              <hr class="divider divider-dashed">
+              <h3 class="heading-italic text-light">S'abonner au newsletter</h3>
+              <p>Soyez le premier à lire nos articles</p>
+              <!-- RD Mailform-->
+              <div style="text-align: center">
+                <a href="http://eepurl.com/bYdvDL"><button style="width:355px;" class="btn btn-warning">Newsletter</button></a>
+              </div>
+            </div>
+          </div>
+          <div class="cell-xs-12 cell-xs-push-3 cell-lg-push-3 offset-top-45">
+            <div class="heading-divider offset-top45">
+              <h3 class="heading-italic text-light">Articles populaires</h3>
+            </div>
+            <div class="range offset-top-30 offset-md-top-60">
+              <div class="cell-sm-6 cell-lg-12">
+                <div class="post post-variant-2">
+                  <div class="unit unit-xl-horizontal">
+                    <div class="unit-left">
+                      <div class="post-inner">
+                        <div class="reveal-inline-block"><img src="{{ asset('Pictures/sidebar-01.jpg') }}" width="150" height="115" alt="" class="post-image"></div>
+                        <div class="post-caption">
+                          <ul>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="unit-body">
+                      <div class="h5 text-italic text-bold"><a href="post-default.html" class="post-link">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</a></div>
+                      <div class="post-meta"><a href="categories-list.html" class="post-meta-time">
+                          <time datetime="2016-06-06">Jan. 20, 2016</time></a></div>
+                    </div>
+                  </div>
+                </div>
+                <hr class="divider divider-dashed">
+                <div class="post post-variant-2">
+                  <div class="unit unit-xl-horizontal">
+                    <div class="unit-left">
+                      <div class="post-inner">
+                        <div class="icon-video reveal-inline-block"><img src="{{ asset('Pictures/sidebar-02.jpg') }}" width="150" height="115" alt="" class="post-image"></div>
+                        <div class="post-caption">
+                          <ul>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="unit-body">
+                      <div class="h5 text-bold"><a href="post-with-video.html" class="post-link">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</a></div>
+                      <div class="post-meta"><a href="categories-list.html" class="post-meta-time">
+                          <time datetime="2016-06-06">Jan. 20, 2016</time></a></div>
+                    </div>
+                  </div>
+                </div>
+                <hr class="divider divider-dashed">
+                <div class="post post-variant-2">
+                  <div class="unit unit-xl-horizontal">
+                    <div class="unit-left">
+                      <div class="post-inner">
+                        <div class="reveal-inline-block"><img src="{{ asset('Pictures/sidebar-03.jpg') }}" width="150" height="115" alt="" class="post-image"></div>
+                        <div class="post-caption">
+                          <ul>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="unit-body">
+                      <div class="h5 text-bold"><a href="post-with-quote-2.html" class="post-link">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</a></div>
+                      <div class="post-meta"><a href="categories-list.html" class="post-meta-time">
+                          <time datetime="2016-06-06">Jan. 20, 2016</time></a></div>
+                    </div>
+                  </div>
+                </div>
+                <hr class="divider divider-dashed veil reveal-lg-block">
+              </div>
+              <div class="cell-sm-6 cell-lg-12 offset-lg-top-30">
+                <div class="divider divider-dashed veil-sm"></div>
+                <div class="post post-variant-2">
+                  <div class="unit unit-xl-horizontal">
+                    <div class="unit-left">
+                      <div class="post-inner">
+                        <div class="reveal-inline-block"><img src="{{ asset('Pictures/sidebar-04.jpg') }}" width="150" height="115" alt="" class="post-image"></div>
+                        <div class="post-caption">
+                          <ul>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="unit-body">
+                      <div class="h5 text-bold"><a href="post-with-quote.html" class="post-link">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</a></div>
+                      <div class="post-meta"><a href="categories-list.html" class="post-meta-time">
+                          <time datetime="2016-06-06">Jan. 20, 2016</time></a></div>
+                    </div>
+                  </div>
+                </div>
+                <hr class="divider divider-dashed">
+                <div class="post post-variant-2">
+                  <div class="unit unit-xl-horizontal">
+                    <div class="unit-left">
+                      <div class="post-inner">
+                        <div class="reveal-inline-block"><img src="{{ asset('Pictures/sidebar-05.jpg') }}" width="150" height="115" alt="" class="post-image"></div>
+                        <div class="post-caption">
+                          <ul>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="unit-body">
+                      <div class="h5 text-bold"><a href="post-with-audio.html" class="post-link">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</a></div>
+                      <div class="post-meta"><a href="categories-list.html" class="post-meta-time">
+                          <time datetime="2016-06-06">Jan. 20, 2016</time></a></div>
+                    </div>
+                  </div>
+                </div>
+                <hr class="divider divider-dashed">
+                <div class="post post-variant-2">
+                  <div class="unit unit-xl-horizontal">
+                    <div class="unit-left">
+                      <div class="post-inner">
+                        <div class="reveal-inline-block"><img src="{{ asset('Pictures/sidebar-06.jpg') }}" width="150" height="115" alt="" class="post-image"></div>
+                        <div class="post-caption">
+                          <ul>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="unit-body">
+                      <div class="h5 text-bold"><a href="post-with-slider.html" class="post-link">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</a></div>
+                      <div class="post-meta"><a href="categories-list.html" class="post-meta-time">
+                          <time datetime="2016-06-06">Jan. 20, 2016</time></a></div>
+                    </div>
+                  </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+          <div class="cell-xs-12 cell-xs-push-2 cell-lg-push-4 offset-top-45">
+            <div class="heading-divider">
+              <h3 class="heading-italic text-light">Plus commentés</h3>
+            </div>
+            <div class="range offset-top-45">
+              <div class="cell-sm-6 cell-lg-12">
+                <div class="post post-variant-1">
+                  <div class="post-inner"><img src="{{ asset('Pictures/sidebar-07.jpg') }}" width="536" height="411" alt="" class="img-responsive post-image">
+                    <div class="post-caption">
+                      <ul>
+                        <li><a href="politics.html"><span class="label label-warning">News</span></a></li>
+                      </ul>
+                      <div>
+                        <div class="h4 text-normal font-accent-2"><a href="post-with-slider.html">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</a></div>
+                          <div class="post-meta post-meta-hidden-outer">
+                            <div class="post-meta-hidden">
+                              <div class="icon text-gray icon-lg material-icons-share">
+                                <ul>
+                                  <li><a href="#" class="icon fa fa-facebook"></a></li>
+                                  <li><a href="#" class="icon fa fa-twitter"></a></li>
+                                  <li><a href="#" class="icon fa fa-google-plus"></a></li>
+                                  <li><a href="#" class="icon fa fa-linkedin"></a></li>
+                                  <li><a href="#" class="icon fa fa-pinterest"></a></li>
+                                </ul>
+                              </div>
+                            </div>
+                            <div class="element-groups-custom veil reveal-md-block"><a href="categories-grid.html" class="post-meta-author">Piranavan Kidnapillai</a><a href="categories-grid.html" class="post-meta-time">
+                                <time datetime="2016-06-06">2h ago</time></a></div>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr class="divider divider-dashed">
+                <div class="post post-variant-1">
+                  <div class="post-inner"><img src="{{ asset('Pictures/sidebar-08.jpg') }}" width="536" height="411" alt="" class="img-responsive post-image">
+                    <div class="post-caption">
+                      <ul>
+                        <li><a href="politics.html"><span class="label label-warning">News</span></a></li>
+                      </ul>
+                      <div>
+                        <div class="h4 text-normal font-accent-2"><a href="post-with-audio.html">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</a></div>
+                        <div class="post-meta post-meta-hidden-outer">
+                          <div class="post-meta-hidden">
+                            <div class="icon text-gray icon-lg material-icons-share">
+                              <ul>
+                                <li><a href="#" class="icon fa fa-facebook"></a></li>
+                                <li><a href="#" class="icon fa fa-twitter"></a></li>
+                                <li><a href="#" class="icon fa fa-google-plus"></a></li>
+                                <li><a href="#" class="icon fa fa-linkedin"></a></li>
+                                <li><a href="#" class="icon fa fa-pinterest"></a></li>
+                              </ul>
+                            </div>
+                          </div>
+                          <div class="element-groups-custom veil reveal-md-block"><a href="categories-grid.html" class="post-meta-author">Piranavan Kidnapillai</a><a href="categories-grid.html" class="post-meta-time">
+                              <time datetime="2016-06-06">2h ago</time></a></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr class="divider divider-dashed veil reveal-lg-block">
+              </div>
+              <div class="cell-sm-6 cell-lg-12 offset-lg-top-30">
+              <div class="post post-variant-1">
+                <div class="post-inner"><img src="{{ asset('Pictures/sidebar-09.jpg') }}" width="536" height="411" alt="" class="img-responsive post-image">
+                  <div class="post-caption">
+                    <ul>
+                      <li><a href="politics.html"><span class="label label-warning">News</span></a></li>
+                    </ul>
+                    <div>
+                      <div class="h4 text-normal font-accent-2"><a href="post-with-quote.html">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</a></div>
+                      <div class="post-meta post-meta-hidden-outer">
+                        <div class="post-meta-hidden">
+                          <div class="icon text-gray icon-lg material-icons-share">
+                            <ul>
+                              <li><a href="#" class="icon fa fa-facebook"></a></li>
+                              <li><a href="#" class="icon fa fa-twitter"></a></li>
+                              <li><a href="#" class="icon fa fa-google-plus"></a></li>
+                              <li><a href="#" class="icon fa fa-linkedin"></a></li>
+                              <li><a href="#" class="icon fa fa-pinterest"></a></li>
+                            </ul>
+                          </div>
+                        </div>
+                        <div class="element-groups-custom veil reveal-md-block"><a href="categories-grid.html" class="post-meta-author">Piranavan Kidnapillai</a><a href="categories-grid.html" class="post-meta-time">
+                            <time datetime="2016-06-06">2h ago</time></a></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+                <hr class="divider divider-dashed">
+                <div class="post post-variant-1">
+                  <div class="post-inner"><img src="{{ asset('Pictures/sidebar-10.jpg') }}" width="536" height="411" alt="" class="img-responsive post-image">
+                    <div class="post-caption">
+                      <ul>
+                        <li><a href="politics.html"><span class="label label-warning">News</span></a></li>
+                      </ul>
+                      <div>
+                        <div class="h4 text-normal font-accent-2"><a href="post-with-quote-2.html">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</a></div>
+                        <div class="post-meta post-meta-hidden-outer">
+                          <div class="post-meta-hidden">
+                            <div class="icon text-gray icon-lg material-icons-share">
+                              <ul>
+                                <li><a href="#" class="icon fa fa-facebook"></a></li>
+                                <li><a href="#" class="icon fa fa-twitter"></a></li>
+                                <li><a href="#" class="icon fa fa-google-plus"></a></li>
+                                <li><a href="#" class="icon fa fa-linkedin"></a></li>
+                                <li><a href="#" class="icon fa fa-pinterest"></a></li>
+                              </ul>
+                            </div>
+                          </div>
+                          <div class="element-groups-custom veil reveal-md-block"><a href="categories-grid.html" class="post-meta-author">Piranavan Kidnapillai</a><a href="categories-grid.html" class="post-meta-time">
+                              <time datetime="2016-06-06">2h ago</time></a></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

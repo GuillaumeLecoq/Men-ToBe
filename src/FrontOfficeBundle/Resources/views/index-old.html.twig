@@ -1,0 +1,540 @@
+<html lang="fr" class="no-js">
+	<head>
+
+		<!-- META -->
+		<meta charset="UTF-8">
+		<meta name="description" content="Men-ToBe site d'actualité pour la gente masculine">
+		<meta name="keywords" content="Homme,Actualité,Sport">
+		<meta name="author" content="Men-ToBe">
+
+		<title>Men-ToBe</title>
+
+		<!-- CSS -->
+		<!-- BOOTSTRAP -->
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+		<!-- OWL CAROUSEL -->
+
+		<!-- Our stylesheet compiled and minified css -->
+		{% stylesheets filter='cssrewrite, yui_css'
+			'@FrontOfficeBundle/Resources/public/owl_carousel/owl_carousel/owl.carousel.css'
+			'@FrontOfficeBundle/Resources/public/owl_carousel/owl_carousel/owl.theme.css'
+			'@FrontOfficeBundle/Resources/public/css/style.css'
+			'@FrontOfficeBundle/Resources/public/css/component.css'
+			%}
+			<link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+		{% endstylesheets %}
+
+		{# FAVICON #}
+		<link rel="apple-touch-icon" sizes="57x57" href="{{ asset('bundles/frontoffice/img/favicon/apple-touch-icon-57x57.png')}} ">
+		<link rel="apple-touch-icon" sizes="60x60" href="{{ asset('bundles/frontoffice/img/favicon/apple-touch-icon-60x60.png') }} ">
+		<link rel="apple-touch-icon" sizes="72x72" href="{{ asset('bundles/frontoffice/img/favicon/apple-touch-icon-72x72.png') }} ">
+		<link rel="apple-touch-icon" sizes="76x76" href="{{ asset('bundles/frontoffice/img/favicon/apple-touch-icon-76x76.png') }} ">
+		<link rel="apple-touch-icon" sizes="114x114" href="{{ asset('bundles/frontoffice/img/favicon/apple-touch-icon-114x114.png') }}">
+		<link rel="apple-touch-icon" sizes="120x120" href="{{ asset('bundles/frontoffice/img/favicon/apple-touch-icon-120x120.png') }}">
+		<link rel="apple-touch-icon" sizes="144x144" href="{{ asset('bundles/frontoffice/img/favicon/apple-touch-icon-144x144.png') }}">
+		<link rel="apple-touch-icon" sizes="152x152" href="{{ asset('bundles/frontoffice/img/favicon/apple-touch-icon-152x152.png') }}">
+		<link rel="apple-touch-icon" sizes="180x180" href="{{ asset('bundles/frontoffice/img/favicon/apple-touch-icon-180x180.png') }}">
+		<link rel="icon" type="image/png" href="{{ asset('bundles/frontoffice/img/favicon/favicon-32x32.png')}}" sizes="32x32">
+		<link rel="icon" type="image/png" href="{{ asset('bundles/frontoffice/img/favicon/android-chrome-192x192.png') }}" sizes="192x192">
+		<link rel="icon" type="image/png" href="{{ asset('bundles/frontoffice/img/favicon/favicon-96x96.png') }}" sizes="96x96">
+		<link rel="icon" type="image/png" href="{{ asset('bundles/frontoffice/img/favicon/favicon-16x16.png') }}" sizes="16x16">
+		<link rel="manifest" href="{{ asset('bundles/frontoffice/img/favicon/manifest.json')}}">
+		<link rel="mask-icon" href="{{ asset('bundles/frontoffice/img/favicon/safari-pinned-tab.svg')}}" color="#5bbad5">
+		<meta name="msapplication-TileColor" content="#da532c">
+		<meta name="msapplication-TileImage" content="{{ asset('bundles/frontoffice/img/favicon/mstile-144x144.png')}}">
+		<meta name="theme-color" content="#ffffff">
+
+		<!-- END CSS -->
+
+		<!-- VIEWPORT -->
+		<!--Let browser know website is optimized for mobile-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<!-- END VIEWPORT -->
+	</head>
+
+	<body>
+	  <!-- Google Tag Manager -->
+	  <noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-5PLFFP"
+			    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	    '//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	    })(window,document,'script','dataLayer','GTM-5PLFFP');</script>
+	  <!-- End Google Tag Manager -->
+		<!-- block menu -->
+
+
+	  <!-- SDK facebook -->
+	  <script>
+		  window.fbAsyncInit = function() {
+			  FB.init({
+				  appId      : '1783911665177505',
+				  xfbml      : true,
+				  version    : 'v2.6'
+			  });
+		  };
+
+		  (function(d, s, id){
+			  var js, fjs = d.getElementsByTagName(s)[0];
+			  if (d.getElementById(id)) {return;}
+			  js = d.createElement(s); js.id = id;
+			  js.src = "//connect.facebook.net/en_US/sdk.js";
+			  fjs.parentNode.insertBefore(js, fjs);
+		  }(document, 'script', 'facebook-jssdk'));
+	  </script>
+	  <!-- end SDK facebook -->
+
+		<header>
+		{#success#}
+		{% for flash_message in app.session.flashbag.get('notice') %}
+			<div class="alert alert-success" style="margin: 10px">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+				<strong><i class="fa fa-check-circle"></i> Succès !</strong> {{ flash_message }}
+			</div>
+		{% endfor %}
+			<div class="container first-bloc">
+				<div class="row" style="margin-bottom: 10px;">
+					<div class="header-title-bloc col-md-6">
+						<img class="logo-header" src="{{ asset('bundles/frontoffice/img/logo.png') }}" alt="Men-ToBe" />
+						<h1>Site communautaire d'actualité pour homme</h1>
+					</div>
+					<div class="col-md-6">
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="row">
+									<div class="col-xs-5">
+										<div class="header-text-network">
+											<p>Suivre Men-ToBe</p>
+										</div>
+										<div class="header-div-facebook">
+											<i class="fa fa-facebook"></i>
+										</div>
+										<div class="header-div-twitter">
+											<i style="" class="fa fa-twitter"></i>
+										</div>
+									</div>
+									<div class="header-connection col-xs-7">
+										{% if app.user %}
+											<a class="md-trigger" data-modal="logout-modal">
+												<i class="fa fa-user"></i>
+												Déconnexion
+											</a>
+											<span class="sep">|</span>
+											{% if is_granted('ROLE_ADMIN') %}
+												<a href="{{ path('admin_homepage') }}" title="Mon compte" rel="nofollow">Mon compte</a>
+											{% else %}
+												<a href="{{ path('back_office_homepage') }}" title="Mon compte" rel="nofollow">Mon compte</a>
+											{% endif %}
+										{% else %}
+											<a href="{{ path('fos_user_registration_register') }}" class="subscribe">
+												<i class="fa fa-user"></i>
+												S'inscrire
+											</a>
+											<span class="sep">|</span>
+											<a href="{{ path('for_user_security_login') }}" class="authentification" title="Se connecter" rel="nofollow">Se connecter</a>
+										{% endif %}
+									</div>
+								</div>
+							</div>
+
+							<div class="col-sm-12">
+								<div class="row">
+									<div class="bloc-search-newsletter col-sm-8">
+										<div id="custom-search-input">
+											<form action="{{ path('search_input') }}" method="post" id="search-form">
+												<div class="input-group col-sm-12">
+													<input name="input-search" type="text" class="form-control input-lg" placeholder="Chercher" />
+													<span class="input-group-btn">
+														<button class="btn btn-info btn-lg" form="search-form" type="submit" value="Submit">
+															<i class="glyphicon glyphicon-search"></i>
+														</button>
+													</span>
+												</div>
+											</form>
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="bloc-newsletter">
+											<p><a href="http://eepurl.com/bYdvDL">s'abonner au newsletter</a></p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			<!-- Fixed navbar -->
+			<nav class="navbar navbar-default">
+				<div class="container">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="{{ path('front_office_homepage') }}">Men-ToBe</a>
+					</div>
+					<div id="navbar" class="navbar-collapse collapse">
+						<ul class="nav navbar-nav">
+							{% set currentPath = path(app.request.attributes.get('_route'),
+							app.request.attributes.get('_route_params')) %}
+							{% set homePagePath = path('front_office_homepage') %}
+							<li {% if currentPath == homePagePath %} class="active" {% endif %}><a href="{{ path('front_office_homepage') }}">Accueil</a></li>
+							{% for key, listMenu in menu %}
+								{% set categoryPath = path('categorie_article', {'selectCategory': listMenu.name}) %}
+								<li {% if currentPath == categoryPath %} class="active" {% endif %}>
+									<a href="{{ path('categorie_article', {'selectCategory': listMenu.name}) }}">{{ listMenu.name }}</a>
+								</li> <!-- .has-children -->
+							{% endfor %}
+							{% if app.user %}
+								{% if app.user.categories is not empty %}
+									{% if is_granted('ROLE_ADMIN') == false %}
+										<li {% if currentPath == "mes_preferences" %} class="active" {% endif %}>
+											<a href="{{ path('categorie_article', {'selectCategory': 'mes_preferences'}) }}">Mes préférences</a>
+										</li>
+									{% endif %}
+								{% endif %}
+							{% endif %}
+						</ul>
+					</div><!--/.nav-collapse -->
+				</div>
+			</nav>
+
+		</header>
+
+	  	{% if lastArticles is defined %}
+			{% if lastArticles|length >= 2 %}
+				<div class="cp-featured-news-slider">
+					<div class="featured-slider owl-carousel owl-theme" style="opacity: 1; display: block;">
+					  {% for lastArticle in lastArticles %}
+						  <div class="item" style="width:100%;height: 300px;">
+							  <div class="cp-post-content">
+								  <h2>
+									  <a href="{{ path('article', {'selectCategory':lastArticle.category.name, 'slug': lastArticle.slug}) }}">
+										  {{ lastArticle.name|length > 25 ? lastArticle.name|slice(0, 25) ~ '...' : lastArticle.name  }}
+									  </a>
+								  </h2>
+								  <ul class="cp-post-tools">
+									  <li>
+										  <i class="glyphicon glyphicon-time"></i>
+										  {{ lastArticle.HumanTiming(lastArticle.date.date|date("U")) }}
+									  </li>
+									  <li>
+										  <i class="glyphicon glyphicon-user"></i>
+										  {{ lastArticle.author.lastname|capitalize }} {{ lastArticle.author.firstname|capitalize }}
+									  </li>
+									  <li>
+										  <i class="glyphicon glyphicon-folder-open"></i>
+										  {{ lastArticle.category.name }}
+									  </li>
+									  <li>
+										  <i class="glyphicon glyphicon-list-alt"></i>
+										  <span class="disqus-comment-count" data-disqus-identifier="{{lastArticle.id}}">First article</span>
+									  </li>
+								  </ul>
+							  </div>
+							  <div class="cp-post-thumb" style="text-align: center;">
+								  <img alt="" style="width: 100%;height:100%" src="{{ app.request.basePath }}{{ vich_uploader_asset(lastArticle, 'imageFile') }}">
+							  </div>
+						  </div>
+					  {% endfor %}
+					</div>
+				</div>
+			{% endif %}
+	  	{% endif %}
+
+		<div class="bloc">
+			<div class="container">
+				<div class="row">
+
+					<!-- block left -->
+					<div class="col-md-8">
+
+						{% block contain %}
+
+							<!-- Featured -->
+							<div class="featured">
+								<div class="bloc-title">
+									<h2 style="border-colo: #3f8654">A la une</h2>
+									<small>Liste des 4 dernières actualités</small>
+								</div>
+								<div class="row">
+									<ul class="grid">
+										{% for article in lastArticles %}
+											<li class="col-md-6 col-sm-6">
+												<div class="featured-bloc">
+													<!-- image -->
+													<div class="thumb" style="height: 200px;">
+														<img src="{{ app.request.basePath }}{{ vich_uploader_asset(article, 'imageFile') }}" style="height: auto;width: 100%">
+													</div>
+													<!-- texte -->
+													<div class="content">
+														<!-- bloc for theme name -->
+														<div class="bloc-theme-name">
+															<a href="{{ path('article', {'selectCategory':article.category.name, 'slug': article.slug}) }}">{{ article.category.name }}</a>
+														</div>
+														<h3 style="height: 50px"><a href="{{ path('article', {'selectCategory':article.category.name, 'slug': article.slug}) }}">{{ article.name|length < 60 ? article.name : article.name|slice(0, 60) ~ '...' }}</a></h3>
+														<!-- detail of post -->
+														<ul class="detail-post" style="height: 50px">
+															<li><i class="glyphicon glyphicon-time"></i>{{ article.HumanTiming(article.date.date|date("U")) }}</li>
+															<li><i class="glyphicon glyphicon-user"></i>{{ article.author.lastname|capitalize }} {{ article.author.firstname|capitalize }}</li>
+															<li>
+																<i class="glyphicon glyphicon-list-alt"></i>
+																<span class="disqus-comment-count" data-disqus-identifier="{{article.id}}">First article</span>
+															</li>
+														</ul>
+													</div>
+												</div>
+											</li>
+										{% endfor %}
+									</ul>
+								</div>
+							</div>
+
+
+							<!-- Most popular theme -->
+							<div class="popular-theme">
+								<div class="bloc-title">
+									<h2>Thème populaire</h2>
+									<small>{{ popularCategoryName  }} </small>
+								</div>
+								<div class="row">
+
+									<!-- List of article on popular theme -->
+									<ul class="list-popular-theme">
+										{% for article in popularCategoryArticles  %}
+											<li class="col-md-6 col-sm-6">
+												<div class="bloc-popular-theme">
+													<div class="popular-img" style="height: 100px;">
+														<a href="{{ path('article', {'selectCategory':article.category.name, 'slug': article.slug}) }}"><img src="{{ app.request.basePath }}{{ vich_uploader_asset(article, 'imageFile') }}" style="height: auto;width: 100%"></a>
+													</div>
+													<div class="popular-content">
+														<h3 style="height: 50px"><a href="{{ path('article', {'selectCategory':article.category.name, 'slug': article.slug}) }}">{{ article.name|length < 60 ? article.name : article.name|slice(0, 60) ~ '...' }}</a></h3>
+														<ul class="detail-post" style="height: 50px">
+															<li><i class="glyphicon glyphicon-time"></i>{{ article.HumanTiming(article.date.date|date("U")) }}</li>
+															<li><i class="glyphicon glyphicon-user"></i>{{ article.author.lastname|capitalize }} {{ article.author.firstname|capitalize }}</li>
+															<li>
+																<i class="glyphicon glyphicon-list-alt"></i>
+																<span class="disqus-comment-count" data-disqus-identifier="{{article.id}}">First article</span>
+															</li>
+														</ul>
+													</div>
+												</div>
+											</li>
+										{% endfor %}
+									</ul>
+
+								</div>
+							</div>
+
+							<!-- Btn Read more -->
+							{% if popularCategoryName %}
+								<div class="read-more-theme">
+									<a href="{{ path('categorie_article', {'selectCategory': popularCategoryName}) }}">
+										Lire plus
+									</a>
+								</div>
+							{% endif %}
+
+						{% endblock %}
+					</div>
+					<!-- END bloc left-->
+
+					<!-- block right -->
+					<div class="col-md-4">
+
+						{% if popularArticles|length > 0 %}
+							<!-- Popular article -->
+							<div class="popular-article">
+								<h3>Articles populaires</h3>
+								<ul class="grid">
+									{% for popularArticle in popularArticles %}
+										<li>
+											<div class="popular-bloc">
+												<div class="content">
+													<h3><a href="{{ path('article', {'selectCategory':popularArticle.category.name, 'slug': popularArticle.slug}) }}">{{ popularArticle.name|length < 60 ? popularArticle.name : popularArticle.name|slice(0, 60) ~ '...' }}</a></h3>
+													<!-- detail of post -->
+													<ul class="detail-post" style="margin-top: 35px;">
+														<li><i class="glyphicon glyphicon-time"></i>{{ popularArticle.HumanTiming(popularArticle.date.date|date("U")) }}</li>
+														<li><i class="glyphicon glyphicon-user"></i>{{ popularArticle.author.lastname|capitalize }} {{ popularArticle.author.firstname|capitalize }}</li>
+														<li>
+															<i class="glyphicon glyphicon-list-alt"></i>
+															<span class="disqus-comment-count" data-disqus-identifier="{{popularArticle.id}}">First article</span>
+														</li>
+													</ul>
+												</div>
+											</div>
+										</li>
+									{% endfor %}
+								</ul>
+							</div>
+						{% endif %}
+						<div id="ad-block-right"\>
+						  <script type="text/javascript" src="http://ads.allotraffic.com/skycraper?id=45373"></script>
+						</div>
+
+						{%  if mostCommentedArticles |length > 0 %}
+
+							<!-- Most commented -->
+							<div class="most-commented">
+							  <h3>Les plus commentés</h3>
+							  <ul>
+							    {% for elem in mostCommentedArticles %}
+							    <li>
+							      <a href={{ path('article', {'selectCategory': elem.categoryName, 'slug': elem.slug}) }}>{{elem.name}}</a>
+							      <i>{{elem.posts}}</i>
+							    </li>
+							    {%endfor%}
+							  </ul>
+							</div>
+							
+						{% endif %}
+
+						{%  if popularAuthors |length > 0 %}
+
+							<!-- Best authors -->
+							<div class="best-authors">
+								<h3>Auteur du mois</h3>
+								<ul>
+								  {% for user in popularAuthors %}
+								  <li>
+								    {% if user.imageName is empty %}
+								    <img class="media-object img-circle" src="{{ asset('images/users/default.png') }}" alt="{{ user.firstname }}">
+								    {% else %}
+								    <img class="media-object img-circle" src="{{ app.request.basePath }}{{ vich_uploader_asset(user, 'imageFile') }}" alt="{{ user.firstname }}">
+								    {% endif %}
+								  </li>
+								  {%endfor%}
+								</ul>
+							</div>
+
+						{% endif %}
+
+					</div>
+					<!-- END bloc right -->
+				</div>
+				<!-- END bloc row-->
+			</div>
+			<!-- END bloc container-->
+		</div>
+		<!-- END bloc-->
+
+
+		<!-- footer -->
+		<footer>
+			<!-- first footer bloc-->
+			<div class="first">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6">
+							<!-- Formulaire -->
+							{% if form is defined %}
+								<div class="form">
+									<h3>Contact</h3>
+									{{ form_start(form, {'attr': {'class': 'footer-form'}}) }}
+									<div class="input-group form-group">
+										<div class="input-boxe input-name">
+											{{ form_widget(form.name, {'attr': {'class': 'form-control', 'placeholder': 'Nom'}}) }}
+											<span class="material-bar"></span>
+										</div>
+										<div class="input-boxe input-email form-group">
+											{{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Adresse mail'}}) }}
+											<span class="material-bar"></span>
+										</div>
+										<div class="input-boxe input-subject form-group">
+											{{ form_widget(form.subject, {'attr': {'class': 'form-control', 'placeholder': 'Sujet'}}) }}
+											<span class="material-bar"></span>
+										</div>
+										<div class="input-boxe input-mesasge form-group">
+											{{ form_widget(form.message, {'attr': {'class': 'form-control', 'placeholder': 'Message'}}) }}
+											<span class="material-bar"></span>
+										</div>
+									</div>
+									{{ form_widget(form.send, {'attr': {'class': 'btn btn-primary'}}) }}
+									{{ form_end(form) }}
+								</div>
+							{% endif %}
+						</div>
+						<div class="col-md-6">
+							<div class="widget contact-widget">
+								<h3>Contact Info</h3>
+								<divv class="cp-widget-content">
+									<address>
+										<ul>
+											<li> <i class="fa fa-university"></i>
+												<p>Executive MBA Epitech,
+													Adresse : 95 Avenue Parmentier, 75011 Paris, France
+													</p>
+											</li>
+											<li> <i class="fa fa-phone"></i>
+												<p> Phone: +33 1 84 07 42 02</p>
+											</li>
+											<li> <i class="fa fa-skype"></i>
+												<p> Skype: +12 8564 232 </p>
+											</li>
+											<li> <i class="fa fa-envelope-o"></i>
+												<p> Email: info@mentobe.com </p>
+											</li>
+											<li> <i class="fa fa-globe"></i>
+												<p> <a href="#">www.mentobe.fr</a> </p>
+											</li>
+										</ul>
+									</address>
+								</divv>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+
+		<!-- Modal Logout Primary -->
+		<div class="md-modal md-fall" id="logout-modal">
+			<div class="md-content">
+				<h3><strong>Déconnexion</strong> Confirmation</h3>
+				<div>
+					<p class="text-center">Etes-vous sur de vouloir vous déconnecter ?</p>
+					<p class="text-center">
+						<button class="btn btn-danger md-close">Non !</button>
+						<a href="{{ path('fos_user_security_logout') }}" class="btn btn-success md-close">Oui, je suis sur.</a>
+					</p>
+				</div>
+			</div>
+		</div><!-- End .md-modal -->
+
+		<div class="md-overlay"></div>
+
+
+		<!-- JQUERY -->
+
+		<!--  jQuery 1.7+  -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+	  	<!-- minified js -->
+		{% javascripts filter='yui_js'
+			'@FrontOfficeBundle/Resources/public/owl_carousel/owl_carousel/owl.carousel.js'
+			'@FrontOfficeBundle/Resources/public/js/script.js'
+			'@BackOfficeBundle/Resources/public/third/nifty-modal/js/classie.js'
+			'@BackOfficeBundle/Resources/public/third/nifty-modal/js/modalEffects.js'
+			%}
+	  		<script src="{{ asset_url }}"></script>
+		{% endjavascripts %}
+
+		<!-- DISQUS -->
+		<script id="dsq-count-scr" src="//mentobefr.disqus.com/count.js" async></script>
+		<!-- Loader -->
+
+	</body>
+
+</html>

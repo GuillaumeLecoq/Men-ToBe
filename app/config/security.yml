@@ -1,0 +1,57 @@
+# app/config/security.yml
+security:
+    always_authenticate_before_granting: false
+    encoders:
+        FOS\UserBundle\Model\UserInterface: *******
+
+    role_hierarchy:
+        ROLE_ADMIN: [ROLE_ADMIN]
+        ROLE_AUTHOR: [ROLE_AUTHOR, ROLE_USER]
+        ROLE_USER: [ROLE_VISITOR]
+
+    providers:
+        fos_userbundle:
+            id: fos_user.user_provider.username
+
+    firewalls:
+        oauth_token:
+            pattern:    ^/oauth/v2/token
+            security:   false
+
+        api:
+            pattern:    ^/api/
+            fos_oauth:  true
+            stateless:  true
+            anonymous:  false
+        main:
+            pattern: ^/
+            form_login:
+                provider: fos_userbundle
+                csrf_provider: security.csrf.token_manager # Use form.csrf_provider instead for Symfony <2.4
+                success_handler: login_success_handler
+                login_path: /mentobe/login
+                check_path: fos_user_security_check
+            oauth:
+                failure_path: /mentobe/login
+                login_path: /mentobe/login
+                default_target_path: /mon-espace
+                resource_owners:
+                    facebook: "/facebook/login/check"
+                    twitter: "/twitter/login/check"
+                oauth_user_provider:
+                    service: app.provider.oauth
+            logout:       true
+            anonymous:    true
+            remember_me:
+                key:      '%secret%'
+                lifetime: 604800 # 1 week in seconds
+                path:     /
+
+    access_control:
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin, role: ROLE_ADMIN }
+        - { path: ^/mon-espace, role: [ROLE_AUTHOR, ROLE_VISITOR] }
+        - { path: ^/mon-espace/list_article, role: ROLE_AUTHOR }
+        - { path: ^/mon-espace/create_article, role: ROLE_VISITOR }

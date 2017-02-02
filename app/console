@@ -1,0 +1,45 @@
+#!/usr/bin/env php
+<?php
+
+// if you don't want to setup permissions the proper way, just uncomment the following PHP line
+// read http://symfony.com/doc/current/book/installation.html#configuration-and-setup for more information
+//umask(0000);
+
+set_time_limit(0);
+
+require_once __DIR__.'/bootstrap.php.cache';
+require_once __DIR__.'/AppKernel.php';
+
+use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Debug\Debug;
+
+$input = new ArgvInput();
+$env = $input->getParameterOption(array('--env', '-e'), getenv('SYMFONY_ENV') ?: 'dev');
+$debug = getenv('SYMFONY_DEBUG') !== '0' && !$input->hasParameterOption(array('--no-debug', '')) && $env !== 'prod';
+
+if ($debug) {
+    Debug::enable();
+}
+
+$kernel = new AppKernel($env, $debug);
+$application = new Application($kernel);
+
+if ($input == '\'update:rss\'')
+    $application->add(new \AppBundle\Console\Command\RssCommand());
+else if ($input == '\'remove:tags\'')
+    $application->add(new \AppBundle\Console\Command\TagsCommand());
+else if ($input == '\'update:analytics_overall\'')
+    $application->add(new \AppBundle\Console\Command\AnalyticsOverall());
+else if ($input == '\'update:analytics_month\'')
+    $application->add(new \AppBundle\Console\Command\AnalyticsMonth());
+else if ($input == '\'proceed:mass_payment\'')
+    $application->add(new \AppBundle\Console\Command\PaypalMassPayment());
+else if ($input == '\'update:advertiser_balance\'')
+    $application->add(new \AppBundle\Console\Command\AdvertiserMonthBalance());
+else if ($input == '\'channels:create\'')
+	$application->add(new \AppBundle\Console\Command\ChannelsCommand());
+
+$application->add(new \AppBundle\Console\Command\ClientCreateCommand());
+
+$application->run($input);
